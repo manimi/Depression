@@ -435,7 +435,7 @@ async def swordtest(ctx):
         
         eDesc = ''
 	
-	import random
+        import random
         damage = random.randint(10,30)
 
         em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
@@ -443,7 +443,7 @@ async def swordtest(ctx):
         em.add_field(name="You used attack!", value='{} damage!'.format(damage), inline=True)
         em.set_footer(text='{} vs Depression (test)'.format(ctx.message.author.name))
         await bot.say(embed=em)
-	await asyncio.sleep(2)
+        await asyncio.sleep(2)
         health = 200-damage
         eTitle = 'HP: {}/200'.format(health)
         
