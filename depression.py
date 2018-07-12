@@ -426,6 +426,36 @@ async def holding(ctx, membername):
                 await bot.send_typing(ctx.message.channel)
                 await bot.send_message(ctx.message.channel, 'You can\'t check bots\' items or users that aren\'t holding any items.')
                 return None
+	
+@bot.command(pass_context=True)
+async def swordtest(ctx):
+    if (get_hold(ctx.message.author.id) == ":crossed_swords:"):
+        health = 200
+        eTitle = 'HP: {}/200'.format(health)
+        
+        eDesc = ''
+	
+	import random
+        damage = random.randint(10,30)
+
+        em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+        em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        em.add_field(name="You used attack!", value='{} damage!'.format(damage), inline=True)
+        em.set_footer(text='{} vs Depression (test)'.format(ctx.message.author.name))
+        await bot.say(embed=em)
+	await asyncio.sleep(2)
+        health = 200-damage
+        eTitle = 'HP: {}/200'.format(health)
+        
+        eDesc = ''
+
+        em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+        em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        em.add_field(name="Nice move!", value='-----', inline=True)
+        em.set_footer(text='{} vs Depression (test)'.format(ctx.message.author.name))
+        await bot.say(embed=em)
+    else:
+        await bot.say("You need to hold :crossed_swords: to access.")
 
 @bot.command(pass_context=True)
 async def inventory(ctx, membername):
