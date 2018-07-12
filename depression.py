@@ -1888,9 +1888,9 @@ async def on_command_error(error, ctx):
                     bot_max_status(ctx.message.author.id,get_bot_hp(ctx.message.author.id))
                     user_max_status(ctx.message.author.id,get_hp(ctx.message.author.id))
 
-                    eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id))
+                    eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),get_bot_hp(ctx.message.author.id))
         
-                    eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id))
+                    eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),get_hp(ctx.message.author.id))
 
                     em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
                     em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
