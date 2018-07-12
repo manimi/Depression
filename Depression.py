@@ -9,6 +9,16 @@ import re
 import youtube_dl
 import logging
 import resp
+import Pymoe
+import os
+import apiai
+import gspread
+import requests as rq
+import simplejson as json
+from oauth2client.service_account import ServiceAccountCredentials
+
+bot_token = os.environ['BOT_TOKEN']
+An = Pymoe.Anilist()
 
 des = "hi"
 
@@ -1888,4 +1898,4 @@ async def on_command_error(error, ctx):
         #await bot.send_message(channel, "This command is on cooldown. Try again in {:.2f}s".format(error.retry_after))
         await bot.send_message(channel, "This command is on cooldown of 4 hours.".format(error.retry_after))
 
-bot.run('NDU4Njg3NjE1Nzg1MzY5NjAw.Dh0YjQ.P6wkS0Nl9-Sliy7YiBYDp1BU2yg')
+bot.run(bot_token)
