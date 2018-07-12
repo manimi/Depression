@@ -428,7 +428,7 @@ async def holding(ctx, membername):
                 return None
 	
 @bot.command(pass_context=True)
-async def fight(ctx, attack):
+async def fight(ctx, attack=None):
     if (get_hold(ctx.message.author.id) == ":crossed_swords:"):
         if (attack is None):
             bot_status(ctx.message.author.id,get_level(bot.user.id)*100)
