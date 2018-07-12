@@ -455,7 +455,7 @@ async def fight(ctx, attack):
             em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
             await bot.say(embed=em)
 	
-	    import random
+            import random
             chance = random.randint(1,11)
             await asyncio.sleep(2)
             if (chance == 10):
