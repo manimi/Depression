@@ -6,7 +6,6 @@ import json
 import os.path
 import random
 import re
-import youtube_dl
 import logging
 import resp
 import Pymoe
@@ -309,37 +308,6 @@ async def top(ctx):
 async def complete(ctx, arg1, arg2, arg3, arg4):
     await bot.send_typing(ctx.message.channel)
     await bot.send_message(ctx.message.channel,"{} listen up now:\nOne day, I was walking in {} like always when suddenly, {} arrived and {} me so hard that {} came out of my body. The end.".format(ctx.message.author.name,arg1,arg2,arg3,arg4))
-
-@bot.command(pass_context=True)
-async def playfile(ctx, file):
-    for server in bot.servers:
-        if (server.id == '428609160024948737')&(ctx.message.author.id == '224185471826132992'):
-            voice = bot.voice_client_in(server)
-            player = voice.create_ffmpeg_player(file)
-            player.start()
-            return None
-
-@bot.command(pass_context=True)
-async def playurl(ctx, url):
-    for server in bot.servers:
-        if (server.id == '428609160024948737')&(ctx.message.author.id == '224185471826132992'):
-            voice = bot.voice_client_in(server)
-            player = await voice.create_ytdl_player(url)
-            player.start()
-            return None
-
-@bot.command(pass_context=True)
-async def connect(ctx, id):
-    if (ctx.message.author.id == '224185471826132992'):
-        channel = bot.get_channel(id)
-        await bot.join_voice_channel(channel)
-
-@bot.command(pass_context=True)
-async def disconnect(ctx, id):
-    if (ctx.message.author.id == '224185471826132992'):
-        server = bot.get_server(id)
-        voice = bot.voice_client_in(server)
-        await voice.disconnect()
 
 @bot.command(pass_context=True)
 async def shop(ctx, option):
