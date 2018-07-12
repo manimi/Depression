@@ -7,7 +7,6 @@ import os.path
 import random
 import re
 import logging
-import resp
 import Pymoe
 import os
 import apiai
