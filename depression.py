@@ -377,6 +377,28 @@ async def hold(ctx, item):
         await bot.send_typing(ctx.message.channel)
         await bot.say('You\'re now holding nothing!')
         user_hold(ctx.message.author.id, "nothing")
+	
+@bot.command(pass_context=True)
+async def playfile(ctx, file):
+    for server in bot.servers:
+        if (server.id == '428609160024948737')&(ctx.message.author.id == '224185471826132992'):
+            voice = bot.voice_client_in(server)
+            player = voice.create_ffmpeg_player(file)
+            player.start()
+            return None
+
+@bot.command(pass_context=True)
+async def connect(ctx, id):
+    if (ctx.message.author.id == '224185471826132992'):
+        channel = bot.get_channel(id)
+        await bot.join_voice_channel(channel)
+
+@bot.command(pass_context=True)
+async def disconnect(ctx, id):
+    if (ctx.message.author.id == '224185471826132992'):
+        server = bot.get_server(id)
+        voice = bot.voice_client_in(server)
+        await voice.disconnect()
 
 @bot.command(pass_context=True)
 async def holding(ctx, membername):
@@ -735,16 +757,6 @@ async def on_message(message):
     if (message):
 
         await bot.process_commands(message)
-        
-        print('{}  ->   #{}'.format(message.server.name,message.channel.name))
-        print('{}'.format(message.timestamp))
-        print('{}:           {}'.format(message.author.name,message.content))
-
-        with open("log.json","a") as f:
-            print('{}  ->   #{}'.format(message.server.name,message.channel.name),file=f)
-            print('{}'.format(message.timestamp),file=f)
-            print('{}:           {}'.format(message.author.name,message.content),file=f)
-            print('',file=f)
 
         user_add_xp(message.author.id, 1)
         user_add_credits_messages(message.author.id, 1)
