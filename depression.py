@@ -447,7 +447,7 @@ async def fight(ctx, attack):
             em.set_footer(text='{} vs Depression! Start!'.format(ctx.message.author.name))
             await bot.say(embed=em)
             await asyncio.sleep(2)
-	elif (attack == "hit"):
+        elif (attack == "hit"):
             eTitle = 'You used hit!'.format(attack)
         
             eDesc = ''
