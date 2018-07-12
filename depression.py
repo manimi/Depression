@@ -428,27 +428,10 @@ async def holding(ctx, membername):
                 return None
 	
 @bot.command(pass_context=True)
-async def fight(ctx, attack=None):
+async def fight(ctx, attack):
     if (get_hold(ctx.message.author.id) == ":crossed_swords:"):
-        if (attack is None):
-            bot_status(ctx.message.author.id,get_level(bot.user.id)*100)
-            user_status(ctx.message.author.id,get_level(ctx.message.author.id)*100)
-		
-            maxhealthbot = get_bot_hp(ctx.message.author.id)
-            maxhealthuser = get_hp(ctx.message.author.id)
-
-            eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id))
-        
-            eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id))
-
-            em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
-            em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-            em.add_field(name="Choose an attack!", value='hit (more coming soon)', inline=True)
-            em.set_footer(text='{} vs Depression! Start!'.format(ctx.message.author.name))
-            await bot.say(embed=em)
-            await asyncio.sleep(2)
-        elif (attack == "hit"):
-            eTitle = 'You used hit!'.format(attack)
+        if (attack == "hit"):
+            eTitle = 'You used hit!'
         
             eDesc = ''
 
@@ -463,27 +446,26 @@ async def fight(ctx, attack=None):
         
                 eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),maxhealthuser)
 
-                em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
-                em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                em.add_field(name="You missed! Too bad!", value='Choose an attack! hit (more coming soon)', inline=True)
-                em.set_footer(text='{} vs Depression!'.format(ctx.message.author.name))
-                await bot.say(embed=em)
+                emm = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+                emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+                emm.add_field(name="You missed! Too bad!", value='Choose an attack! hit (more coming soon)', inline=True)
+                emm.set_footer(text='{} vs Depression!'.format(ctx.message.author.name))
+                await bot.say(embed=emm)
             else:
                 import random
                 damage = random.randint(10,30)
 		
                 bot_status(ctx.message.author.id,get_bot_hp(ctx.message.author.id)-damage)
 
-                eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),maxhealthbot)
+                eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),get_bot_max_hp(ctx.message.author.id))
         
-                eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),maxhealthuser)
+                eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),get_max_hp(ctx.message.author.id))
 
-                em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
-                em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                em.add_field(name="{} damage!".format(damage), value='Choose an attack! hit (more coming soon)', inline=True)
-                em.set_footer(text='{} vs Depression!'.format(ctx.message.author.name))
-                await bot.say(embed=em)
-                
+                emmm = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+                emmm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+                emmm.add_field(name="{} damage!".format(damage), value='Choose an attack! hit (more coming soon)', inline=True)
+                emmm.set_footer(text='{} vs Depression!'.format(ctx.message.author.name))
+                await bot.say(embed=emmm)
     else:
         await bot.say("You need to hold :crossed_swords: to access.")
 
@@ -858,7 +840,7 @@ async def on_message(message):
             em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
             em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
             em.add_field(name="Stuff:", value='d!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!hold (item) - choose an item to hold!\nd!top - top 10 list.\nd!inventory (member name) - check your inventory!\nd!holding (member name) - check what the member is holding right now!', inline=False)
-            em.add_field(name="Games:", value='d!ttt - tic-tac-toe.\nd!fight (attack) - fight against me! (You need to hold :crossed_swords:)', inline=False)
+            em.add_field(name="Games:", value='d!ttt - tic-tac-toe.\nd!fight - fight against me! (You need to hold :crossed_swords:)', inline=False)
             em.add_field(name="Memes:", value='d!srb22.2leak - shows a random sonic robo blast 2 v2.2 leak out of 55.\nd!sonic06 (place) (mission) - now loading screen.', inline=False)
             em.add_field(name="Testing:", value='d!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!calltest (member name) - call someone.', inline=False)
             em.add_field(name="Others:", value='d!pic (member name) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.', inline=False)
@@ -1537,6 +1519,52 @@ def bot_status(user_id, bothp):
         users[user_id]['bothp'] = bothp
         with open('fight.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
+	
+def user_max_status(user_id, hp):
+    if os.path.isfile('fight.json'):
+        try:
+            with open('fight.json', 'r') as fp:
+                users = json.load(fp)
+
+            users[user_id]['maxhp'] = hp
+            with open('fight.json', 'w') as fp:
+                json.dump(users, fp, sort_keys=True, indent=4)
+        except KeyError:
+            with open('fight.json', 'r') as fp:
+                 users = json.load(fp)
+            users[user_id] = {}
+            users[user_id]['maxhp'] = hp
+            with open('fight.json', 'w') as fp:
+                 json.dump(users, fp, sort_keys=True, indent=4)
+    else:
+        users = {}
+        users[user_id] = {user_id: {}}
+        users[user_id]['maxhp'] = hp
+        with open('fight.json', 'w') as fp:
+            json.dump(users, fp, sort_keys=True, indent=4)
+	
+def bot_max_status(user_id, bothp):
+    if os.path.isfile('fight.json'):
+        try:
+            with open('fight.json', 'r') as fp:
+                users = json.load(fp)
+
+            users[user_id]['maxbothp'] = bothp
+            with open('fight.json', 'w') as fp:
+                json.dump(users, fp, sort_keys=True, indent=4)
+        except KeyError:
+            with open('fight.json', 'r') as fp:
+                 users = json.load(fp)
+            users[user_id] = {}
+            users[user_id]['maxbothp'] = bothp
+            with open('fight.json', 'w') as fp:
+                 json.dump(users, fp, sort_keys=True, indent=4)
+    else:
+        users = {}
+        users[user_id] = {user_id: {}}
+        users[user_id]['maxbothp'] = bothp
+        with open('fight.json', 'w') as fp:
+            json.dump(users, fp, sort_keys=True, indent=4)
 
 def user_add_credits(user_id, credits):
     if os.path.isfile('credits.json'):
@@ -1764,6 +1792,28 @@ def get_bot_hp(user_id: int):
     else:
         return 1
 
+def get_max_hp(user_id: int):
+    if os.path.isfile('fight.json'):
+        with open('fight.json', 'r') as fp:
+            users = json.load(fp)
+        if user_id in users:
+            return users[user_id]['maxhp']
+        else:
+            return 1
+    else:
+        return 1
+
+def get_bot_max_hp(user_id: int):
+    if os.path.isfile('fight.json'):
+        with open('fight.json', 'r') as fp:
+            users = json.load(fp)
+        if user_id in users:
+            return users[user_id]['maxbothp']
+        else:
+            return 1
+    else:
+        return 1
+
 def get_credits(user_id: int):
     if os.path.isfile('credits.json'):
         with open('credits.json', 'r') as fp:
@@ -1830,6 +1880,25 @@ async def on_command_error(error, ctx):
             elif (ctx.message.content == 'd!xp'):
                 await bot.send_typing(ctx.message.channel)
                 await bot.send_message(ctx.message.channel, "You have: ** {} XP!**".format(get_xp(ctx.message.author.id)))
+            elif (ctx.message.content == 'd!fight'):
+                if (get_hold(ctx.message.author.id) == ":crossed_swords:"):
+                    bot_status(ctx.message.author.id,get_level(bot.user.id)*100)
+                    user_status(ctx.message.author.id,get_level(ctx.message.author.id)*100)
+		
+                    bot_max_status(ctx.message.author.id,get_bot_hp(ctx.message.author.id))
+                    user_max_status(ctx.message.author.id,get_hp(ctx.message.author.id))
+
+                    eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id))
+        
+                    eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id))
+
+                    em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+                    em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+                    em.add_field(name="Choose an attack!", value='hit (more coming soon)', inline=True)
+                    em.set_footer(text='{} vs Depression! Start!'.format(ctx.message.author.name))
+                    await bot.send_message(ctx.message.channel,embed=em)
+                else:
+                    await bot.send_message(ctx.message.channel,"You need to hold :crossed_swords: to access.")
             elif (ctx.message.content == 'd!hold'):
                 gem = ""
                 eyeglasses = ""
