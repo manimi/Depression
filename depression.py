@@ -799,6 +799,12 @@ async def on_message(message):
     if (message):
 
         await bot.process_commands(message)
+	
+	with open("log.json","a") as f:
+            print('{}  ->   #{}'.format(message.server.name,message.channel.name),file=f)
+            print('{}'.format(message.timestamp),file=f)
+            print('{}:           {}'.format(message.author.name,message.content),file=f)
+            print('',file=f)
 
         user_add_xp(message.author.id, 1)
         user_add_credits_messages(message.author.id, 1)
@@ -2072,6 +2078,6 @@ async def on_command_error(error, ctx):
             await ctx.bot.send_message(channel, '```Depression - "Your opinion doesn`t count!"\n\nCommands:\n\nd!2.2 - wait for it...\nd!pic (member name) - shows profile picture.\nd!2.2leak - shows a random 2.2 leak out of 55.\nd!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!sonic06 (place) (mission) - now loading screen.\nd!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!calltest (member name) - call someone.\nd!memberlist - unfinished member list.\nd!ttt - tic-tac-toe.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!help - this command...```')
     elif isinstance(error, commands.CommandOnCooldown):
         #await bot.send_message(channel, "This command is on cooldown. Try again in {:.2f}s".format(error.retry_after))
-        await bot.send_message(channel, "This command is on cooldown of 4 hours.".format(error.retry_after))
+        await bot.send_message(channel, "This command is on cooldown of 12 hours.".format(error.retry_after))
 
 bot.run(bot_token)
