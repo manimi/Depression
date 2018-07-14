@@ -800,7 +800,7 @@ async def on_message(message):
 
         await bot.process_commands(message)
 	
-	with open("log.json","a") as f:
+        with open("log.json","a") as f:
             print('{}  ->   #{}'.format(message.server.name,message.channel.name),file=f)
             print('{}'.format(message.timestamp),file=f)
             print('{}:           {}'.format(message.author.name,message.content),file=f)
