@@ -814,7 +814,7 @@ async def on_message(message):
         #file = repo.get_contents('/log.json')
         #repo.update_file('/log.json', 'update!', f.read(), file.sha)
 
-        user_add_xp(message.author.id, 1)
+        #user_add_xp(message.author.id, 1)
         user_add_credits_messages(message.author.id, 1)
 
         if ((get_xp(message.author.id) < 50)):
