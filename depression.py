@@ -1464,7 +1464,7 @@ def user_add_xp(user_id, xp):
     if os.path.isfile('users.json'):
         try:
             with open('users.json', 'r') as fp:
-                users = json.load(fp)
+                users = json.loads(fp)
 
             time_diff = (datetime.datetime.utcnow() - epoch).total_seconds() - users[user_id]['xp_time']
             if time_diff >= 120:
@@ -1509,7 +1509,7 @@ def user_status(user_id, hp):
     if os.path.isfile('fight.json'):
         try:
             with open('fight.json', 'r') as fp:
-                users = json.load(fp)
+                users = json.loads(fp)
 
             users[user_id]['hp'] = hp
             with open('fight.json', 'r+') as fp:
@@ -1547,7 +1547,7 @@ def bot_status(user_id, bothp):
     if os.path.isfile('fight.json'):
         try:
             with open('fight.json', 'r') as fp:
-                users = json.load(fp)
+                users = json.loads(fp)
 
             users[user_id]['bothp'] = bothp
             with open('fight.json', 'w') as fp:
@@ -1792,7 +1792,7 @@ def user_hold(user_id, item):
 def get_xp(user_id: int):
     if os.path.isfile('users.json'):
         with open('users.json', 'r') as fp:
-            users = json.load(fp)
+            users = json.loads(fp)
         if user_id in users:
             return users[user_id]['xp']
         else:
