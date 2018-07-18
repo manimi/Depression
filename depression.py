@@ -1471,8 +1471,9 @@ def user_add_xp(user_id, xp):
             if time_diff >= 120:
                 users[user_id]['xp'] += xp
                 users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
-                with open('users.json', 'r+') as fp:
+                with open('users.json', 'w') as fp:
                     json.dump(users, fp, sort_keys=True, indent=4)
+                with open('users.json', 'r') as fp:
                     g = github.Github(token)
                     user = g.get_user()
                     repo = user.get_repo('depression-discord-bot')
@@ -1496,8 +1497,9 @@ def user_add_xp(user_id, xp):
         users[user_id] = {user_id: {}}
         users[user_id]['xp'] = xp
         users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
-        with open('users.json', 'r+') as fp:
+        with open('users.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
+        with open('users.json', 'r') as fp:
             g = github.Github(token)
             user = g.get_user()
             repo = user.get_repo('depression-discord-bot')
@@ -1549,8 +1551,9 @@ def bot_status(user_id, bothp):
                 users = json.load(fp)
 
             users[user_id]['bothp'] = bothp
-            with open('fight.json', 'r+') as fp:
+            with open('fight.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
+            with open('fight.json', 'r') as fp:
                 g = github.Github(token)
                 user = g.get_user()
                 repo = user.get_repo('depression-discord-bot')
@@ -1572,8 +1575,9 @@ def bot_status(user_id, bothp):
         users = {}
         users[user_id] = {user_id: {}}
         users[user_id]['bothp'] = bothp
-        with open('fight.json', 'r+') as fp:
+        with open('fight.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
+        with open('fight.json', 'r') as fp:
             g = github.Github(token)
             user = g.get_user()
             repo = user.get_repo('depression-discord-bot')
