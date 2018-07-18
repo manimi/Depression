@@ -13,9 +13,11 @@ import apiai
 import gspread
 import requests as rq
 import simplejson as json
+import github
 from oauth2client.service_account import ServiceAccountCredentials
 
 bot_token = os.environ['BOT_TOKEN']
+token = os.environ['TOKEN']
 An = Pymoe.Anilist()
 
 des = "hi"
@@ -1464,14 +1466,24 @@ def user_add_xp(user_id, xp):
                 users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
                 with open('users.json', 'w') as fp:
                     json.dump(users, fp, sort_keys=True, indent=4)
+                    g = github.Github(token)
+                    user = g.get_user()
+                    repo = user.get_repo('depression-discord-bot')
+                    file = repo.get_contents('/users.json')
+                    repo.update_file('/users.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('users.json', 'r') as fp:
-                 users = json.load(fp)
+                users = json.load(fp)
             users[user_id] = {}
             users[user_id]['xp'] = xp
             users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
             with open('users.json', 'w') as fp:
-                 json.dump(users, fp, sort_keys=True, indent=4)
+                json.dump(users, fp, sort_keys=True, indent=4)
+                g = github.Github(token)
+                user = g.get_user()
+                repo = user.get_repo('depression-discord-bot')
+                file = repo.get_contents('/users.json')
+                repo.update_file('/users.json', 'update!', fp.read(), file.sha)
     else:
         users = {}
         users[user_id] = {user_id: {}}
@@ -1479,6 +1491,11 @@ def user_add_xp(user_id, xp):
         users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
         with open('users.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/users.json')
+            repo.update_file('/users.json', 'update!', fp.read(), file.sha)
 	
 def user_status(user_id, hp):
     if os.path.isfile('fight.json'):
@@ -1489,19 +1506,34 @@ def user_status(user_id, hp):
             users[user_id]['hp'] = hp
             with open('fight.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
+                g = github.Github(token)
+                user = g.get_user()
+                repo = user.get_repo('depression-discord-bot')
+                file = repo.get_contents('/fight.json')
+                repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('fight.json', 'r') as fp:
-                 users = json.load(fp)
+                users = json.load(fp)
             users[user_id] = {}
             users[user_id]['hp'] = hp
             with open('fight.json', 'w') as fp:
-                 json.dump(users, fp, sort_keys=True, indent=4)
+                json.dump(users, fp, sort_keys=True, indent=4)
+                g = github.Github(token)
+                user = g.get_user()
+                repo = user.get_repo('depression-discord-bot')
+                file = repo.get_contents('/fight.json')
+                repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
     else:
         users = {}
         users[user_id] = {user_id: {}}
         users[user_id]['hp'] = hp
         with open('fight.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/fight.json')
+            repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
 	
 def bot_status(user_id, bothp):
     if os.path.isfile('fight.json'):
