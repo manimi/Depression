@@ -1,6 +1,7 @@
 discord
 asyncio
 Pymoe
+simplejson
 requests
 apiai
 bs4
