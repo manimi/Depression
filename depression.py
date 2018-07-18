@@ -12,7 +12,6 @@ import os
 import apiai
 import gspread
 import requests as rq
-import simplejson as json
 import github
 from oauth2client.service_account import ServiceAccountCredentials
 
