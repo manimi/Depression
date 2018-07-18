@@ -1480,7 +1480,7 @@ def user_add_xp(user_id, xp):
                     repo.update_file('/users.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('users.json', 'r') as fp:
-                users = json.load(fp)
+                users = json.loads(fp)
             users[user_id] = {}
             users[user_id]['xp'] = xp
             users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
@@ -1521,7 +1521,7 @@ def user_status(user_id, hp):
                 repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('fight.json', 'r') as fp:
-                users = json.load(fp)
+                users = json.loads(fp)
             users[user_id] = {}
             users[user_id]['hp'] = hp
             with open('fight.json', 'r+') as fp:
@@ -1560,7 +1560,7 @@ def bot_status(user_id, bothp):
                 repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('fight.json', 'r') as fp:
-                users = json.load(fp)
+                users = json.loads(fp)
             users[user_id] = {}
             users[user_id]['bothp'] = bothp
             with open('fight.json', 'r+') as fp:
