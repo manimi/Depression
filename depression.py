@@ -67,6 +67,18 @@ async def on_ready():
     print('------')
 
 @bot.command(pass_context=True)
+async def logout(ctx):
+    """RESTARTS THE BOT IN HEROKU SERVER, BUT ENDS IN TERMINAL"""
+    creator_id = 224185471826132992
+    sender_id = ctx.message.author.id
+    send_id = int(sender_id)
+    if send_id == creator_id:
+        await bot.say("Logging out bot now!")
+        await bot.logout()
+    else:
+        await bot.say("Can not restart bot because you are not the creator")
+
+@bot.command(pass_context=True)
 async def sonic06(ctx, place, mission):
     await bot.send_typing(ctx.message.channel)
     m = await bot.say('**                  {}**           \n\n\n\n                    {}              \n\n                                                           NOW LOADING...    '.format(place.upper(),mission))
