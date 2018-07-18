@@ -10,17 +10,17 @@
         "left_top_bot": "False",
         "middle_bottom": "white_small_square",
         "middle_bottom_bot": "False",
-        "middle_middle": "o",
+        "middle_middle": "white_small_square",
         "middle_middle_bot": "False",
-        "middle_top": "o",
+        "middle_top": "white_small_square",
         "middle_top_bot": "False",
-        "right_bottom": "x",
+        "right_bottom": "white_small_square",
         "right_bottom_bot": "True",
-        "right_middle": "x",
+        "right_middle": "white_small_square",
         "right_middle_bot": "True",
         "right_top": "white_small_square",
         "right_top_bot": "False",
-        "sign": "o",
-        "sign_bot": "x"
+        "sign": "None",
+        "sign_bot": "None"
     }
 }
