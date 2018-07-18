@@ -20,7 +20,7 @@
         "right_middle_bot": "False",
         "right_top": "white_small_square",
         "right_top_bot": "False",
-        "sign": "None",
-        "sign_bot": "None"
+        "sign": "o",
+        "sign_bot": "x"
     }
 }
