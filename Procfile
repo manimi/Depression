@@ -1,1 +1,1 @@
-worker: python depression.py
+worker: python bot.py
