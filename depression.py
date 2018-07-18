@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 import asyncio
 import datetime
-import simplejson
 import json
 import os.path
 import random
@@ -808,12 +807,12 @@ async def on_message(message):
             print('{}:           {}'.format(message.author.name,message.content),file=f)
             print('',file=f)
 
-        with open("log.json","r") as f:
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/log.json')
-            repo.update_file('/log.json', 'update!', f.read(), file.sha)
+        #with open("log.json","r") as f:
+        #g = github.Github(token)
+        #user = g.get_user()
+        #repo = user.get_repo('depression-discord-bot')
+        #file = repo.get_contents('/log.json')
+        #repo.update_file('/log.json', 'update!', f.read(), file.sha)
 
         user_add_xp(message.author.id, 1)
         user_add_credits_messages(message.author.id, 1)
