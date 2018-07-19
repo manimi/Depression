@@ -886,44 +886,268 @@ async def on_typing(channel,user,when):
         await bot.send_typing(dumpchannel)
 
 @bot.event
+async def on_command_error(error, ctx):
+    channel = ctx.message.channel
+    if isinstance(error, commands.MissingRequiredArgument):
+        if (error):
+            if (ctx.message.content == 'd!pic'):
+                await bot.send_typing(ctx.message.channel)
+                await bot.send_message(ctx.message.channel, '{} so beautiful! <3'.format(ctx.message.author.avatar_url.replace('webp','png')))
+            elif (ctx.message.content == 'd!profile'):
+                await bot.send_typing(ctx.message.channel)
+
+                gem = ""
+                eyeglasses = ""
+                ribbon = ""
+                crossed_swords = ""
+                shield = ""
+                if (get_item(ctx.message.author.id, ":gem:") == "True"):
+                    gem = ":gem:"
+                if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
+                    eyeglasses = ":eyeglasses:"
+                if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
+                    ribbon = ":ribbon:"
+                if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
+                    crossed_swords = ":crossed_swords:"
+                if (get_item(ctx.message.author.id, ":shield:") == "True"):
+                    shield = ":shield:"
+
+                eTitle = '{} \'s Profile'.format(ctx.message.author.display_name)
+                eDesc = ''
+
+                em = discord.Embed(title=eTitle,url=ctx.message.author.avatar_url.replace('webp','png'),description=eDesc,colour=discord.Colour.orange())
+                em.set_author(name="{}".format(ctx.message.author.name), url=ctx.message.author.avatar_url.replace('webp','png'), icon_url=ctx.message.author.avatar_url.replace('webp','png'))
+                em.add_field(name="XP :sparkles:", value='{}'.format(get_xp(ctx.message.author.id)), inline=True)
+                em.add_field(name="Level :star2:", value='{}'.format(get_level(ctx.message.author.id)), inline=True)
+                em.add_field(name="Credits :moneybag:", value='{}'.format(get_credits(ctx.message.author.id)), inline=True)
+                em.add_field(name="Inventory :shopping_bags:", value='- {} {} {} {} {} -'.format(gem, eyeglasses, ribbon, crossed_swords, shield), inline=True)
+                em.add_field(name="Holds :handbag:", value='{}'.format(get_hold(ctx.message.author.id)), inline=True)
+                em.set_thumbnail(url=ctx.message.author.avatar_url.replace('webp','png'))
+                em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+                await bot.send_message(ctx.message.channel,embed=em)
+
+            elif (ctx.message.content == 'd!xp'):
+                await bot.send_typing(ctx.message.channel)
+                await bot.send_message(ctx.message.channel, "You have: ** {} XP!**".format(get_xp(ctx.message.author.id)))
+            elif (ctx.message.content == 'd!fight'):
+                if (get_hold(ctx.message.author.id) == ":crossed_swords:"):
+                    bot_status(ctx.message.author.id,get_level(bot.user.id)*100)
+                    user_status(ctx.message.author.id,get_level(ctx.message.author.id)*100)
+		
+                    bot_max_status(ctx.message.author.id,get_bot_hp(ctx.message.author.id))
+                    user_max_status(ctx.message.author.id,get_hp(ctx.message.author.id))
+
+                    eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),get_bot_hp(ctx.message.author.id))
+        
+                    eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),get_hp(ctx.message.author.id))
+
+                    em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+                    em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+                    em.add_field(name="Choose an attack!", value='hit (more coming soon)', inline=True)
+                    em.set_footer(text='{} vs Depression! Start!'.format(ctx.message.author.name))
+                    await bot.send_message(ctx.message.channel,embed=em)
+                else:
+                    await bot.send_message(ctx.message.channel,"You need to hold :crossed_swords: to access.")
+            elif (ctx.message.content == 'd!hold'):
+                gem = ""
+                eyeglasses = ""
+                ribbon = ""
+                crossed_swords = ""
+                shield = ""
+                if (get_item(ctx.message.author.id, ":gem:") == "True"):
+                    gem = ":gem:"
+                if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
+                    eyeglasses = ":eyeglasses:"
+                if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
+                    ribbon = ":ribbon:"
+                if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
+                    crossed_swords = ":crossed_swords:"
+                if (get_item(ctx.message.author.id, ":shield:") == "True"):
+                    shield = ":shield:"
+                await bot.send_typing(ctx.message.channel)
+                await bot.send_message(ctx.message.channel, "Choose an item without ``::`` {} {} {} {} {}".format(gem, eyeglasses, ribbon, crossed_swords, shield))
+            elif (ctx.message.content == 'd!inventory'):
+                await bot.send_typing(ctx.message.channel)
+
+                gem = ""
+                eyeglasses = ""
+                ribbon = ""
+                crossed_swords = ""
+                shield = ""
+                if (get_item(ctx.message.author.id, ":gem:") == "True"):
+                    gem = ":gem:"
+                if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
+                    eyeglasses = ":eyeglasses:"
+                if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
+                    ribbon = ":ribbon:"
+                if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
+                    crossed_swords = ":crossed_swords:"
+                if (get_item(ctx.message.author.id, ":shield:") == "True"):
+                    shield = ":shield:"
+
+                await bot.send_message(ctx.message.channel, "You have: {} {} {} {} {}".format(gem, eyeglasses, ribbon, crossed_swords, shield))
+            elif (ctx.message.content == 'd!holding'):
+                await bot.send_typing(ctx.message.channel)
+                await bot.send_message(ctx.message.channel, "You are holding {}".format(get_hold(ctx.message.author.id)))
+            elif (ctx.message.content == 'd!level'):
+                await bot.send_typing(ctx.message.channel)
+                await bot.send_message(ctx.message.channel, "You are **level {}**!".format(get_level(ctx.message.author.id)))
+            elif (ctx.message.content == 'd!credits'):
+                await bot.send_typing(ctx.message.channel)
+                await bot.send_message(ctx.message.channel, "You have: ** {} credits!**".format(get_credits(ctx.message.author.id)))
+            elif (ctx.message.content == 'd!sonic06'):
+                await bot.send_typing(ctx.message.channel)
+                eTitlee = "d!sonic06 (place) (mission)"
+                eDescc = "Now loading screen."
+
+                emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
+                emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+                await bot.send_message(ctx.message.channel, embed=emm)
+            elif (ctx.message.content == 'd!calltest'):
+                await bot.send_typing(ctx.message.channel)
+                eTitlee = "d!calltest (member name)"
+                eDescc = "Call someone."
+
+                emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
+                emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+                await bot.send_message(ctx.message.channel, embed=emm)
+            elif (ctx.message.content == 'd!shop'):
+                await bot.send_typing(ctx.message.channel)
+
+                eTitlee = "__Shop:__"
+                eDescc = "Select an number:"
+
+                emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
+                emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+                emm.add_field(name="**1.** :gem:", value='**500** credits', inline=True)
+                emm.add_field(name="**2.** :eyeglasses:", value='**250** credits', inline=True)
+                emm.add_field(name="**3.** :ribbon:", value='**150** credits', inline=True)
+                emm.add_field(name="**4.** :crossed_swords:", value='**200** credits', inline=True)
+                emm.add_field(name="**5.** :shield:", value='**200** credits', inline=True)
+                emm.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+
+                await bot.send_message(ctx.message.channel,embed=emm)
+
+            elif (ctx.message.content == 'd!complete'):
+                await bot.send_typing(ctx.message.channel)
+                eTitlee = "d!complete (part 1) (part 2) (part 3) (part 4)"
+                eDescc = "Complete the following sentence: One day, I was walking in (part 1) like always when suddenly, (part 2) arrived and (part 3) me so hard that (part 4) came out of my body."
+
+                emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
+                emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+                await bot.send_message(ctx.message.channel, embed=emm)
+            elif (ctx.message.content == 'd!ttt'):
+                await bot.send_typing(ctx.message.channel)
+                if os.path.isfile('ttt.json'):
+                    with open('ttt.json', 'r') as fp:
+                        users = json.load(fp)
+                        
+                        if (users[ctx.message.author.id]['sign'] == "None"):
+                            users[ctx.message.author.id]['left_top'] = "white_small_square"
+                            users[ctx.message.author.id]['middle_top'] = "white_small_square"
+                            users[ctx.message.author.id]['right_top'] = "white_small_square"
+                            users[ctx.message.author.id]['left_middle'] = "white_small_square"
+                            users[ctx.message.author.id]['middle_middle'] = "white_small_square"
+                            users[ctx.message.author.id]['right_middle'] = "white_small_square"
+                            users[ctx.message.author.id]['left_bottom'] = "white_small_square"
+                            users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
+                            users[ctx.message.author.id]['right_bottom'] = "white_small_square"
+                            users[ctx.message.author.id]['left_top_bot'] = "False"
+                            users[ctx.message.author.id]['middle_top_bot'] = "False"
+                            users[ctx.message.author.id]['right_top_bot'] = "False"
+                            users[ctx.message.author.id]['left_middle_bot'] = "False"
+                            users[ctx.message.author.id]['middle_middle_bot'] = "False"
+                            users[ctx.message.author.id]['right_middle_bot'] = "False"
+                            users[ctx.message.author.id]['left_bottom_bot'] = "False"
+                            users[ctx.message.author.id]['middle_bottom_bot'] = "False"
+                            users[ctx.message.author.id]['right_bottom_bot'] = "False"
+                            users[ctx.message.author.id]['done'] = "False"
+                            await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Choose a sign! d!ttt (emoji without ::)```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
+                            with open('ttt.json', 'w') as fp:
+                                json.dump(users, fp, sort_keys=True, indent=4)
+                            with open('ttt.json', 'r') as fp:
+                                g = github.Github(token)
+                                user = g.get_user()
+                                repo = user.get_repo('depression-discord-bot')
+                                file = repo.get_contents('/ttt.json')
+                                repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+                        elif (users[ctx.message.author.id]['sign'] != "None"):
+                            users[ctx.message.author.id]['sign'] = "None"
+                            users[ctx.message.author.id]['left_top'] = "white_small_square"
+                            users[ctx.message.author.id]['middle_top'] = "white_small_square"
+                            users[ctx.message.author.id]['right_top'] = "white_small_square"
+                            users[ctx.message.author.id]['left_middle'] = "white_small_square"
+                            users[ctx.message.author.id]['middle_middle'] = "white_small_square"
+                            users[ctx.message.author.id]['right_middle'] = "white_small_square"
+                            users[ctx.message.author.id]['left_bottom'] = "white_small_square"
+                            users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
+                            users[ctx.message.author.id]['right_bottom'] = "white_small_square"
+                            users[ctx.message.author.id]['done'] = "False"
+                            await bot.send_message(ctx.message.channel,"```Game stopped.```")
+                            with open('ttt.json', 'w') as fp:
+                                json.dump(users, fp, sort_keys=True, indent=4)
+                            with open('ttt.json', 'r') as fp:
+                                g = github.Github(token)
+                                user = g.get_user()
+                                repo = user.get_repo('depression-discord-bot')
+                                file = repo.get_contents('/ttt.json')
+                                repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+                else:
+                    users = {}
+
+                    await bot.send_typing(ctx.message.channel)
+                    users[ctx.message.author.id] = {ctx.message.author.id: {}}
+                    users[ctx.message.author.id]['sign'] = "None"
+                    users[ctx.message.author.id]['left_top'] = "white_small_square"
+                    users[ctx.message.author.id]['middle_top'] = "white_small_square"
+                    users[ctx.message.author.id]['right_top'] = "white_small_square"
+                    users[ctx.message.author.id]['left_middle'] = "white_small_square"
+                    users[ctx.message.author.id]['middle_middle'] = "white_small_square"
+                    users[ctx.message.author.id]['right_middle'] = "white_small_square"
+                    users[ctx.message.author.id]['left_bottom'] = "white_small_square"
+                    users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
+                    users[ctx.message.author.id]['right_bottom'] = "white_small_square"
+                    users[ctx.message.author.id]['done'] = "False"
+                    await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Choose a sign! d!ttt (emoji without ::)```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
+                    with open('ttt.json', 'w') as fp:
+                        json.dump(users, fp, sort_keys=True, indent=4)
+                    with open('ttt.json', 'r') as fp:
+                        g = github.Github(token)
+                        user = g.get_user()
+                        repo = user.get_repo('depression-discord-bot')
+                        file = repo.get_contents('/ttt.json')
+                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+    elif isinstance(error, commands.CommandInvokeError):
+        no_dms = "Cannot send messages to this user"
+        is_help_cmd = ctx.command.qualified_name == "help"
+        is_forbidden = isinstance(error.original, discord.Forbidden)
+        if is_help_cmd and is_forbidden and error.original.text == no_dms:
+            msg = ("I couldn't send the help message to you in DM. Either"
+                   " you blocked me or you disabled DMs in this server.")
+            await bot.send_message(channel, msg)
+            return
+
+            message = ("Error in command '{}'. Check your console or "
+                       "logs for details."
+                       "".format(ctx.command.qualified_name))
+            log = ("Exception in command '{}'\n"
+                   "".format(ctx.command.qualified_name))
+            log += "".join(traceback.format_exception(type(error), error,
+                                                      error.__traceback__))
+            bot._last_exception = log
+            await ctx.bot.send_typing(channel)
+            await ctx.bot.send_message(channel, '```Depression - "Your opinion doesn`t count!"\n\nCommands:\n\nd!2.2 - wait for it...\nd!pic (member name) - shows profile picture.\nd!2.2leak - shows a random 2.2 leak out of 55.\nd!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!sonic06 (place) (mission) - now loading screen.\nd!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!calltest (member name) - call someone.\nd!memberlist - unfinished member list.\nd!ttt - tic-tac-toe.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!help - this command...```')
+    elif isinstance(error, commands.CommandOnCooldown):
+        #await bot.send_message(channel, "This command is on cooldown. Try again in {:.2f}s".format(error.retry_after))
+        await bot.send_message(channel, "This command is on cooldown of 12 hours.".format(error.retry_after))
+
+bot.run(bot_token)
+
+@bot.event
 async def on_message(message):
     if (message):
 
         await bot.process_commands(message)
-	
-        with open("log.json","a") as f:
-            print('{}  ->   #{}'.format(message.server.name,message.channel.name),file=f)
-            print('{}'.format(message.timestamp),file=f)
-            print('{}:           {}'.format(message.author.name,message.content),file=f)
-            print('',file=f)
-
-        with open("log.json","r") as f:
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/log.json')
-            repo.update_file('/log.json', 'update!', f.read(), file.sha)
-
-        user_add_xp(message.author.id, 1)
-        user_add_credits_messages(message.author.id, 1)
-
-        if ((get_xp(message.author.id) < 50)):
-            user_level(message.author.id, 1)
-        elif ((get_xp(message.author.id) >= 50)&(get_xp(message.author.id) < 150)):
-            user_level(message.author.id, 2)
-        elif ((get_xp(message.author.id) >= 150)&(get_xp(message.author.id) < 300)):
-            user_level(message.author.id, 3)
-        elif (get_xp(message.author.id) >= 300):
-            user_level(message.author.id, 4)
-        elif ((get_xp(message.author.id) >= 50)&(get_xp(message.author.id) < 150)&(get_level(message.author.id) != 2)):
-            await bot.send_typing(message.channel)
-            await bot.send_message(message.channel, 'Congratulations {}! You are now level **2**!'.format(message.author.name))
-        elif ((get_xp(message.author.id) >= 150)&(get_xp(message.author.id) < 300)&(get_level(message.author.id) != 3)):
-            await bot.send_typing(message.channel)
-            await bot.send_message(message.channel, 'Congratulations {}! You are now level **3**!'.format(message.author.name))
-        elif ((get_xp(message.author.id) >= 300)&(get_level(message.author.id) != 4)):
-            await bot.send_typing(message.channel)
-            await bot.send_message(message.channel, 'Congratulations {}! You are now level **4**!'.format(message.author.name))
 
         dumpchannel = discord.Object(id='442404112349528074') #synch failure #dump
         voicechannel = discord.Object(id='429686562117124106') #synch failure %Hub
@@ -1550,6 +1774,40 @@ async def on_message(message):
             elif (y == 56):
                 return
 
+        with open("log.json","a") as f:
+            print('{}  ->   #{}'.format(message.server.name,message.channel.name),file=f)
+            print('{}'.format(message.timestamp),file=f)
+            print('{}:           {}'.format(message.author.name,message.content),file=f)
+            print('',file=f)
+
+        with open("log.json","r") as f:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/log.json')
+            repo.update_file('/log.json', 'update!', f.read(), file.sha)
+
+        user_add_xp(message.author.id, 1)
+        user_add_credits_messages(message.author.id, 1)
+
+        if ((get_xp(message.author.id) < 50)):
+            user_level(message.author.id, 1)
+        elif ((get_xp(message.author.id) >= 50)&(get_xp(message.author.id) < 150)):
+            user_level(message.author.id, 2)
+        elif ((get_xp(message.author.id) >= 150)&(get_xp(message.author.id) < 300)):
+            user_level(message.author.id, 3)
+        elif (get_xp(message.author.id) >= 300):
+            user_level(message.author.id, 4)
+        elif ((get_xp(message.author.id) >= 50)&(get_xp(message.author.id) < 150)&(get_level(message.author.id) != 2)):
+            await bot.send_typing(message.channel)
+            await bot.send_message(message.channel, 'Congratulations {}! You are now level **2**!'.format(message.author.name))
+        elif ((get_xp(message.author.id) >= 150)&(get_xp(message.author.id) < 300)&(get_level(message.author.id) != 3)):
+            await bot.send_typing(message.channel)
+            await bot.send_message(message.channel, 'Congratulations {}! You are now level **3**!'.format(message.author.name))
+        elif ((get_xp(message.author.id) >= 300)&(get_level(message.author.id) != 4)):
+            await bot.send_typing(message.channel)
+            await bot.send_message(message.channel, 'Congratulations {}! You are now level **4**!'.format(message.author.name))
+
 def user_add_xp(user_id, xp):
     if os.path.isfile('users.json'):
         try:
@@ -2132,261 +2390,3 @@ def get_credits_cooldown(user_id: int):
             return 0
     else:
         return 0
-
-@bot.event
-async def on_command_error(error, ctx):
-    channel = ctx.message.channel
-    if isinstance(error, commands.MissingRequiredArgument):
-        if (error):
-            if (ctx.message.content == 'd!pic'):
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, '{} so beautiful! <3'.format(ctx.message.author.avatar_url.replace('webp','png')))
-            elif (ctx.message.content == 'd!profile'):
-                await bot.send_typing(ctx.message.channel)
-
-                gem = ""
-                eyeglasses = ""
-                ribbon = ""
-                crossed_swords = ""
-                shield = ""
-                if (get_item(ctx.message.author.id, ":gem:") == "True"):
-                    gem = ":gem:"
-                if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
-                    eyeglasses = ":eyeglasses:"
-                if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
-                    ribbon = ":ribbon:"
-                if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
-                    crossed_swords = ":crossed_swords:"
-                if (get_item(ctx.message.author.id, ":shield:") == "True"):
-                    shield = ":shield:"
-
-                eTitle = '{} \'s Profile'.format(ctx.message.author.display_name)
-                eDesc = ''
-
-                em = discord.Embed(title=eTitle,url=ctx.message.author.avatar_url.replace('webp','png'),description=eDesc,colour=discord.Colour.orange())
-                em.set_author(name="{}".format(ctx.message.author.name), url=ctx.message.author.avatar_url.replace('webp','png'), icon_url=ctx.message.author.avatar_url.replace('webp','png'))
-                em.add_field(name="XP :sparkles:", value='{}'.format(get_xp(ctx.message.author.id)), inline=True)
-                em.add_field(name="Level :star2:", value='{}'.format(get_level(ctx.message.author.id)), inline=True)
-                em.add_field(name="Credits :moneybag:", value='{}'.format(get_credits(ctx.message.author.id)), inline=True)
-                em.add_field(name="Inventory :shopping_bags:", value='- {} {} {} {} {} -'.format(gem, eyeglasses, ribbon, crossed_swords, shield), inline=True)
-                em.add_field(name="Holds :handbag:", value='{}'.format(get_hold(ctx.message.author.id)), inline=True)
-                em.set_thumbnail(url=ctx.message.author.avatar_url.replace('webp','png'))
-                em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
-                await bot.send_message(ctx.message.channel,embed=em)
-
-            elif (ctx.message.content == 'd!xp'):
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, "You have: ** {} XP!**".format(get_xp(ctx.message.author.id)))
-            elif (ctx.message.content == 'd!fight'):
-                if (get_hold(ctx.message.author.id) == ":crossed_swords:"):
-                    bot_status(ctx.message.author.id,get_level(bot.user.id)*100)
-                    user_status(ctx.message.author.id,get_level(ctx.message.author.id)*100)
-		
-                    bot_max_status(ctx.message.author.id,get_bot_hp(ctx.message.author.id))
-                    user_max_status(ctx.message.author.id,get_hp(ctx.message.author.id))
-
-                    eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),get_bot_hp(ctx.message.author.id))
-        
-                    eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),get_hp(ctx.message.author.id))
-
-                    em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
-                    em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                    em.add_field(name="Choose an attack!", value='hit (more coming soon)', inline=True)
-                    em.set_footer(text='{} vs Depression! Start!'.format(ctx.message.author.name))
-                    await bot.send_message(ctx.message.channel,embed=em)
-                else:
-                    await bot.send_message(ctx.message.channel,"You need to hold :crossed_swords: to access.")
-            elif (ctx.message.content == 'd!hold'):
-                gem = ""
-                eyeglasses = ""
-                ribbon = ""
-                crossed_swords = ""
-                shield = ""
-                if (get_item(ctx.message.author.id, ":gem:") == "True"):
-                    gem = ":gem:"
-                if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
-                    eyeglasses = ":eyeglasses:"
-                if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
-                    ribbon = ":ribbon:"
-                if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
-                    crossed_swords = ":crossed_swords:"
-                if (get_item(ctx.message.author.id, ":shield:") == "True"):
-                    shield = ":shield:"
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, "Choose an item without ``::`` {} {} {} {} {}".format(gem, eyeglasses, ribbon, crossed_swords, shield))
-            elif (ctx.message.content == 'd!inventory'):
-                await bot.send_typing(ctx.message.channel)
-
-                gem = ""
-                eyeglasses = ""
-                ribbon = ""
-                crossed_swords = ""
-                shield = ""
-                if (get_item(ctx.message.author.id, ":gem:") == "True"):
-                    gem = ":gem:"
-                if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
-                    eyeglasses = ":eyeglasses:"
-                if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
-                    ribbon = ":ribbon:"
-                if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
-                    crossed_swords = ":crossed_swords:"
-                if (get_item(ctx.message.author.id, ":shield:") == "True"):
-                    shield = ":shield:"
-
-                await bot.send_message(ctx.message.channel, "You have: {} {} {} {} {}".format(gem, eyeglasses, ribbon, crossed_swords, shield))
-            elif (ctx.message.content == 'd!holding'):
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, "You are holding {}".format(get_hold(ctx.message.author.id)))
-            elif (ctx.message.content == 'd!level'):
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, "You are **level {}**!".format(get_level(ctx.message.author.id)))
-            elif (ctx.message.content == 'd!credits'):
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, "You have: ** {} credits!**".format(get_credits(ctx.message.author.id)))
-            elif (ctx.message.content == 'd!sonic06'):
-                await bot.send_typing(ctx.message.channel)
-                eTitlee = "d!sonic06 (place) (mission)"
-                eDescc = "Now loading screen."
-
-                emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
-                emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                await bot.send_message(ctx.message.channel, embed=emm)
-            elif (ctx.message.content == 'd!calltest'):
-                await bot.send_typing(ctx.message.channel)
-                eTitlee = "d!calltest (member name)"
-                eDescc = "Call someone."
-
-                emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
-                emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                await bot.send_message(ctx.message.channel, embed=emm)
-            elif (ctx.message.content == 'd!shop'):
-                await bot.send_typing(ctx.message.channel)
-
-                eTitlee = "__Shop:__"
-                eDescc = "Select an number:"
-
-                emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
-                emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                emm.add_field(name="**1.** :gem:", value='**500** credits', inline=True)
-                emm.add_field(name="**2.** :eyeglasses:", value='**250** credits', inline=True)
-                emm.add_field(name="**3.** :ribbon:", value='**150** credits', inline=True)
-                emm.add_field(name="**4.** :crossed_swords:", value='**200** credits', inline=True)
-                emm.add_field(name="**5.** :shield:", value='**200** credits', inline=True)
-                emm.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
-
-                await bot.send_message(ctx.message.channel,embed=emm)
-
-            elif (ctx.message.content == 'd!complete'):
-                await bot.send_typing(ctx.message.channel)
-                eTitlee = "d!complete (part 1) (part 2) (part 3) (part 4)"
-                eDescc = "Complete the following sentence: One day, I was walking in (part 1) like always when suddenly, (part 2) arrived and (part 3) me so hard that (part 4) came out of my body."
-
-                emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
-                emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                await bot.send_message(ctx.message.channel, embed=emm)
-            elif (ctx.message.content == 'd!ttt'):
-                await bot.send_typing(ctx.message.channel)
-                if os.path.isfile('ttt.json'):
-                    with open('ttt.json', 'r') as fp:
-                        users = json.load(fp)
-                        
-                        if (users[ctx.message.author.id]['sign'] == "None"):
-                            users[ctx.message.author.id]['left_top'] = "white_small_square"
-                            users[ctx.message.author.id]['middle_top'] = "white_small_square"
-                            users[ctx.message.author.id]['right_top'] = "white_small_square"
-                            users[ctx.message.author.id]['left_middle'] = "white_small_square"
-                            users[ctx.message.author.id]['middle_middle'] = "white_small_square"
-                            users[ctx.message.author.id]['right_middle'] = "white_small_square"
-                            users[ctx.message.author.id]['left_bottom'] = "white_small_square"
-                            users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
-                            users[ctx.message.author.id]['right_bottom'] = "white_small_square"
-                            users[ctx.message.author.id]['left_top_bot'] = "False"
-                            users[ctx.message.author.id]['middle_top_bot'] = "False"
-                            users[ctx.message.author.id]['right_top_bot'] = "False"
-                            users[ctx.message.author.id]['left_middle_bot'] = "False"
-                            users[ctx.message.author.id]['middle_middle_bot'] = "False"
-                            users[ctx.message.author.id]['right_middle_bot'] = "False"
-                            users[ctx.message.author.id]['left_bottom_bot'] = "False"
-                            users[ctx.message.author.id]['middle_bottom_bot'] = "False"
-                            users[ctx.message.author.id]['right_bottom_bot'] = "False"
-                            users[ctx.message.author.id]['done'] = "False"
-                            await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Choose a sign! d!ttt (emoji without ::)```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
-                            with open('ttt.json', 'w') as fp:
-                                json.dump(users, fp, sort_keys=True, indent=4)
-                            with open('ttt.json', 'r') as fp:
-                                g = github.Github(token)
-                                user = g.get_user()
-                                repo = user.get_repo('depression-discord-bot')
-                                file = repo.get_contents('/ttt.json')
-                                repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-                        elif (users[ctx.message.author.id]['sign'] != "None"):
-                            users[ctx.message.author.id]['sign'] = "None"
-                            users[ctx.message.author.id]['left_top'] = "white_small_square"
-                            users[ctx.message.author.id]['middle_top'] = "white_small_square"
-                            users[ctx.message.author.id]['right_top'] = "white_small_square"
-                            users[ctx.message.author.id]['left_middle'] = "white_small_square"
-                            users[ctx.message.author.id]['middle_middle'] = "white_small_square"
-                            users[ctx.message.author.id]['right_middle'] = "white_small_square"
-                            users[ctx.message.author.id]['left_bottom'] = "white_small_square"
-                            users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
-                            users[ctx.message.author.id]['right_bottom'] = "white_small_square"
-                            users[ctx.message.author.id]['done'] = "False"
-                            await bot.send_message(ctx.message.channel,"```Game stopped.```")
-                            with open('ttt.json', 'w') as fp:
-                                json.dump(users, fp, sort_keys=True, indent=4)
-                            with open('ttt.json', 'r') as fp:
-                                g = github.Github(token)
-                                user = g.get_user()
-                                repo = user.get_repo('depression-discord-bot')
-                                file = repo.get_contents('/ttt.json')
-                                repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-                else:
-                    users = {}
-
-                    await bot.send_typing(ctx.message.channel)
-                    users[ctx.message.author.id] = {ctx.message.author.id: {}}
-                    users[ctx.message.author.id]['sign'] = "None"
-                    users[ctx.message.author.id]['left_top'] = "white_small_square"
-                    users[ctx.message.author.id]['middle_top'] = "white_small_square"
-                    users[ctx.message.author.id]['right_top'] = "white_small_square"
-                    users[ctx.message.author.id]['left_middle'] = "white_small_square"
-                    users[ctx.message.author.id]['middle_middle'] = "white_small_square"
-                    users[ctx.message.author.id]['right_middle'] = "white_small_square"
-                    users[ctx.message.author.id]['left_bottom'] = "white_small_square"
-                    users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
-                    users[ctx.message.author.id]['right_bottom'] = "white_small_square"
-                    users[ctx.message.author.id]['done'] = "False"
-                    await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Choose a sign! d!ttt (emoji without ::)```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
-                    with open('ttt.json', 'w') as fp:
-                        json.dump(users, fp, sort_keys=True, indent=4)
-                    with open('ttt.json', 'r') as fp:
-                        g = github.Github(token)
-                        user = g.get_user()
-                        repo = user.get_repo('depression-discord-bot')
-                        file = repo.get_contents('/ttt.json')
-                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-    elif isinstance(error, commands.CommandInvokeError):
-        no_dms = "Cannot send messages to this user"
-        is_help_cmd = ctx.command.qualified_name == "help"
-        is_forbidden = isinstance(error.original, discord.Forbidden)
-        if is_help_cmd and is_forbidden and error.original.text == no_dms:
-            msg = ("I couldn't send the help message to you in DM. Either"
-                   " you blocked me or you disabled DMs in this server.")
-            await bot.send_message(channel, msg)
-            return
-
-            message = ("Error in command '{}'. Check your console or "
-                       "logs for details."
-                       "".format(ctx.command.qualified_name))
-            log = ("Exception in command '{}'\n"
-                   "".format(ctx.command.qualified_name))
-            log += "".join(traceback.format_exception(type(error), error,
-                                                      error.__traceback__))
-            bot._last_exception = log
-            await ctx.bot.send_typing(channel)
-            await ctx.bot.send_message(channel, '```Depression - "Your opinion doesn`t count!"\n\nCommands:\n\nd!2.2 - wait for it...\nd!pic (member name) - shows profile picture.\nd!2.2leak - shows a random 2.2 leak out of 55.\nd!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!sonic06 (place) (mission) - now loading screen.\nd!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!calltest (member name) - call someone.\nd!memberlist - unfinished member list.\nd!ttt - tic-tac-toe.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!help - this command...```')
-    elif isinstance(error, commands.CommandOnCooldown):
-        #await bot.send_message(channel, "This command is on cooldown. Try again in {:.2f}s".format(error.retry_after))
-        await bot.send_message(channel, "This command is on cooldown of 12 hours.".format(error.retry_after))
-
-bot.run(bot_token)
