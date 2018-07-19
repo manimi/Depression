@@ -81,7 +81,7 @@ async def logout(ctx):
 @bot.command(pass_context=True)
 async def sonic06(ctx, place=None, mission=None):
     await bot.send_typing(ctx.message.channel)
-    if (place is None)|(mission is None):
+    if ((place is None)|(mission is None)):
         eTitlee = "d!sonic06 (place) (mission)"
         eDescc = "Now loading screen."
 
@@ -286,58 +286,66 @@ async def profile(ctx, membername=None):
                     return None
 
 @bot.command(pass_context=True)
-async def level(ctx, membername):
-    for server in bot.servers:
-        for m in server.members:
-            try:
-                if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
-                    if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+async def level(ctx, membername=None):
+    if (membername is None):
+        await bot.send_typing(ctx.message.channel)
+        await bot.send_message(ctx.message.channel, "You are **level {}**!".format(get_level(ctx.message.author.id)))
+    else:
+        for server in bot.servers:
+            for m in server.members:
+                try:
+                    if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                        if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, "You are **level {}**!".format(get_level(ctx.message.author.id)))
+                            return None
+                        elif (((m.name == bot.user.name)|(m.name.upper() == bot.user.name)|(m.name.lower() == bot.user.name))|(m.mention == bot.user.mention)):
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, "I am **level {}**!".format(get_level(bot.user.id)))
+                            return None
+                        else:
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, "{} is **level {}**!".format(membername,get_level(m.id)))
+                            return None
+                    elif ((membername == "me")|(membername == "myself")):
                         await bot.send_typing(ctx.message.channel)
                         await bot.send_message(ctx.message.channel, "You are **level {}**!".format(get_level(ctx.message.author.id)))
                         return None
-                    elif (((m.name == bot.user.name)|(m.name.upper() == bot.user.name)|(m.name.lower() == bot.user.name))|(m.mention == bot.user.mention)):
-                        await bot.send_typing(ctx.message.channel)
-                        await bot.send_message(ctx.message.channel, "I am **level {}**!".format(get_level(bot.user.id)))
-                        return None
-                    else:
-                        await bot.send_typing(ctx.message.channel)
-                        await bot.send_message(ctx.message.channel, "{} is **level {}**!".format(membername,get_level(m.id)))
-                        return None
-                elif ((membername == "me")|(membername == "myself")):
+                except KeyError:
                     await bot.send_typing(ctx.message.channel)
-                    await bot.send_message(ctx.message.channel, "You are **level {}**!".format(get_level(ctx.message.author.id)))
+                    await bot.send_message(ctx.message.channel, 'You can\'t check bots\' level or users that haven\'t earned any XP.')
                     return None
-            except KeyError:
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, 'You can\'t check bots\' level or users that haven\'t earned any XP.')
-                return None
 
 @bot.command(pass_context=True)
-async def credits(ctx, membername):
-    for server in bot.servers:
-        for m in server.members:
-            try:
-                if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
-                    if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+async def credits(ctx, membername=None):
+    if (membername is None):
+        await bot.send_typing(ctx.message.channel)
+        await bot.send_message(ctx.message.channel, "You have: ** {} credits!**".format(get_credits(ctx.message.author.id)))
+    else:
+        for server in bot.servers:
+            for m in server.members:
+                try:
+                    if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                        if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, "You have: ** {} credits!**".format(get_credits(ctx.message.author.id)))
+                            return None
+                        elif (((m.name == bot.user.name)|(m.name.upper() == bot.user.name)|(m.name.lower() == bot.user.name))|(m.mention == bot.user.mention)):
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, "I have: ** {} credits!**".format(get_credits(bot.user.id)))
+                            return None
+                        else:
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, "{} has: ** {} credits!**".format(membername,get_credits(m.id)))
+                            return None
+                    elif ((membername == "me")|(membername == "myself")):
                         await bot.send_typing(ctx.message.channel)
                         await bot.send_message(ctx.message.channel, "You have: ** {} credits!**".format(get_credits(ctx.message.author.id)))
                         return None
-                    elif (((m.name == bot.user.name)|(m.name.upper() == bot.user.name)|(m.name.lower() == bot.user.name))|(m.mention == bot.user.mention)):
-                        await bot.send_typing(ctx.message.channel)
-                        await bot.send_message(ctx.message.channel, "I have: ** {} credits!**".format(get_credits(bot.user.id)))
-                        return None
-                    else:
-                        await bot.send_typing(ctx.message.channel)
-                        await bot.send_message(ctx.message.channel, "{} has: ** {} credits!**".format(membername,get_credits(m.id)))
-                        return None
-                elif ((membername == "me")|(membername == "myself")):
+                except KeyError:
                     await bot.send_typing(ctx.message.channel)
-                    await bot.send_message(ctx.message.channel, "You have: ** {} credits!**".format(get_credits(ctx.message.author.id)))
+                    await bot.send_message(ctx.message.channel, 'You can\'t check bots\' credits or users that haven\'t earned any credits.')
                     return None
-            except KeyError:
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, 'You can\'t check bots\' credits or users that haven\'t earned any credits.')
-                return None
 
 @bot.command(pass_context=True)
 async def top(ctx):
@@ -371,79 +379,124 @@ async def top(ctx):
     await bot.send_message(ctx.message.channel,embed=em)
 
 @bot.command(pass_context=True)
-async def complete(ctx, arg1, arg2, arg3, arg4):
-    await bot.send_typing(ctx.message.channel)
-    await bot.send_message(ctx.message.channel,"{} listen up now:\nOne day, I was walking in {} like always when suddenly, {} arrived and {} me so hard that {} came out of my body. The end.".format(ctx.message.author.name,arg1,arg2,arg3,arg4))
+async def complete(ctx, arg1=None, arg2=None, arg3=None, arg4=None):
+    if ((arg1 is None)|(arg2 is None)|(arg3 is None)|(arg4 is None)):
+        await bot.send_typing(ctx.message.channel)
+        eTitlee = "d!complete (part 1) (part 2) (part 3) (part 4)"
+        eDescc = "Complete the following sentence: One day, I was walking in (part 1) like always when suddenly, (part 2) arrived and (part 3) me so hard that (part 4) came out of my body."
+
+        emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
+        emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        await bot.send_message(ctx.message.channel, embed=emm)
+    else:
+        await bot.send_typing(ctx.message.channel)
+        await bot.send_message(ctx.message.channel,"{} listen up now:\nOne day, I was walking in {} like always when suddenly, {} arrived and {} me so hard that {} came out of my body. The end.".format(ctx.message.author.name,arg1,arg2,arg3,arg4))
 
 @bot.command(pass_context=True)
-async def shop(ctx, option):
-    if ((option == "1")&(get_credits(ctx.message.author.id) < 500)):
+async def shop(ctx, option=None):
+    if (option is None):
         await bot.send_typing(ctx.message.channel)
-        await bot.say('You don\'t have enough credits!')
-    elif ((option == "1")&(get_credits(ctx.message.author.id) >= 500)):
-        await bot.send_typing(ctx.message.channel)
-        await bot.say('You got a :gem:!')
-        user_take_credits(ctx.message.author.id, 500)
-        user_add_item(ctx.message.author.id, ":gem:")
-    elif ((option == "2")&(get_credits(ctx.message.author.id) >= 250)):
-        await bot.send_typing(ctx.message.channel)
-        await bot.say('You got an :eyeglasses:!')
-        user_take_credits(ctx.message.author.id, 250)
-        user_add_item(ctx.message.author.id, ":eyeglasses:")
-    elif ((option == "2")&(get_credits(ctx.message.author.id) < 250)):
-        await bot.send_typing(ctx.message.channel)
-        await bot.say('You don\'t have enough credits!')
-    elif ((option == "3")&(get_credits(ctx.message.author.id) >= 150)):
-        await bot.send_typing(ctx.message.channel)
-        await bot.say('You got a :ribbon:!')
-        user_take_credits(ctx.message.author.id, 150)
-        user_add_item(ctx.message.author.id, ":ribbon:")
-    elif ((option == "3")&(get_credits(ctx.message.author.id) < 150)):
-        await bot.send_typing(ctx.message.channel)
-        await bot.say('You don\'t have enough credits!')
-    elif ((option == "4")&(get_credits(ctx.message.author.id) >= 200)):
-        await bot.send_typing(ctx.message.channel)
-        await bot.say('You got :crossed_swords:!')
-        user_take_credits(ctx.message.author.id, 200)
-        user_add_item(ctx.message.author.id, ":crossed_swords:")
-    elif ((option == "4")&(get_credits(ctx.message.author.id) < 200)):
-        await bot.send_typing(ctx.message.channel)
-        await bot.say('You don\'t have enough credits!')
-    elif ((option == "5")&(get_credits(ctx.message.author.id) >= 200)):
-        await bot.send_typing(ctx.message.channel)
-        await bot.say('You got a :shield:!')
-        user_take_credits(ctx.message.author.id, 200)
-        user_add_item(ctx.message.author.id, ":shield:")
-    elif ((option == "5")&(get_credits(ctx.message.author.id) < 200)):
-        await bot.send_typing(ctx.message.channel)
-        await bot.say('You don\'t have enough credits!')
+
+        eTitlee = "__Shop:__"
+        eDescc = "Select an number:"
+
+        emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
+        emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        emm.add_field(name="**1.** :gem:", value='**500** credits', inline=True)
+        emm.add_field(name="**2.** :eyeglasses:", value='**250** credits', inline=True)
+        emm.add_field(name="**3.** :ribbon:", value='**150** credits', inline=True)
+        emm.add_field(name="**4.** :crossed_swords:", value='**200** credits', inline=True)
+        emm.add_field(name="**5.** :shield:", value='**200** credits', inline=True)
+        emm.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+
+        await bot.send_message(ctx.message.channel,embed=emm)
+    else:
+        if ((option == "1")&(get_credits(ctx.message.author.id) < 500)):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You don\'t have enough credits!')
+        elif ((option == "1")&(get_credits(ctx.message.author.id) >= 500)):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You got a :gem:!')
+            user_take_credits(ctx.message.author.id, 500)
+            user_add_item(ctx.message.author.id, ":gem:")
+        elif ((option == "2")&(get_credits(ctx.message.author.id) >= 250)):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You got an :eyeglasses:!')
+            user_take_credits(ctx.message.author.id, 250)
+            user_add_item(ctx.message.author.id, ":eyeglasses:")
+        elif ((option == "2")&(get_credits(ctx.message.author.id) < 250)):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You don\'t have enough credits!')
+        elif ((option == "3")&(get_credits(ctx.message.author.id) >= 150)):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You got a :ribbon:!')
+            user_take_credits(ctx.message.author.id, 150)
+            user_add_item(ctx.message.author.id, ":ribbon:")
+        elif ((option == "3")&(get_credits(ctx.message.author.id) < 150)):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You don\'t have enough credits!')
+        elif ((option == "4")&(get_credits(ctx.message.author.id) >= 200)):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You got :crossed_swords:!')
+            user_take_credits(ctx.message.author.id, 200)
+            user_add_item(ctx.message.author.id, ":crossed_swords:")
+        elif ((option == "4")&(get_credits(ctx.message.author.id) < 200)):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You don\'t have enough credits!')
+        elif ((option == "5")&(get_credits(ctx.message.author.id) >= 200)):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You got a :shield:!')
+            user_take_credits(ctx.message.author.id, 200)
+            user_add_item(ctx.message.author.id, ":shield:")
+        elif ((option == "5")&(get_credits(ctx.message.author.id) < 200)):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You don\'t have enough credits!')
 
 @bot.command(pass_context=True)
-async def hold(ctx, item):
-    if ((get_item(ctx.message.author.id, ":gem:") == "True")&(item == "gem")):
+async def hold(ctx, item=None):
+    if (item is None):
+        gem = ""
+        eyeglasses = ""
+        ribbon = ""
+        crossed_swords = ""
+        shield = ""
+        if (get_item(ctx.message.author.id, ":gem:") == "True"):
+            gem = ":gem:"
+        if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
+            eyeglasses = ":eyeglasses:"
+        if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
+            ribbon = ":ribbon:"
+        if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
+            crossed_swords = ":crossed_swords:"
+        if (get_item(ctx.message.author.id, ":shield:") == "True"):
+            shield = ":shield:"
         await bot.send_typing(ctx.message.channel)
-        await bot.say('You\'re now holding the :gem:!')
-        user_hold(ctx.message.author.id, ":gem:")
-    elif ((get_item(ctx.message.author.id, ":eyeglasses:") == "True")&(item == "eyeglasses")):
-        await bot.send_typing(ctx.message.channel)
-        await bot.say('You\'re now holding the :eyeglasses:!')
-        user_hold(ctx.message.author.id, ":eyeglasses:")
-    elif ((get_item(ctx.message.author.id, ":ribbon:") == "True")&(item == "ribbon")):
-        await bot.send_typing(ctx.message.channel)
-        await bot.say('You\'re now holding the :ribbon:!')
-        user_hold(ctx.message.author.id, ":ribbon:")
-    elif ((get_item(ctx.message.author.id, ":crossed_swords:") == "True")&(item == "crossed_swords")):
-        await bot.send_typing(ctx.message.channel)
-        await bot.say('You\'re now holding the :crossed_swords:!')
-        user_hold(ctx.message.author.id, ":crossed_swords:")
-    elif ((get_item(ctx.message.author.id, ":shield:") == "True")&(item == "shield")):
-        await bot.send_typing(ctx.message.channel)
-        await bot.say('You\'re now holding the :shield:!')
-        user_hold(ctx.message.author.id, ":shield:")
-    elif (item == "nothing"):
-        await bot.send_typing(ctx.message.channel)
-        await bot.say('You\'re now holding nothing!')
-        user_hold(ctx.message.author.id, "nothing")
+        await bot.send_message(ctx.message.channel, "Choose an item without ``::`` {} {} {} {} {}".format(gem, eyeglasses, ribbon, crossed_swords, shield))
+    else:
+        if ((get_item(ctx.message.author.id, ":gem:") == "True")&(item == "gem")):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You\'re now holding the :gem:!')
+            user_hold(ctx.message.author.id, ":gem:")
+        elif ((get_item(ctx.message.author.id, ":eyeglasses:") == "True")&(item == "eyeglasses")):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You\'re now holding the :eyeglasses:!')
+            user_hold(ctx.message.author.id, ":eyeglasses:")
+        elif ((get_item(ctx.message.author.id, ":ribbon:") == "True")&(item == "ribbon")):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You\'re now holding the :ribbon:!')
+            user_hold(ctx.message.author.id, ":ribbon:")
+        elif ((get_item(ctx.message.author.id, ":crossed_swords:") == "True")&(item == "crossed_swords")):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You\'re now holding the :crossed_swords:!')
+            user_hold(ctx.message.author.id, ":crossed_swords:")
+        elif ((get_item(ctx.message.author.id, ":shield:") == "True")&(item == "shield")):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You\'re now holding the :shield:!')
+            user_hold(ctx.message.author.id, ":shield:")
+        elif (item == "nothing"):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You\'re now holding nothing!')
+            user_hold(ctx.message.author.id, "nothing")
 	
 @bot.command(pass_context=True)
 async def playfile(ctx, file):
@@ -468,105 +521,150 @@ async def disconnect(ctx, id):
         await voice.disconnect()
 
 @bot.command(pass_context=True)
-async def holding(ctx, membername):
-    for server in bot.servers:
-        for m in server.members:
-            try:
-                if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
-                    if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+async def holding(ctx, membername=None):
+    if (membername is None):
+        await bot.send_typing(ctx.message.channel)
+        await bot.send_message(ctx.message.channel, "You are holding {}".format(get_hold(ctx.message.author.id)))
+    else:
+        for server in bot.servers:
+            for m in server.members:
+                try:
+                    if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                        if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, "You are holding {}".format(get_hold(ctx.message.author.id)))
+                            return None
+                        elif (((m.name == bot.user.name)|(m.name.upper() == bot.user.name)|(m.name.lower() == bot.user.name))|(m.mention == bot.user.mention)):
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, "I am holding {}".format(get_hold(bot.user.id)))
+                            return None
+                        else:
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, "{} is holding {}".format(m.name,get_hold(m.id)))
+                            return None
+                    elif ((membername == "me")|(membername == "myself")):
                         await bot.send_typing(ctx.message.channel)
                         await bot.send_message(ctx.message.channel, "You are holding {}".format(get_hold(ctx.message.author.id)))
                         return None
-                    elif (((m.name == bot.user.name)|(m.name.upper() == bot.user.name)|(m.name.lower() == bot.user.name))|(m.mention == bot.user.mention)):
-                        await bot.send_typing(ctx.message.channel)
-                        await bot.send_message(ctx.message.channel, "I am holding {}".format(get_hold(bot.user.id)))
-                        return None
-                    else:
-                        await bot.send_typing(ctx.message.channel)
-                        await bot.send_message(ctx.message.channel, "{} is holding {}".format(m.name,get_hold(m.id)))
-                        return None
-                elif ((membername == "me")|(membername == "myself")):
+                except KeyError:
                     await bot.send_typing(ctx.message.channel)
-                    await bot.send_message(ctx.message.channel, "You are holding {}".format(get_hold(ctx.message.author.id)))
+                    await bot.send_message(ctx.message.channel, 'You can\'t check bots\' items or users that aren\'t holding any items.')
                     return None
-            except KeyError:
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, 'You can\'t check bots\' items or users that aren\'t holding any items.')
-                return None
 	
 @bot.command(pass_context=True)
-async def fight(ctx, attack):
-    if (get_hold(ctx.message.author.id) == ":crossed_swords:"):
-        if (attack == "hit"):
-            eTitle = 'You used hit!'
+async def fight(ctx, attack=None):
+    if (attack is None):
+        if (get_hold(ctx.message.author.id) == ":crossed_swords:"):
+            bot_status(ctx.message.author.id,get_level(bot.user.id)*100)
+            user_status(ctx.message.author.id,get_level(ctx.message.author.id)*100)
+		
+            bot_max_status(ctx.message.author.id,get_bot_hp(ctx.message.author.id))
+            user_max_status(ctx.message.author.id,get_hp(ctx.message.author.id))
+
+            eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),get_bot_hp(ctx.message.author.id))
         
-            eDesc = ''
+            eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),get_hp(ctx.message.author.id))
 
             em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
-            await bot.say(embed=em)
-	
-            import random
-            chance = random.randint(1,11)
-            await asyncio.sleep(2)
-            if (chance == 10):
-                eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),maxhealthbot)
-        
-                eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),maxhealthuser)
-
-                emm = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
-                emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                emm.add_field(name="You missed! Too bad!", value='Choose an attack! hit (more coming soon)', inline=True)
-                emm.set_footer(text='{} vs Depression!'.format(ctx.message.author.name))
-                await bot.say(embed=emm)
-            else:
-                import random
-                damage = random.randint(10,30)
-		
-                bot_status(ctx.message.author.id,get_bot_hp(ctx.message.author.id)-damage)
-
-                eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),get_bot_max_hp(ctx.message.author.id))
-        
-                eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),get_max_hp(ctx.message.author.id))
-
-                emmm = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
-                emmm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                emmm.add_field(name="{} damage!".format(damage), value='Choose an attack! hit (more coming soon)', inline=True)
-                emmm.set_footer(text='{} vs Depression!'.format(ctx.message.author.name))
-                await bot.say(embed=emmm)
+            em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+            em.add_field(name="Choose an attack!", value='hit (more coming soon)', inline=True)
+            em.set_footer(text='{} vs Depression! Start!'.format(ctx.message.author.name))
+            await bot.send_message(ctx.message.channel,embed=em)
+        else:
+            await bot.send_message(ctx.message.channel,"You need to hold :crossed_swords: to access.")
     else:
-        await bot.say("You need to hold :crossed_swords: to access.")
+        if (get_hold(ctx.message.author.id) == ":crossed_swords:"):
+            if (attack == "hit"):
+                eTitle = 'You used hit!'
+        
+                eDesc = ''
+
+                em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+                await bot.say(embed=em)
+	
+                import random
+                chance = random.randint(1,11)
+                await asyncio.sleep(2)
+                if (chance == 10):
+                    eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),maxhealthbot)
+        
+                    eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),maxhealthuser)
+
+                    emm = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+                    emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+                    emm.add_field(name="You missed! Too bad!", value='Choose an attack! hit (more coming soon)', inline=True)
+                    emm.set_footer(text='{} vs Depression!'.format(ctx.message.author.name))
+                    await bot.say(embed=emm)
+                else:
+                    import random
+                    damage = random.randint(10,30)
+		
+                    bot_status(ctx.message.author.id,get_bot_hp(ctx.message.author.id)-damage)
+
+                    eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),get_bot_max_hp(ctx.message.author.id))
+        
+                    eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),get_max_hp(ctx.message.author.id))
+
+                    emmm = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+                    emmm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+                    emmm.add_field(name="{} damage!".format(damage), value='Choose an attack! hit (more coming soon)', inline=True)
+                    emmm.set_footer(text='{} vs Depression!'.format(ctx.message.author.name))
+                    await bot.say(embed=emmm)
+        else:
+            await bot.say("You need to hold :crossed_swords: to access.")
 
 @bot.command(pass_context=True)
-async def inventory(ctx, membername):
-    for server in bot.servers:
-        for m in server.members:
-            try:
-                if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+async def inventory(ctx, membername=None):
+    if (membername is None):
+        await bot.send_typing(ctx.message.channel)
+
+        gem = ""
+        eyeglasses = ""
+        ribbon = ""
+        crossed_swords = ""
+        shield = ""
+        if (get_item(ctx.message.author.id, ":gem:") == "True"):
+            gem = ":gem:"
+        if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
+            eyeglasses = ":eyeglasses:"
+        if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
+            ribbon = ":ribbon:"
+        if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
+            crossed_swords = ":crossed_swords:"
+        if (get_item(ctx.message.author.id, ":shield:") == "True"):
+            shield = ":shield:"
+
+        await bot.send_message(ctx.message.channel, "You have: {} {} {} {} {}".format(gem, eyeglasses, ribbon, crossed_swords, shield))
+    else:
+        for server in bot.servers:
+            for m in server.members:
+                try:
+                    if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                        await bot.send_typing(ctx.message.channel)
+
+                        gem = ""
+                        eyeglasses = ""
+                        ribbon = ""
+                        crossed_swords = ""
+                        shield = ""
+                        if (get_item(m.id, ":gem:") == "True"):
+                            gem = ":gem:"
+                        if (get_item(m.id, ":eyeglasses:") == "True"):
+                            eyeglasses = ":eyeglasses:"
+                        if (get_item(m.id, ":ribbon:") == "True"):
+                            ribbon = ":ribbon:"
+                        if (get_item(m.id, ":crossed_swords:") == "True"):
+                            crossed_swords = ":crossed_swords:"
+                        if (get_item(m.id, ":shield:") == "True"):
+                            shield = ":shield:"
+
+                        await bot.send_message(ctx.message.channel, "{} has: {} {} {} {} {}".format(m.name, gem, eyeglasses, ribbon, crossed_swords, shield))
+
+                        return None
+                except KeyError:
                     await bot.send_typing(ctx.message.channel)
-
-                    gem = ""
-                    eyeglasses = ""
-                    ribbon = ""
-                    crossed_swords = ""
-                    shield = ""
-                    if (get_item(m.id, ":gem:") == "True"):
-                        gem = ":gem:"
-                    if (get_item(m.id, ":eyeglasses:") == "True"):
-                        eyeglasses = ":eyeglasses:"
-                    if (get_item(m.id, ":ribbon:") == "True"):
-                        ribbon = ":ribbon:"
-                    if (get_item(m.id, ":crossed_swords:") == "True"):
-                        crossed_swords = ":crossed_swords:"
-                    if (get_item(m.id, ":shield:") == "True"):
-                        shield = ":shield:"
-
-                    await bot.send_message(ctx.message.channel, "{} has: {} {} {} {} {}".format(m.name, gem, eyeglasses, ribbon, crossed_swords, shield))
-
+                    await bot.send_message(ctx.message.channel, 'You can\'t check bots\' profile.')
                     return None
-            except KeyError:
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, 'You can\'t check bots\' profile.')
-                return None
 
 @bot.command(pass_context=True)
 async def ttt(ctx, arg1):
@@ -873,36 +971,40 @@ async def ttt(ctx, arg1):
             await bot.send_message(ctx.message.channel,"**Don't use that emoji.**")
 
 @bot.command(pass_context=True)
-async def pic(ctx, membername):
-    for server in bot.servers:
-        for m in server.members:
-            try:
-                if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
-                    if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+async def pic(ctx, membername=None):
+    if (membername is None):
+        await bot.send_typing(ctx.message.channel)
+        await bot.send_message(ctx.message.channel, '{} so beautiful! <3'.format(ctx.message.author.avatar_url.replace('webp','png')))
+    else:
+        for server in bot.servers:
+            for m in server.members:
+                try:
+                    if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                        if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, '{} so beautiful! <3'.format(ctx.message.author.avatar_url.replace('webp','png')))
+                            return None
+                        elif (((m.name == bot.user.name)|(m.name.upper() == bot.user.name)|(m.name.lower() == bot.user.name))|(m.mention == bot.user.mention)):
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, '{} the most beautiful of them all :v'.format(bot.user.avatar_url.replace('webp','png')))
+                            return None
+                        else:
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, '{} so beautiful <3'.format(m.avatar_url.replace('webp','png')))
+                            return None
+                    elif ((membername == "me")|(membername == "myself")):
                         await bot.send_typing(ctx.message.channel)
                         await bot.send_message(ctx.message.channel, '{} so beautiful! <3'.format(ctx.message.author.avatar_url.replace('webp','png')))
                         return None
-                    elif (((m.name == bot.user.name)|(m.name.upper() == bot.user.name)|(m.name.lower() == bot.user.name))|(m.mention == bot.user.mention)):
-                        await bot.send_typing(ctx.message.channel)
-                        await bot.send_message(ctx.message.channel, '{} the most beautiful of them all :v'.format(bot.user.avatar_url.replace('webp','png')))
-                        return None
-                    else:
-                        await bot.send_typing(ctx.message.channel)
-                        await bot.send_message(ctx.message.channel, '{} so beautiful <3'.format(m.avatar_url.replace('webp','png')))
-                        return None
-                elif ((membername == "me")|(membername == "myself")):
+                except KeyError:
                     await bot.send_typing(ctx.message.channel)
-                    await bot.send_message(ctx.message.channel, '{} so beautiful! <3'.format(ctx.message.author.avatar_url.replace('webp','png')))
+                    await bot.send_message(ctx.message.channel, 'This option isn\'t available yet!')
                     return None
-            except KeyError:
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, 'This option isn\'t available yet!')
-                return None
 
 @bot.command(pass_context=True)
 @commands.cooldown(1, 60*60*12, commands.BucketType.user)
 async def daily(ctx, membername=None):
-    if membername is None:
+    if (membername is None):
         await bot.send_typing(ctx.message.channel)
         await bot.send_message(ctx.message.channel, ":thumbsup: You got **100 credits!**")
         user_add_credits(ctx.message.author.id, 100)
@@ -944,101 +1046,7 @@ async def on_command_error(error, ctx):
     channel = ctx.message.channel
     if isinstance(error, commands.MissingRequiredArgument):
         if (error):
-            if (ctx.message.content == 'd!pic'):
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, '{} so beautiful! <3'.format(ctx.message.author.avatar_url.replace('webp','png')))
-            elif (ctx.message.content == 'd!fight'):
-                if (get_hold(ctx.message.author.id) == ":crossed_swords:"):
-                    bot_status(ctx.message.author.id,get_level(bot.user.id)*100)
-                    user_status(ctx.message.author.id,get_level(ctx.message.author.id)*100)
-		
-                    bot_max_status(ctx.message.author.id,get_bot_hp(ctx.message.author.id))
-                    user_max_status(ctx.message.author.id,get_hp(ctx.message.author.id))
-
-                    eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),get_bot_hp(ctx.message.author.id))
-        
-                    eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),get_hp(ctx.message.author.id))
-
-                    em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
-                    em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                    em.add_field(name="Choose an attack!", value='hit (more coming soon)', inline=True)
-                    em.set_footer(text='{} vs Depression! Start!'.format(ctx.message.author.name))
-                    await bot.send_message(ctx.message.channel,embed=em)
-                else:
-                    await bot.send_message(ctx.message.channel,"You need to hold :crossed_swords: to access.")
-            elif (ctx.message.content == 'd!hold'):
-                gem = ""
-                eyeglasses = ""
-                ribbon = ""
-                crossed_swords = ""
-                shield = ""
-                if (get_item(ctx.message.author.id, ":gem:") == "True"):
-                    gem = ":gem:"
-                if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
-                    eyeglasses = ":eyeglasses:"
-                if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
-                    ribbon = ":ribbon:"
-                if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
-                    crossed_swords = ":crossed_swords:"
-                if (get_item(ctx.message.author.id, ":shield:") == "True"):
-                    shield = ":shield:"
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, "Choose an item without ``::`` {} {} {} {} {}".format(gem, eyeglasses, ribbon, crossed_swords, shield))
-            elif (ctx.message.content == 'd!inventory'):
-                await bot.send_typing(ctx.message.channel)
-
-                gem = ""
-                eyeglasses = ""
-                ribbon = ""
-                crossed_swords = ""
-                shield = ""
-                if (get_item(ctx.message.author.id, ":gem:") == "True"):
-                    gem = ":gem:"
-                if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
-                    eyeglasses = ":eyeglasses:"
-                if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
-                    ribbon = ":ribbon:"
-                if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
-                    crossed_swords = ":crossed_swords:"
-                if (get_item(ctx.message.author.id, ":shield:") == "True"):
-                    shield = ":shield:"
-
-                await bot.send_message(ctx.message.channel, "You have: {} {} {} {} {}".format(gem, eyeglasses, ribbon, crossed_swords, shield))
-            elif (ctx.message.content == 'd!holding'):
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, "You are holding {}".format(get_hold(ctx.message.author.id)))
-            elif (ctx.message.content == 'd!level'):
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, "You are **level {}**!".format(get_level(ctx.message.author.id)))
-            elif (ctx.message.content == 'd!credits'):
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, "You have: ** {} credits!**".format(get_credits(ctx.message.author.id)))
-            elif (ctx.message.content == 'd!shop'):
-                await bot.send_typing(ctx.message.channel)
-
-                eTitlee = "__Shop:__"
-                eDescc = "Select an number:"
-
-                emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
-                emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                emm.add_field(name="**1.** :gem:", value='**500** credits', inline=True)
-                emm.add_field(name="**2.** :eyeglasses:", value='**250** credits', inline=True)
-                emm.add_field(name="**3.** :ribbon:", value='**150** credits', inline=True)
-                emm.add_field(name="**4.** :crossed_swords:", value='**200** credits', inline=True)
-                emm.add_field(name="**5.** :shield:", value='**200** credits', inline=True)
-                emm.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
-
-                await bot.send_message(ctx.message.channel,embed=emm)
-
-            elif (ctx.message.content == 'd!complete'):
-                await bot.send_typing(ctx.message.channel)
-                eTitlee = "d!complete (part 1) (part 2) (part 3) (part 4)"
-                eDescc = "Complete the following sentence: One day, I was walking in (part 1) like always when suddenly, (part 2) arrived and (part 3) me so hard that (part 4) came out of my body."
-
-                emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
-                emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                await bot.send_message(ctx.message.channel, embed=emm)
-            elif (ctx.message.content == 'd!ttt'):
+            if (ctx.message.content == 'd!ttt'):
                 await bot.send_typing(ctx.message.channel)
                 if os.path.isfile('ttt.json'):
                     with open('ttt.json', 'r') as fp:
