@@ -79,28 +79,86 @@ async def logout(ctx):
         await bot.say("Can not restart bot because you are not the creator")
 
 @bot.command(pass_context=True)
-async def sonic06(ctx, place, mission):
+async def sonic06(ctx, place=None, mission=None):
     await bot.send_typing(ctx.message.channel)
-    m = await bot.say('**                  {}**           \n\n\n\n                    {}              \n\n                                                           NOW LOADING...    '.format(place.upper(),mission))
-    for y in range(5):  
-        await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n        >>>                                             NOW LOADING...    '.format(place.upper(),mission))
-        await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                  >>>                                   NOW LOADING...    '.format(place.upper(),mission))
-        await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                             >>>                        NOW LOADING...    '.format(place.upper(),mission))
-        await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                                        >>>             NOW LOADING...    '.format(place.upper(),mission))
-        await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                                                   >>>  NOW LOADING...    '.format(place.upper(),mission))
-        await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                                                            NO>>>OADING...    '.format(place.upper(),mission))
-        await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                                                            NOW LOADI>>>..    '.format(place.upper(),mission))
-        await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                                                            NOW LOADING... >>>'.format(place.upper(),mission))
-        await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                                                            NOW LOADING...    '.format(place.upper(),mission))
-        await asyncio.sleep(2)
+    if (place is None)|(mission is None):
+        eTitlee = "d!sonic06 (place) (mission)"
+        eDescc = "Now loading screen."
+
+        emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
+        emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        await bot.send_message(ctx.message.channel, embed=emm)
+    else:
+        m = await bot.say('**                  {}**           \n\n\n\n                    {}              \n\n                                                           NOW LOADING...    '.format(place.upper(),mission))
+        for y in range(5):  
+            await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n        >>>                                             NOW LOADING...    '.format(place.upper(),mission))
+            await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                  >>>                                   NOW LOADING...    '.format(place.upper(),mission))
+            await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                             >>>                        NOW LOADING...    '.format(place.upper(),mission))
+            await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                                        >>>             NOW LOADING...    '.format(place.upper(),mission))
+            await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                                                   >>>  NOW LOADING...    '.format(place.upper(),mission))
+            await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                                                            NO>>>OADING...    '.format(place.upper(),mission))
+            await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                                                            NOW LOADI>>>..    '.format(place.upper(),mission))
+            await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                                                            NOW LOADING... >>>'.format(place.upper(),mission))
+            await bot.edit_message(m, '**                  {}**           \n\n\n\n                    {}              \n\n                                                            NOW LOADING...    '.format(place.upper(),mission))
+            await asyncio.sleep(2)
 
 @bot.command(pass_context=True)
-async def calltest(ctx, membername):
-    for server in bot.servers:
-        for m in server.members:
-            try:
-                if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
-                    if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+async def calltest(ctx, membername=None):
+    if (membername is None):
+        await bot.send_typing(ctx.message.channel)
+        eTitlee = "d!calltest (member name)"
+        eDescc = "Call someone."
+
+        emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
+        emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        await bot.send_message(ctx.message.channel, embed=emm)
+    else:
+        for server in bot.servers:
+            for m in server.members:
+                try:
+                    if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                        if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, '{} called themself...'.format(ctx.message.author.name,m.name))
+                            await asyncio.sleep(2)
+                            await bot.send_typing(ctx.message.channel)
+                            m = await bot.send_message(ctx.message.channel, '.')
+                            await asyncio.sleep(1)
+                            await bot.edit_message(m, '. .')
+                            await asyncio.sleep(1)
+                            await bot.edit_message(m, '. . .')
+                            await asyncio.sleep(1)
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, 'What the fuck.')
+                            return None
+                        elif (((m.name == bot.user.name)|(m.name.upper() == bot.user.name)|(m.name.lower() == bot.user.name))|(m.mention == bot.user.mention)):
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, '{} called me...'.format(ctx.message.author.name,m.name))
+                            await asyncio.sleep(2)
+                            await bot.send_typing(ctx.message.channel)
+                            m = await bot.send_message(ctx.message.channel, '.')
+                            await asyncio.sleep(1)
+                            await bot.edit_message(m, '. .')
+                            await asyncio.sleep(1)
+                            await bot.edit_message(m, '. . .')
+                            await asyncio.sleep(1)
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, 'Please stop.')
+                            return None
+                        else:
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, '{} called {}...'.format(ctx.message.author.name,m.name))
+                            await asyncio.sleep(2)
+                            await bot.send_typing(ctx.message.channel)
+                            m = await bot.send_message(ctx.message.channel, '.')
+                            await asyncio.sleep(1)
+                            await bot.edit_message(m, '. .')
+                            await asyncio.sleep(1)
+                            await bot.edit_message(m, '. . .')
+                            await asyncio.sleep(1)
+                            await bot.send_message(ctx.message.channel, 'No answer.')
+                            return None
+                    elif ((membername == "me")|(membername == "myself")):
                         await bot.send_typing(ctx.message.channel)
                         await bot.send_message(ctx.message.channel, '{} called themself...'.format(ctx.message.author.name,m.name))
                         await asyncio.sleep(2)
@@ -114,122 +172,118 @@ async def calltest(ctx, membername):
                         await bot.send_typing(ctx.message.channel)
                         await bot.send_message(ctx.message.channel, 'What the fuck.')
                         return None
-                    elif (((m.name == bot.user.name)|(m.name.upper() == bot.user.name)|(m.name.lower() == bot.user.name))|(m.mention == bot.user.mention)):
-                        await bot.send_typing(ctx.message.channel)
-                        await bot.send_message(ctx.message.channel, '{} called me...'.format(ctx.message.author.name,m.name))
-                        await asyncio.sleep(2)
-                        await bot.send_typing(ctx.message.channel)
-                        m = await bot.send_message(ctx.message.channel, '.')
-                        await asyncio.sleep(1)
-                        await bot.edit_message(m, '. .')
-                        await asyncio.sleep(1)
-                        await bot.edit_message(m, '. . .')
-                        await asyncio.sleep(1)
-                        await bot.send_typing(ctx.message.channel)
-                        await bot.send_message(ctx.message.channel, 'Please stop.')
-                        return None
-                    else:
-                        await bot.send_typing(ctx.message.channel)
-                        await bot.send_message(ctx.message.channel, '{} called {}...'.format(ctx.message.author.name,m.name))
-                        await asyncio.sleep(2)
-                        await bot.send_typing(ctx.message.channel)
-                        m = await bot.send_message(ctx.message.channel, '.')
-                        await asyncio.sleep(1)
-                        await bot.edit_message(m, '. .')
-                        await asyncio.sleep(1)
-                        await bot.edit_message(m, '. . .')
-                        await asyncio.sleep(1)
-                        await bot.send_message(ctx.message.channel, 'No answer.')
-                        return None
-                elif ((membername == "me")|(membername == "myself")):
+                except KeyError:
                     await bot.send_typing(ctx.message.channel)
-                    await bot.send_message(ctx.message.channel, '{} called themself...'.format(ctx.message.author.name,m.name))
-                    await asyncio.sleep(2)
-                    await bot.send_typing(ctx.message.channel)
-                    m = await bot.send_message(ctx.message.channel, '.')
-                    await asyncio.sleep(1)
-                    await bot.edit_message(m, '. .')
-                    await asyncio.sleep(1)
-                    await bot.edit_message(m, '. . .')
-                    await asyncio.sleep(1)
-                    await bot.send_typing(ctx.message.channel)
-                    await bot.send_message(ctx.message.channel, 'What the fuck.')
+                    await bot.send_message(ctx.message.channel, 'This option isn\'t available yet!')
                     return None
-            except KeyError:
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, 'This option isn\'t available yet!')
-                return None
 
 @bot.command(pass_context=True)
-async def xp(ctx, membername):
-    for server in bot.servers:
-        for m in server.members:
-            try:
-                if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
-                    if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+async def xp(ctx, membername=None):
+    if (membername is None):
+        await bot.send_typing(ctx.message.channel)
+        await bot.send_message(ctx.message.channel, "You have: ** {} XP!**".format(get_xp(ctx.message.author.id)))
+    else:
+        for server in bot.servers:
+            for m in server.members:
+                try:
+                    if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                        if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, "You have: ** {} XP!**".format(get_xp(ctx.message.author.id)))
+                            return None
+                        elif (((m.name == bot.user.name)|(m.name.upper() == bot.user.name)|(m.name.lower() == bot.user.name))|(m.mention == bot.user.mention)):
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, "I have: ** {} XP!**".format(get_xp(bot.user.id)))
+                            return None
+                        else:
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.send_message(ctx.message.channel, "{} has: ** {} XP!**".format(membername,get_xp(m.id)))
+                            return None
+                    elif ((membername == "me")|(membername == "myself")):
                         await bot.send_typing(ctx.message.channel)
                         await bot.send_message(ctx.message.channel, "You have: ** {} XP!**".format(get_xp(ctx.message.author.id)))
                         return None
-                    elif (((m.name == bot.user.name)|(m.name.upper() == bot.user.name)|(m.name.lower() == bot.user.name))|(m.mention == bot.user.mention)):
-                        await bot.send_typing(ctx.message.channel)
-                        await bot.send_message(ctx.message.channel, "I have: ** {} XP!**".format(get_xp(bot.user.id)))
-                        return None
-                    else:
-                        await bot.send_typing(ctx.message.channel)
-                        await bot.send_message(ctx.message.channel, "{} has: ** {} XP!**".format(membername,get_xp(m.id)))
-                        return None
-                elif ((membername == "me")|(membername == "myself")):
+                except KeyError:
                     await bot.send_typing(ctx.message.channel)
-                    await bot.send_message(ctx.message.channel, "You have: ** {} XP!**".format(get_xp(ctx.message.author.id)))
+                    await bot.send_message(ctx.message.channel, 'You can\'t check bots\' XP or users that haven\'t earned any XP.')
                     return None
-            except KeyError:
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, 'You can\'t check bots\' XP or users that haven\'t earned any XP.')
-                return None
 
 @bot.command(pass_context=True)
-async def profile(ctx, membername):
-    for server in bot.servers:
-        for m in server.members:
-            try:
-                if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+async def profile(ctx, membername=None):
+    if (membername is None):
+        await bot.send_typing(ctx.message.channel)
+
+        eTitle = '{} \'s Profile'.format(ctx.message.author.display_name)
+        eDesc = ''
+
+        gem = ""
+        eyeglasses = ""
+        ribbon = ""
+        crossed_swords = ""
+        shield = ""
+        if (get_item(ctx.message.author.id, ":gem:") == "True"):
+            gem = ":gem:"
+        if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
+            eyeglasses = ":eyeglasses:"
+        if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
+            ribbon = ":ribbon:"
+        if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
+            crossed_swords = ":crossed_swords:"
+        if (get_item(ctx.message.author.id, ":shield:") == "True"):
+            shield = ":shield:"
+
+        em = discord.Embed(title=eTitle,url=ctx.message.author.avatar_url.replace('webp','png'),description=eDesc,colour=discord.Colour.orange())
+        em.set_author(name="{}".format(ctx.message.author.name), url=ctx.message.author.avatar_url.replace('webp','png'), icon_url=ctx.message.author.avatar_url.replace('webp','png'))
+        em.add_field(name="XP :sparkles:", value='{}'.format(get_xp(ctx.message.author.id)), inline=True)
+        em.add_field(name="Level :star2:", value='{}'.format(get_level(ctx.message.author.id)), inline=True)
+        em.add_field(name="Credits :moneybag:", value='{}'.format(get_credits(ctx.message.author.id)), inline=True)
+        em.add_field(name="Inventory :shopping_bags:", value='- {} {} {} {} {} -'.format(gem, eyeglasses, ribbon, crossed_swords, shield), inline=True)
+        em.add_field(name="Holds :handbag:", value='{}'.format(get_hold(ctx.message.author.id)), inline=True)
+        em.set_thumbnail(url=ctx.message.author.avatar_url.replace('webp','png'))
+        em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+        await bot.say(embed=em)
+    else:
+        for server in bot.servers:
+            for m in server.members:
+                try:
+                    if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                        await bot.send_typing(ctx.message.channel)
+
+                        eTitle = '{} \'s Profile'.format(m.display_name)
+                        eDesc = ''
+
+                        gem = ""
+                        eyeglasses = ""
+                        ribbon = ""
+                        crossed_swords = ""
+                        shield = ""
+                        if (get_item(m.id, ":gem:") == "True"):
+                            gem = ":gem:"
+                        if (get_item(m.id, ":eyeglasses:") == "True"):
+                            eyeglasses = ":eyeglasses:"
+                        if (get_item(m.id, ":ribbon:") == "True"):
+                            ribbon = ":ribbon:"
+                        if (get_item(m.id, ":crossed_swords:") == "True"):
+                            crossed_swords = ":crossed_swords:"
+                        if (get_item(m.id, ":shield:") == "True"):
+                            shield = ":shield:"
+
+                        em = discord.Embed(title=eTitle,url=m.avatar_url.replace('webp','png'),description=eDesc,colour=discord.Colour.orange())
+                        em.set_author(name="{}".format(m.name), url=m.avatar_url.replace('webp','png'), icon_url=m.avatar_url.replace('webp','png'))
+                        em.add_field(name="XP :sparkles:", value='{}'.format(get_xp(m.id)), inline=True)
+                        em.add_field(name="Level :star2:", value='{}'.format(get_level(m.id)), inline=True)
+                        em.add_field(name="Credits :moneybag:", value='{}'.format(get_credits(m.id)), inline=True)
+                        em.add_field(name="Inventory :shopping_bags:", value='- {} {} {} {} {} -'.format(gem, eyeglasses, ribbon, crossed_swords, shield), inline=True)
+                        em.add_field(name="Holds :handbag:", value='{}'.format(get_hold(m.id)), inline=True)
+                        em.set_thumbnail(url=m.avatar_url.replace('webp','png'))
+                        em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+                        await bot.say(embed=em)
+
+                        return None
+                except KeyError:
                     await bot.send_typing(ctx.message.channel)
-
-                    eTitle = '{} \'s Profile'.format(m.display_name)
-                    eDesc = ''
-
-                    gem = ""
-                    eyeglasses = ""
-                    ribbon = ""
-                    crossed_swords = ""
-                    shield = ""
-                    if (get_item(m.id, ":gem:") == "True"):
-                        gem = ":gem:"
-                    if (get_item(m.id, ":eyeglasses:") == "True"):
-                        eyeglasses = ":eyeglasses:"
-                    if (get_item(m.id, ":ribbon:") == "True"):
-                        ribbon = ":ribbon:"
-                    if (get_item(m.id, ":crossed_swords:") == "True"):
-                        crossed_swords = ":crossed_swords:"
-                    if (get_item(m.id, ":shield:") == "True"):
-                        shield = ":shield:"
-
-                    em = discord.Embed(title=eTitle,url=m.avatar_url.replace('webp','png'),description=eDesc,colour=discord.Colour.orange())
-                    em.set_author(name="{}".format(m.name), url=m.avatar_url.replace('webp','png'), icon_url=m.avatar_url.replace('webp','png'))
-                    em.add_field(name="XP :sparkles:", value='{}'.format(get_xp(m.id)), inline=True)
-                    em.add_field(name="Level :star2:", value='{}'.format(get_level(m.id)), inline=True)
-                    em.add_field(name="Credits :moneybag:", value='{}'.format(get_credits(m.id)), inline=True)
-                    em.add_field(name="Inventory :shopping_bags:", value='- {} {} {} {} {} -'.format(gem, eyeglasses, ribbon, crossed_swords, shield), inline=True)
-                    em.add_field(name="Holds :handbag:", value='{}'.format(get_hold(m.id)), inline=True)
-                    em.set_thumbnail(url=m.avatar_url.replace('webp','png'))
-                    em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
-                    await bot.say(embed=em)
-
+                    await bot.send_message(ctx.message.channel, 'You can\'t check bots\' profile.')
                     return None
-            except KeyError:
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, 'You can\'t check bots\' profile.')
-                return None
 
 @bot.command(pass_context=True)
 async def level(ctx, membername):
@@ -893,42 +947,6 @@ async def on_command_error(error, ctx):
             if (ctx.message.content == 'd!pic'):
                 await bot.send_typing(ctx.message.channel)
                 await bot.send_message(ctx.message.channel, '{} so beautiful! <3'.format(ctx.message.author.avatar_url.replace('webp','png')))
-            elif (ctx.message.content == 'd!profile'):
-                await bot.send_typing(ctx.message.channel)
-
-                gem = ""
-                eyeglasses = ""
-                ribbon = ""
-                crossed_swords = ""
-                shield = ""
-                if (get_item(ctx.message.author.id, ":gem:") == "True"):
-                    gem = ":gem:"
-                if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
-                    eyeglasses = ":eyeglasses:"
-                if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
-                    ribbon = ":ribbon:"
-                if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
-                    crossed_swords = ":crossed_swords:"
-                if (get_item(ctx.message.author.id, ":shield:") == "True"):
-                    shield = ":shield:"
-
-                eTitle = '{} \'s Profile'.format(ctx.message.author.display_name)
-                eDesc = ''
-
-                em = discord.Embed(title=eTitle,url=ctx.message.author.avatar_url.replace('webp','png'),description=eDesc,colour=discord.Colour.orange())
-                em.set_author(name="{}".format(ctx.message.author.name), url=ctx.message.author.avatar_url.replace('webp','png'), icon_url=ctx.message.author.avatar_url.replace('webp','png'))
-                em.add_field(name="XP :sparkles:", value='{}'.format(get_xp(ctx.message.author.id)), inline=True)
-                em.add_field(name="Level :star2:", value='{}'.format(get_level(ctx.message.author.id)), inline=True)
-                em.add_field(name="Credits :moneybag:", value='{}'.format(get_credits(ctx.message.author.id)), inline=True)
-                em.add_field(name="Inventory :shopping_bags:", value='- {} {} {} {} {} -'.format(gem, eyeglasses, ribbon, crossed_swords, shield), inline=True)
-                em.add_field(name="Holds :handbag:", value='{}'.format(get_hold(ctx.message.author.id)), inline=True)
-                em.set_thumbnail(url=ctx.message.author.avatar_url.replace('webp','png'))
-                em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
-                await bot.send_message(ctx.message.channel,embed=em)
-
-            elif (ctx.message.content == 'd!xp'):
-                await bot.send_typing(ctx.message.channel)
-                await bot.send_message(ctx.message.channel, "You have: ** {} XP!**".format(get_xp(ctx.message.author.id)))
             elif (ctx.message.content == 'd!fight'):
                 if (get_hold(ctx.message.author.id) == ":crossed_swords:"):
                     bot_status(ctx.message.author.id,get_level(bot.user.id)*100)
@@ -995,22 +1013,6 @@ async def on_command_error(error, ctx):
             elif (ctx.message.content == 'd!credits'):
                 await bot.send_typing(ctx.message.channel)
                 await bot.send_message(ctx.message.channel, "You have: ** {} credits!**".format(get_credits(ctx.message.author.id)))
-            elif (ctx.message.content == 'd!sonic06'):
-                await bot.send_typing(ctx.message.channel)
-                eTitlee = "d!sonic06 (place) (mission)"
-                eDescc = "Now loading screen."
-
-                emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
-                emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                await bot.send_message(ctx.message.channel, embed=emm)
-            elif (ctx.message.content == 'd!calltest'):
-                await bot.send_typing(ctx.message.channel)
-                eTitlee = "d!calltest (member name)"
-                eDescc = "Call someone."
-
-                emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
-                emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                await bot.send_message(ctx.message.channel, embed=emm)
             elif (ctx.message.content == 'd!shop'):
                 await bot.send_typing(ctx.message.channel)
 
