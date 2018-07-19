@@ -1141,8 +1141,6 @@ async def on_command_error(error, ctx):
         #await bot.send_message(channel, "This command is on cooldown. Try again in {:.2f}s".format(error.retry_after))
         await bot.send_message(channel, "This command is on cooldown of 12 hours.".format(error.retry_after))
 
-bot.run(bot_token)
-
 @bot.event
 async def on_message(message):
     if (message):
@@ -1807,7 +1805,7 @@ async def on_message(message):
         elif ((get_xp(message.author.id) >= 300)&(get_level(message.author.id) != 4)):
             await bot.send_typing(message.channel)
             await bot.send_message(message.channel, 'Congratulations {}! You are now level **4**!'.format(message.author.name))
-
+		
 def user_add_xp(user_id, xp):
     if os.path.isfile('users.json'):
         try:
@@ -2390,3 +2388,5 @@ def get_credits_cooldown(user_id: int):
             return 0
     else:
         return 0
+
+bot.run(bot_token)
