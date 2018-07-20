@@ -725,7 +725,7 @@ async def ttt(ctx, arg1=None):
                         file = repo.get_contents('/ttt.json')
                         repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
         else:
-                    users = {}
+            users = {}
 
             await bot.send_typing(ctx.message.channel)
             users[ctx.message.author.id] = {ctx.message.author.id: {}}
