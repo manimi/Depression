@@ -138,3 +138,7 @@ test  ->   #general
 2018-07-20 11:19:33.470000
 Depression:           This command is on cooldown. Try again in 9. hours.
 
+test  ->   #general
+2018-07-20 11:20:07.014000
+Manimi:           dd!cooldown
+
