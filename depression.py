@@ -1156,15 +1156,16 @@ async def on_typing(channel,user,when):
 async def on_command_error(error, ctx):
     channel = ctx.message.channel
     if isinstance(error, commands.CommandOnCooldown):
-        hours = str(error.retry_after/3600)
-        minutes = str(error.retry_after/60)
-        seconds = str(error.retry_after)
-        if (error.retry_after >= 3600):
-            await bot.send_message(channel, "This command is on cooldown. Try again in {} hours.".format(hours[0:2]))
-        elif ((error.retry_after >= 60)&(error.retry_after < 3600)):
-            await bot.send_message(channel, "This command is on cooldown. Try again in {} minutes.".format(minutes[0:2]))
-        elif (error.retry_after < 60):
-            await bot.send_message(channel, "This command is on cooldown. Try again in {} seconds.".format(seconds[0:2]))
+        #hours = str(error.retry_after/3600)
+        #minutes = str(error.retry_after/60)
+        #seconds = str(error.retry_after)
+        #if (error.retry_after >= 3600):
+        #await bot.send_message(channel, "This command is on cooldown. Try again in {} hours.".format(hours[0:2]))
+        #elif ((error.retry_after >= 60)&(error.retry_after < 3600)):
+        #await bot.send_message(channel, "This command is on cooldown. Try again in {} minutes.".format(minutes[0:2]))
+        #elif (error.retry_after < 60):
+        #await bot.send_message(channel, "This command is on cooldown. Try again in {} seconds.".format(seconds[0:2]))
+        await bot.send_message(channel, "This command is on cooldown. Try again in {}".format(datetime.timedelta(seconds=int(error.retry_after))))
 
 @bot.event
 async def on_message(message):
