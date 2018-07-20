@@ -667,60 +667,232 @@ async def inventory(ctx, membername=None):
                     return None
 
 @bot.command(pass_context=True)
-async def ttt(ctx, arg1):
-    await bot.send_typing(ctx.message.channel)
-    passes = False
-
-    if os.path.isfile('ttt.json'):
-        try:
+async def ttt(ctx, arg1=None):
+    if (arg1 is None):
+        await bot.send_typing(ctx.message.channel)
+        if os.path.isfile('ttt.json'):
             with open('ttt.json', 'r') as fp:
                 users = json.load(fp)
+                        
+                if (users[ctx.message.author.id]['sign'] == "None"):
+                    users[ctx.message.author.id]['left_top'] = "white_small_square"
+                    users[ctx.message.author.id]['middle_top'] = "white_small_square"
+                    users[ctx.message.author.id]['right_top'] = "white_small_square"
+                    users[ctx.message.author.id]['left_middle'] = "white_small_square"
+                    users[ctx.message.author.id]['middle_middle'] = "white_small_square"
+                    users[ctx.message.author.id]['right_middle'] = "white_small_square"
+                    users[ctx.message.author.id]['left_bottom'] = "white_small_square"
+                    users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
+                    users[ctx.message.author.id]['right_bottom'] = "white_small_square"
+                    users[ctx.message.author.id]['left_top_bot'] = "False"
+                    users[ctx.message.author.id]['middle_top_bot'] = "False"
+                    users[ctx.message.author.id]['right_top_bot'] = "False"
+                    users[ctx.message.author.id]['left_middle_bot'] = "False"
+                    users[ctx.message.author.id]['middle_middle_bot'] = "False"
+                    users[ctx.message.author.id]['right_middle_bot'] = "False"
+                    users[ctx.message.author.id]['left_bottom_bot'] = "False"
+                    users[ctx.message.author.id]['middle_bottom_bot'] = "False"
+                    users[ctx.message.author.id]['right_bottom_bot'] = "False"
+                    users[ctx.message.author.id]['done'] = "False"
+                    await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Choose a sign! d!ttt (emoji without ::)```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
+                    with open('ttt.json', 'w') as fp:
+                        json.dump(users, fp, sort_keys=True, indent=4)
+                    with open('ttt.json', 'r') as fp:
+                        g = github.Github(token)
+                        user = g.get_user()
+                        repo = user.get_repo('depression-discord-bot')
+                        file = repo.get_contents('/ttt.json')
+                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+                elif (users[ctx.message.author.id]['sign'] != "None"):
+                    users[ctx.message.author.id]['sign'] = "None"
+                    users[ctx.message.author.id]['left_top'] = "white_small_square"
+                    users[ctx.message.author.id]['middle_top'] = "white_small_square"
+                    users[ctx.message.author.id]['right_top'] = "white_small_square"
+                    users[ctx.message.author.id]['left_middle'] = "white_small_square"
+                    users[ctx.message.author.id]['middle_middle'] = "white_small_square"
+                    users[ctx.message.author.id]['right_middle'] = "white_small_square"
+                    users[ctx.message.author.id]['left_bottom'] = "white_small_square"
+                    users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
+                    users[ctx.message.author.id]['right_bottom'] = "white_small_square"
+                    users[ctx.message.author.id]['done'] = "False"
+                    await bot.send_message(ctx.message.channel,"```Game stopped.```")
+                    with open('ttt.json', 'w') as fp:
+                        json.dump(users, fp, sort_keys=True, indent=4)
+                    with open('ttt.json', 'r') as fp:
+                        g = github.Github(token)
+                        user = g.get_user()
+                        repo = user.get_repo('depression-discord-bot')
+                        file = repo.get_contents('/ttt.json')
+                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+        else:
+                    users = {}
+
+            await bot.send_typing(ctx.message.channel)
+            users[ctx.message.author.id] = {ctx.message.author.id: {}}
+            users[ctx.message.author.id]['sign'] = "None"
+            users[ctx.message.author.id]['left_top'] = "white_small_square"
+            users[ctx.message.author.id]['middle_top'] = "white_small_square"
+            users[ctx.message.author.id]['right_top'] = "white_small_square"
+            users[ctx.message.author.id]['left_middle'] = "white_small_square"
+            users[ctx.message.author.id]['middle_middle'] = "white_small_square"
+            users[ctx.message.author.id]['right_middle'] = "white_small_square"
+            users[ctx.message.author.id]['left_bottom'] = "white_small_square"
+            users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
+            users[ctx.message.author.id]['right_bottom'] = "white_small_square"
+            users[ctx.message.author.id]['done'] = "False"
+            await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Choose a sign! d!ttt (emoji without ::)```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
+            with open('ttt.json', 'w') as fp:
+                json.dump(users, fp, sort_keys=True, indent=4)
+            with open('ttt.json', 'r') as fp:
+                g = github.Github(token)
+                user = g.get_user()
+                repo = user.get_repo('depression-discord-bot')
+                file = repo.get_contents('/ttt.json')
+                repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+    else:
+        await bot.send_typing(ctx.message.channel)
+        passes = False
+
+        if os.path.isfile('ttt.json'):
+            try:
+                with open('ttt.json', 'r') as fp:
+                    users = json.load(fp)
                 
-            if (users[ctx.message.author.id]['sign'] == "None")&(arg1 != "white_small_square"):
-                users[ctx.message.author.id]['sign'] = arg1
-                users[ctx.message.author.id]['left_top'] = "white_small_square"
-                users[ctx.message.author.id]['middle_top'] = "white_small_square"
-                users[ctx.message.author.id]['right_top'] = "white_small_square"
-                users[ctx.message.author.id]['left_middle'] = "white_small_square"
-                users[ctx.message.author.id]['middle_middle'] = "white_small_square"
-                users[ctx.message.author.id]['right_middle'] = "white_small_square"
-                users[ctx.message.author.id]['left_bottom'] = "white_small_square"
-                users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
-                users[ctx.message.author.id]['right_bottom'] = "white_small_square"
-                users[ctx.message.author.id]['left_top_bot'] = "False"
-                users[ctx.message.author.id]['middle_top_bot'] = "False"
-                users[ctx.message.author.id]['right_top_bot'] = "False"
-                users[ctx.message.author.id]['left_middle_bot'] = "False"
-                users[ctx.message.author.id]['middle_middle_bot'] = "False"
-                users[ctx.message.author.id]['right_middle_bot'] = "False"
-                users[ctx.message.author.id]['left_bottom_bot'] = "False"
-                users[ctx.message.author.id]['middle_bottom_bot'] = "False"
-                users[ctx.message.author.id]['right_bottom_bot'] = "False"
-                users[ctx.message.author.id]['done'] = "False"
-                c = await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Game start! Use d!ttt (left/middle/right_top/middle/bottom)\nTo stop/restart the game, use d!ttt```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
-                if (users[ctx.message.author.id]['sign'] == "o"):
-                    users[ctx.message.author.id]['sign_bot'] = "x"
-                    with open('ttt.json', 'w') as fp:
-                        json.dump(users, fp, sort_keys=True, indent=4)
-                    with open('ttt.json', 'r') as fp:
-                        g = github.Github(token)
-                        user = g.get_user()
-                        repo = user.get_repo('depression-discord-bot')
-                        file = repo.get_contents('/ttt.json')
-                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-                elif (users[ctx.message.author.id]['sign'] == "x"):
-                    users[ctx.message.author.id]['sign_bot'] = "o"
-                    with open('ttt.json', 'w') as fp:
-                        json.dump(users, fp, sort_keys=True, indent=4)
-                    with open('ttt.json', 'r') as fp:
-                        g = github.Github(token)
-                        user = g.get_user()
-                        repo = user.get_repo('depression-discord-bot')
-                        file = repo.get_contents('/ttt.json')
-                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-                elif (users[ctx.message.author.id]['sign'] != "x")&(users[ctx.message.author.id]['sign'] != "o"):
+                if (users[ctx.message.author.id]['sign'] == "None")&(arg1 != "white_small_square"):
+                    users[ctx.message.author.id]['sign'] = arg1
+                    users[ctx.message.author.id]['left_top'] = "white_small_square"
+                    users[ctx.message.author.id]['middle_top'] = "white_small_square"
+                    users[ctx.message.author.id]['right_top'] = "white_small_square"
+                    users[ctx.message.author.id]['left_middle'] = "white_small_square"
+                    users[ctx.message.author.id]['middle_middle'] = "white_small_square"
+                    users[ctx.message.author.id]['right_middle'] = "white_small_square"
+                    users[ctx.message.author.id]['left_bottom'] = "white_small_square"
+                    users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
+                    users[ctx.message.author.id]['right_bottom'] = "white_small_square"
+                    users[ctx.message.author.id]['left_top_bot'] = "False"
+                    users[ctx.message.author.id]['middle_top_bot'] = "False"
+                    users[ctx.message.author.id]['right_top_bot'] = "False"
+                    users[ctx.message.author.id]['left_middle_bot'] = "False"
+                    users[ctx.message.author.id]['middle_middle_bot'] = "False"
+                    users[ctx.message.author.id]['right_middle_bot'] = "False"
+                    users[ctx.message.author.id]['left_bottom_bot'] = "False"
+                    users[ctx.message.author.id]['middle_bottom_bot'] = "False"
+                    users[ctx.message.author.id]['right_bottom_bot'] = "False"
+                    users[ctx.message.author.id]['done'] = "False"
+                    c = await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Game start! Use d!ttt (left/middle/right_top/middle/bottom)\nTo stop/restart the game, use d!ttt```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
+                    if (users[ctx.message.author.id]['sign'] == "o"):
+                        users[ctx.message.author.id]['sign_bot'] = "x"
+                        with open('ttt.json', 'w') as fp:
+                            json.dump(users, fp, sort_keys=True, indent=4)
+                        with open('ttt.json', 'r') as fp:
+                            g = github.Github(token)
+                            user = g.get_user()
+                            repo = user.get_repo('depression-discord-bot')
+                            file = repo.get_contents('/ttt.json')
+                            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+                    elif (users[ctx.message.author.id]['sign'] == "x"):
+                        users[ctx.message.author.id]['sign_bot'] = "o"
+                        with open('ttt.json', 'w') as fp:
+                            json.dump(users, fp, sort_keys=True, indent=4)
+                        with open('ttt.json', 'r') as fp:
+                            g = github.Github(token)
+                            user = g.get_user()
+                            repo = user.get_repo('depression-discord-bot')
+                            file = repo.get_contents('/ttt.json')
+                            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+                    elif (users[ctx.message.author.id]['sign'] != "x")&(users[ctx.message.author.id]['sign'] != "o"):
+                        import random
+                        users[ctx.message.author.id]['sign_bot'] = random.choice(["x","o"])
+                        with open('ttt.json', 'w') as fp:
+                            json.dump(users, fp, sort_keys=True, indent=4)
+                        with open('ttt.json', 'r') as fp:
+                            g = github.Github(token)
+                            user = g.get_user()
+                            repo = user.get_repo('depression-discord-bot')
+                            file = repo.get_contents('/ttt.json')
+                            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
                     import random
-                    users[ctx.message.author.id]['sign_bot'] = random.choice(["x","o"])
+                    z = random.choice(["1","2"])
+                    if z == "2":
+                        await bot.send_message(ctx.message.channel,"My turn. Hmm...")
+                        await asyncio.sleep(2)
+                        while (passes is False):
+                            passes = True
+                            import random
+                            y = random.choice(["left_top","middle_top","right_top","left_middle","middle_middle","right_middle","left_bottom","middle_bottom","right_bottom"])
+                            if ((users[ctx.message.author.id][y] != "white_small_square")&(users[ctx.message.author.id]['done'] == "False")):
+                                passes = False
+
+                            elif (((users[ctx.message.author.id][y] != "white_small_square")&(users[ctx.message.author.id]['done'] == "True"))|((users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square")|(users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['middle_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['right_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['right_top'] != "white_small_square")|(users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_middle'] != "white_small_square")|(users[ctx.message.author.id]['left_bottom'] == users[ctx.message.author.id]['middle_bottom'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square"))):
+                                passes = True
+                                users[ctx.message.author.id]['sign'] = "None"
+                                users[ctx.message.author.id]['sign_bot'] = "None"
+                                users[ctx.message.author.id]['left_top'] = "white_small_square"
+                                users[ctx.message.author.id]['middle_top'] = "white_small_square"
+                                users[ctx.message.author.id]['right_top'] = "white_small_square"
+                                users[ctx.message.author.id]['left_middle'] = "white_small_square"
+                                users[ctx.message.author.id]['middle_middle'] = "white_small_square"
+                                users[ctx.message.author.id]['right_middle'] = "white_small_square"
+                                users[ctx.message.author.id]['left_bottom'] = "white_small_square"
+                                users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
+                                users[ctx.message.author.id]['right_bottom'] = "white_small_square"
+                                users[ctx.message.author.id]['done'] = "False"
+                                await bot.send_message(ctx.message.channel,"```Good game!```")
+                                with open('ttt.json', 'w') as fp:
+                                    json.dump(users, fp, sort_keys=True, indent=4)
+                                with open('ttt.json', 'r') as fp:
+                                    g = github.Github(token)
+                                    user = g.get_user()
+                                    repo = user.get_repo('depression-discord-bot')
+                                    file = repo.get_contents('/ttt.json')
+                                    repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+
+                            elif (users[ctx.message.author.id][y] == "white_small_square"):
+                                passes = True
+
+
+                                if ((passes is True)&(users[ctx.message.author.id]['done'] == "False")):
+                                    users[ctx.message.author.id][y] = users[ctx.message.author.id]['sign_bot']
+                                    users[ctx.message.author.id]["{}_bot".format(y)] = "True"
+                                    with open('ttt.json', 'w') as fp:
+                                        json.dump(users, fp, sort_keys=True, indent=4)
+                                    with open('ttt.json', 'r') as fp:
+                                        g = github.Github(token)
+                                        user = g.get_user()
+                                        repo = user.get_repo('depression-discord-bot')
+                                        file = repo.get_contents('/ttt.json')
+                                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+                                        await bot.edit_message(c,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
+                                    
+                                    if (((users[ctx.message.author.id]['left_top'] != "white_small_square")&(users[ctx.message.author.id]['middle_top'] != "white_small_square")&(users[ctx.message.author.id]['right_top'] != "white_small_square")&(users[ctx.message.author.id]['left_middle'] != "white_small_square")&(users[ctx.message.author.id]['middle_middle'] != "white_small_square")&(users[ctx.message.author.id]['right_middle'] != "white_small_square")&(users[ctx.message.author.id]['left_bottom'] != "white_small_square")&(users[ctx.message.author.id]['middle_bottom'] != "white_small_square")&(users[ctx.message.author.id]['right_bottom'] != "white_small_square"))|((users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square")|(users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['middle_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['right_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['right_top'] != "white_small_square")|(users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_middle'] != "white_small_square")|(users[ctx.message.author.id]['left_bottom'] == users[ctx.message.author.id]['middle_bottom'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square"))):
+                                        users[ctx.message.author.id]['sign'] = "None"
+                                        users[ctx.message.author.id]['sign_bot'] = "None"
+                                        users[ctx.message.author.id]['left_top'] = "white_small_square"
+                                        users[ctx.message.author.id]['middle_top'] = "white_small_square"
+                                        users[ctx.message.author.id]['right_top'] = "white_small_square"
+                                        users[ctx.message.author.id]['left_middle'] = "white_small_square"
+                                        users[ctx.message.author.id]['middle_middle'] = "white_small_square"
+                                        users[ctx.message.author.id]['right_middle'] = "white_small_square"
+                                        users[ctx.message.author.id]['left_bottom'] = "white_small_square"
+                                        users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
+                                        users[ctx.message.author.id]['right_bottom'] = "white_small_square"
+                                        users[ctx.message.author.id]['done'] = "False"
+                                        await bot.send_message(ctx.message.channel,"```Good game!```")
+                                        with open('ttt.json', 'w') as fp:
+                                            json.dump(users, fp, sort_keys=True, indent=4)
+                                        with open('ttt.json', 'r') as fp:
+                                            g = github.Github(token)
+                                            user = g.get_user()
+                                            repo = user.get_repo('depression-discord-bot')
+                                            file = repo.get_contents('/ttt.json')
+                                            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+
+                                    elif (users[ctx.message.author.id]['done'] == "False"):
+                                        await asyncio.sleep(1)
+                                        await bot.send_message(ctx.message.channel,"Your turn!\n```Use d!ttt (left/middle/right _ top/middle/bottom)\nTo stop/restart the game, use d!ttt```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
+
+                elif (users[ctx.message.author.id]['sign'] == "None")&(arg1 == "white_small_square"):
+                    await bot.send_message(ctx.message.channel,"**Don't use that emoji.**")
                     with open('ttt.json', 'w') as fp:
                         json.dump(users, fp, sort_keys=True, indent=4)
                     with open('ttt.json', 'r') as fp:
@@ -729,10 +901,46 @@ async def ttt(ctx, arg1):
                         repo = user.get_repo('depression-discord-bot')
                         file = repo.get_contents('/ttt.json')
                         repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-                import random
-                z = random.choice(["1","2"])
-                if z == "2":
-                    await bot.send_message(ctx.message.channel,"My turn. Hmm...")
+                elif ((users[ctx.message.author.id][arg1] != "white_small_square")&(users[ctx.message.author.id]['sign'] != "None")):
+                    await bot.send_message(ctx.message.channel,"You can't choose this spot!")
+                    with open('ttt.json', 'w') as fp:
+                        json.dump(users, fp, sort_keys=True, indent=4)
+                    with open('ttt.json', 'r') as fp:
+                        g = github.Github(token)
+                        user = g.get_user()
+                        repo = user.get_repo('depression-discord-bot')
+                        file = repo.get_contents('/ttt.json')
+                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+                elif ((users[ctx.message.author.id][arg1] == "white_small_square")&(users[ctx.message.author.id]['sign'] != "None")):
+
+                    users[ctx.message.author.id][arg1] = users[ctx.message.author.id]['sign']
+                    users[ctx.message.author.id]["{}_bot".format(arg1)] = "False"
+                    m = await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
+
+                    if (((users[ctx.message.author.id]['left_top'] != "white_small_square")&(users[ctx.message.author.id]['middle_top'] != "white_small_square")&(users[ctx.message.author.id]['right_top'] != "white_small_square")&(users[ctx.message.author.id]['left_middle'] != "white_small_square")&(users[ctx.message.author.id]['middle_middle'] != "white_small_square")&(users[ctx.message.author.id]['right_middle'] != "white_small_square")&(users[ctx.message.author.id]['left_bottom'] != "white_small_square")&(users[ctx.message.author.id]['middle_bottom'] != "white_small_square")&(users[ctx.message.author.id]['right_bottom'] != "white_small_square"))|((users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square")|(users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['middle_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['right_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['right_top'] != "white_small_square")|(users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_middle'] != "white_small_square")|(users[ctx.message.author.id]['left_bottom'] == users[ctx.message.author.id]['middle_bottom'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square"))):
+                        users[ctx.message.author.id]['sign'] = "None"
+                        users[ctx.message.author.id]['sign_bot'] = "None"
+                        users[ctx.message.author.id]['left_top'] = "white_small_square"
+                        users[ctx.message.author.id]['middle_top'] = "white_small_square"
+                        users[ctx.message.author.id]['right_top'] = "white_small_square"
+                        users[ctx.message.author.id]['left_middle'] = "white_small_square"
+                        users[ctx.message.author.id]['middle_middle'] = "white_small_square"
+                        users[ctx.message.author.id]['right_middle'] = "white_small_square"
+                        users[ctx.message.author.id]['left_bottom'] = "white_small_square"
+                        users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
+                        users[ctx.message.author.id]['right_bottom'] = "white_small_square"
+                        users[ctx.message.author.id]['done'] = "False"
+                        await bot.send_message(ctx.message.channel,"```Good game!```")
+                        with open('ttt.json', 'w') as fp:
+                            json.dump(users, fp, sort_keys=True, indent=4)
+                        with open('ttt.json', 'r') as fp:
+                            g = github.Github(token)
+                            user = g.get_user()
+                            repo = user.get_repo('depression-discord-bot')
+                            file = repo.get_contents('/ttt.json')
+                            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+                            return None
+                    await bot.send_message(ctx.message.channel,"Hmm...")
                     await asyncio.sleep(2)
                     while (passes is False):
                         passes = True
@@ -743,8 +951,6 @@ async def ttt(ctx, arg1):
 
                         elif (((users[ctx.message.author.id][y] != "white_small_square")&(users[ctx.message.author.id]['done'] == "True"))|((users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square")|(users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['middle_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['right_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['right_top'] != "white_small_square")|(users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_middle'] != "white_small_square")|(users[ctx.message.author.id]['left_bottom'] == users[ctx.message.author.id]['middle_bottom'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square"))):
                             passes = True
-                            users[ctx.message.author.id]['sign'] = "None"
-                            users[ctx.message.author.id]['sign_bot'] = "None"
                             users[ctx.message.author.id]['left_top'] = "white_small_square"
                             users[ctx.message.author.id]['middle_top'] = "white_small_square"
                             users[ctx.message.author.id]['right_top'] = "white_small_square"
@@ -754,7 +960,6 @@ async def ttt(ctx, arg1):
                             users[ctx.message.author.id]['left_bottom'] = "white_small_square"
                             users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
                             users[ctx.message.author.id]['right_bottom'] = "white_small_square"
-                            users[ctx.message.author.id]['done'] = "False"
                             await bot.send_message(ctx.message.channel,"```Good game!```")
                             with open('ttt.json', 'w') as fp:
                                 json.dump(users, fp, sort_keys=True, indent=4)
@@ -780,195 +985,72 @@ async def ttt(ctx, arg1):
                                     repo = user.get_repo('depression-discord-bot')
                                     file = repo.get_contents('/ttt.json')
                                     repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-                                    await bot.edit_message(c,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
+                                    await bot.edit_message(m,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
                                     
-                                if (((users[ctx.message.author.id]['left_top'] != "white_small_square")&(users[ctx.message.author.id]['middle_top'] != "white_small_square")&(users[ctx.message.author.id]['right_top'] != "white_small_square")&(users[ctx.message.author.id]['left_middle'] != "white_small_square")&(users[ctx.message.author.id]['middle_middle'] != "white_small_square")&(users[ctx.message.author.id]['right_middle'] != "white_small_square")&(users[ctx.message.author.id]['left_bottom'] != "white_small_square")&(users[ctx.message.author.id]['middle_bottom'] != "white_small_square")&(users[ctx.message.author.id]['right_bottom'] != "white_small_square"))|((users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square")|(users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['middle_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['right_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['right_top'] != "white_small_square")|(users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_middle'] != "white_small_square")|(users[ctx.message.author.id]['left_bottom'] == users[ctx.message.author.id]['middle_bottom'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square"))):
-                                    users[ctx.message.author.id]['sign'] = "None"
-                                    users[ctx.message.author.id]['sign_bot'] = "None"
-                                    users[ctx.message.author.id]['left_top'] = "white_small_square"
-                                    users[ctx.message.author.id]['middle_top'] = "white_small_square"
-                                    users[ctx.message.author.id]['right_top'] = "white_small_square"
-                                    users[ctx.message.author.id]['left_middle'] = "white_small_square"
-                                    users[ctx.message.author.id]['middle_middle'] = "white_small_square"
-                                    users[ctx.message.author.id]['right_middle'] = "white_small_square"
-                                    users[ctx.message.author.id]['left_bottom'] = "white_small_square"
-                                    users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
-                                    users[ctx.message.author.id]['right_bottom'] = "white_small_square"
-                                    users[ctx.message.author.id]['done'] = "False"
-                                    await bot.send_message(ctx.message.channel,"```Good game!```")
-                                    with open('ttt.json', 'w') as fp:
-                                        json.dump(users, fp, sort_keys=True, indent=4)
-                                    with open('ttt.json', 'r') as fp:
-                                        g = github.Github(token)
-                                        user = g.get_user()
-                                        repo = user.get_repo('depression-discord-bot')
-                                        file = repo.get_contents('/ttt.json')
-                                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+                                    if (((users[ctx.message.author.id]['left_top'] != "white_small_square")&(users[ctx.message.author.id]['middle_top'] != "white_small_square")&(users[ctx.message.author.id]['right_top'] != "white_small_square")&(users[ctx.message.author.id]['left_middle'] != "white_small_square")&(users[ctx.message.author.id]['middle_middle'] != "white_small_square")&(users[ctx.message.author.id]['right_middle'] != "white_small_square")&(users[ctx.message.author.id]['left_bottom'] != "white_small_square")&(users[ctx.message.author.id]['middle_bottom'] != "white_small_square")&(users[ctx.message.author.id]['right_bottom'] != "white_small_square"))|((users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square")|(users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['middle_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['right_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['right_top'] != "white_small_square")|(users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_middle'] != "white_small_square")|(users[ctx.message.author.id]['left_bottom'] == users[ctx.message.author.id]['middle_bottom'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square"))):
+                                        users[ctx.message.author.id]['sign'] = "None"
+                                        users[ctx.message.author.id]['sign_bot'] = "None"
+                                        users[ctx.message.author.id]['left_top'] = "white_small_square"
+                                        users[ctx.message.author.id]['middle_top'] = "white_small_square"
+                                        users[ctx.message.author.id]['right_top'] = "white_small_square"
+                                        users[ctx.message.author.id]['left_middle'] = "white_small_square"
+                                        users[ctx.message.author.id]['middle_middle'] = "white_small_square"
+                                        users[ctx.message.author.id]['right_middle'] = "white_small_square"
+                                        users[ctx.message.author.id]['left_bottom'] = "white_small_square"
+                                        users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
+                                        users[ctx.message.author.id]['right_bottom'] = "white_small_square"
+                                        users[ctx.message.author.id]['done'] = "False"
+                                        await bot.send_message(ctx.message.channel,"```Good game!```")
+                                        with open('ttt.json', 'w') as fp:
+                                            json.dump(users, fp, sort_keys=True, indent=4)
+                                        with open('ttt.json', 'r') as fp:
+                                            g = github.Github(token)
+                                            user = g.get_user()
+                                            repo = user.get_repo('depression-discord-bot')
+                                            file = repo.get_contents('/ttt.json')
+                                            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
 
-                                elif (users[ctx.message.author.id]['done'] == "False"):
-                                    await asyncio.sleep(1)
-                                    await bot.send_message(ctx.message.channel,"Your turn!\n```Use d!ttt (left/middle/right _ top/middle/bottom)\nTo stop/restart the game, use d!ttt```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
+                                    elif (users[ctx.message.author.id]['done'] == "False"):
+                                        await asyncio.sleep(1)
+                                        await bot.send_message(ctx.message.channel,"Your turn!\n```Use d!ttt (left/middle/right_top/middle/bottom)\nTo stop/restart the game, use d!ttt```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
 
-            elif (users[ctx.message.author.id]['sign'] == "None")&(arg1 == "white_small_square"):
+            except KeyError:
+                await bot.send_message(ctx.message.channel,"Please use d!ttt (left/middle/right_top/middle/bottom) if you've already chosen a sign or if you haven't, use d!ttt ((emoji without ::)).")
+        else:
+            if (arg1 == "white_small_square"):
+                users = {}
+                users[ctx.message.author.id] = {ctx.message.author.id: {}}
+                users[ctx.message.author.id]['sign'] = arg1
+                users[ctx.message.author.id]['left_top'] = "white_small_square"
+                users[ctx.message.author.id]['middle_top'] = "white_small_square"
+                users[ctx.message.author.id]['right_top'] = "white_small_square"
+                users[ctx.message.author.id]['left_middle'] = "white_small_square"
+                users[ctx.message.author.id]['middle_middle'] = "white_small_square"
+                users[ctx.message.author.id]['right_middle'] = "white_small_square"
+                users[ctx.message.author.id]['left_bottom'] = "white_small_square"
+                users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
+                users[ctx.message.author.id]['right_bottom'] = "white_small_square"
+                users[ctx.message.author.id]['left_top_bot'] = "False"
+                users[ctx.message.author.id]['middle_top_bot'] = "False"
+                users[ctx.message.author.id]['right_top_bot'] = "False"
+                users[ctx.message.author.id]['left_middle_bot'] = "False"
+                users[ctx.message.author.id]['middle_middle_bot'] = "False"
+                users[ctx.message.author.id]['right_middle_bot'] = "False"
+                users[ctx.message.author.id]['left_bottom_bot'] = "False"
+                users[ctx.message.author.id]['middle_bottom_bot'] = "False"
+                users[ctx.message.author.id]['right_bottom_bot'] = "False"
+                users[ctx.message.author.id]['done'] = "False"
+                await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Game start! Use d!ttt (left/middle/right_top/middle/bottom)```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
+                with open('ttt.json', 'w') as fp:
+                    json.dump(users, fp, sort_keys=True, indent=4)
+                with open('ttt.json', 'r') as fp:
+                    g = github.Github(token)
+                    user = g.get_user()
+                    repo = user.get_repo('depression-discord-bot')
+                    file = repo.get_contents('/ttt.json')
+                    repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+            elif (arg1 == "white_small_square"):
                 await bot.send_message(ctx.message.channel,"**Don't use that emoji.**")
-                with open('ttt.json', 'w') as fp:
-                    json.dump(users, fp, sort_keys=True, indent=4)
-                with open('ttt.json', 'r') as fp:
-                    g = github.Github(token)
-                    user = g.get_user()
-                    repo = user.get_repo('depression-discord-bot')
-                    file = repo.get_contents('/ttt.json')
-                    repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-            elif ((users[ctx.message.author.id][arg1] != "white_small_square")&(users[ctx.message.author.id]['sign'] != "None")):
-                await bot.send_message(ctx.message.channel,"You can't choose this spot!")
-                with open('ttt.json', 'w') as fp:
-                    json.dump(users, fp, sort_keys=True, indent=4)
-                with open('ttt.json', 'r') as fp:
-                    g = github.Github(token)
-                    user = g.get_user()
-                    repo = user.get_repo('depression-discord-bot')
-                    file = repo.get_contents('/ttt.json')
-                    repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-            elif ((users[ctx.message.author.id][arg1] == "white_small_square")&(users[ctx.message.author.id]['sign'] != "None")):
-
-                users[ctx.message.author.id][arg1] = users[ctx.message.author.id]['sign']
-                users[ctx.message.author.id]["{}_bot".format(arg1)] = "False"
-                m = await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
-
-                if (((users[ctx.message.author.id]['left_top'] != "white_small_square")&(users[ctx.message.author.id]['middle_top'] != "white_small_square")&(users[ctx.message.author.id]['right_top'] != "white_small_square")&(users[ctx.message.author.id]['left_middle'] != "white_small_square")&(users[ctx.message.author.id]['middle_middle'] != "white_small_square")&(users[ctx.message.author.id]['right_middle'] != "white_small_square")&(users[ctx.message.author.id]['left_bottom'] != "white_small_square")&(users[ctx.message.author.id]['middle_bottom'] != "white_small_square")&(users[ctx.message.author.id]['right_bottom'] != "white_small_square"))|((users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square")|(users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['middle_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['right_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['right_top'] != "white_small_square")|(users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_middle'] != "white_small_square")|(users[ctx.message.author.id]['left_bottom'] == users[ctx.message.author.id]['middle_bottom'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square"))):
-                    users[ctx.message.author.id]['sign'] = "None"
-                    users[ctx.message.author.id]['sign_bot'] = "None"
-                    users[ctx.message.author.id]['left_top'] = "white_small_square"
-                    users[ctx.message.author.id]['middle_top'] = "white_small_square"
-                    users[ctx.message.author.id]['right_top'] = "white_small_square"
-                    users[ctx.message.author.id]['left_middle'] = "white_small_square"
-                    users[ctx.message.author.id]['middle_middle'] = "white_small_square"
-                    users[ctx.message.author.id]['right_middle'] = "white_small_square"
-                    users[ctx.message.author.id]['left_bottom'] = "white_small_square"
-                    users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
-                    users[ctx.message.author.id]['right_bottom'] = "white_small_square"
-                    users[ctx.message.author.id]['done'] = "False"
-                    await bot.send_message(ctx.message.channel,"```Good game!```")
-                    with open('ttt.json', 'w') as fp:
-                        json.dump(users, fp, sort_keys=True, indent=4)
-                    with open('ttt.json', 'r') as fp:
-                        g = github.Github(token)
-                        user = g.get_user()
-                        repo = user.get_repo('depression-discord-bot')
-                        file = repo.get_contents('/ttt.json')
-                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-                        return None
-                await bot.send_message(ctx.message.channel,"Hmm...")
-                await asyncio.sleep(2)
-                while (passes is False):
-                    passes = True
-                    import random
-                    y = random.choice(["left_top","middle_top","right_top","left_middle","middle_middle","right_middle","left_bottom","middle_bottom","right_bottom"])
-                    if ((users[ctx.message.author.id][y] != "white_small_square")&(users[ctx.message.author.id]['done'] == "False")):
-                        passes = False
-
-                    elif (((users[ctx.message.author.id][y] != "white_small_square")&(users[ctx.message.author.id]['done'] == "True"))|((users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square")|(users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['middle_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['right_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['right_top'] != "white_small_square")|(users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_middle'] != "white_small_square")|(users[ctx.message.author.id]['left_bottom'] == users[ctx.message.author.id]['middle_bottom'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square"))):
-                        passes = True
-                        users[ctx.message.author.id]['left_top'] = "white_small_square"
-                        users[ctx.message.author.id]['middle_top'] = "white_small_square"
-                        users[ctx.message.author.id]['right_top'] = "white_small_square"
-                        users[ctx.message.author.id]['left_middle'] = "white_small_square"
-                        users[ctx.message.author.id]['middle_middle'] = "white_small_square"
-                        users[ctx.message.author.id]['right_middle'] = "white_small_square"
-                        users[ctx.message.author.id]['left_bottom'] = "white_small_square"
-                        users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
-                        users[ctx.message.author.id]['right_bottom'] = "white_small_square"
-                        await bot.send_message(ctx.message.channel,"```Good game!```")
-                        with open('ttt.json', 'w') as fp:
-                            json.dump(users, fp, sort_keys=True, indent=4)
-                        with open('ttt.json', 'r') as fp:
-                            g = github.Github(token)
-                            user = g.get_user()
-                            repo = user.get_repo('depression-discord-bot')
-                            file = repo.get_contents('/ttt.json')
-                            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-
-                    elif (users[ctx.message.author.id][y] == "white_small_square"):
-                        passes = True
-
-
-                        if ((passes is True)&(users[ctx.message.author.id]['done'] == "False")):
-                            users[ctx.message.author.id][y] = users[ctx.message.author.id]['sign_bot']
-                            users[ctx.message.author.id]["{}_bot".format(y)] = "True"
-                            with open('ttt.json', 'w') as fp:
-                                json.dump(users, fp, sort_keys=True, indent=4)
-                            with open('ttt.json', 'r') as fp:
-                                g = github.Github(token)
-                                user = g.get_user()
-                                repo = user.get_repo('depression-discord-bot')
-                                file = repo.get_contents('/ttt.json')
-                                repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-                                await bot.edit_message(m,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
-                                    
-                                if (((users[ctx.message.author.id]['left_top'] != "white_small_square")&(users[ctx.message.author.id]['middle_top'] != "white_small_square")&(users[ctx.message.author.id]['right_top'] != "white_small_square")&(users[ctx.message.author.id]['left_middle'] != "white_small_square")&(users[ctx.message.author.id]['middle_middle'] != "white_small_square")&(users[ctx.message.author.id]['right_middle'] != "white_small_square")&(users[ctx.message.author.id]['left_bottom'] != "white_small_square")&(users[ctx.message.author.id]['middle_bottom'] != "white_small_square")&(users[ctx.message.author.id]['right_bottom'] != "white_small_square"))|((users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square")|(users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['middle_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['right_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['right_top'] != "white_small_square")|(users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_middle'] != "white_small_square")|(users[ctx.message.author.id]['left_bottom'] == users[ctx.message.author.id]['middle_bottom'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square"))):
-                                    users[ctx.message.author.id]['sign'] = "None"
-                                    users[ctx.message.author.id]['sign_bot'] = "None"
-                                    users[ctx.message.author.id]['left_top'] = "white_small_square"
-                                    users[ctx.message.author.id]['middle_top'] = "white_small_square"
-                                    users[ctx.message.author.id]['right_top'] = "white_small_square"
-                                    users[ctx.message.author.id]['left_middle'] = "white_small_square"
-                                    users[ctx.message.author.id]['middle_middle'] = "white_small_square"
-                                    users[ctx.message.author.id]['right_middle'] = "white_small_square"
-                                    users[ctx.message.author.id]['left_bottom'] = "white_small_square"
-                                    users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
-                                    users[ctx.message.author.id]['right_bottom'] = "white_small_square"
-                                    users[ctx.message.author.id]['done'] = "False"
-                                    await bot.send_message(ctx.message.channel,"```Good game!```")
-                                    with open('ttt.json', 'w') as fp:
-                                        json.dump(users, fp, sort_keys=True, indent=4)
-                                    with open('ttt.json', 'r') as fp:
-                                        g = github.Github(token)
-                                        user = g.get_user()
-                                        repo = user.get_repo('depression-discord-bot')
-                                        file = repo.get_contents('/ttt.json')
-                                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-
-                                elif (users[ctx.message.author.id]['done'] == "False"):
-                                    await asyncio.sleep(1)
-                                    await bot.send_message(ctx.message.channel,"Your turn!\n```Use d!ttt (left/middle/right_top/middle/bottom)\nTo stop/restart the game, use d!ttt```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
-
-        except KeyError:
-            await bot.send_message(ctx.message.channel,"Please use d!ttt (left/middle/right_top/middle/bottom) if you've already chosen a sign or if you haven't, use d!ttt ((emoji without ::)).")
-    else:
-        if (arg1 == "white_small_square"):
-            users = {}
-            users[ctx.message.author.id] = {ctx.message.author.id: {}}
-            users[ctx.message.author.id]['sign'] = arg1
-            users[ctx.message.author.id]['left_top'] = "white_small_square"
-            users[ctx.message.author.id]['middle_top'] = "white_small_square"
-            users[ctx.message.author.id]['right_top'] = "white_small_square"
-            users[ctx.message.author.id]['left_middle'] = "white_small_square"
-            users[ctx.message.author.id]['middle_middle'] = "white_small_square"
-            users[ctx.message.author.id]['right_middle'] = "white_small_square"
-            users[ctx.message.author.id]['left_bottom'] = "white_small_square"
-            users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
-            users[ctx.message.author.id]['right_bottom'] = "white_small_square"
-            users[ctx.message.author.id]['left_top_bot'] = "False"
-            users[ctx.message.author.id]['middle_top_bot'] = "False"
-            users[ctx.message.author.id]['right_top_bot'] = "False"
-            users[ctx.message.author.id]['left_middle_bot'] = "False"
-            users[ctx.message.author.id]['middle_middle_bot'] = "False"
-            users[ctx.message.author.id]['right_middle_bot'] = "False"
-            users[ctx.message.author.id]['left_bottom_bot'] = "False"
-            users[ctx.message.author.id]['middle_bottom_bot'] = "False"
-            users[ctx.message.author.id]['right_bottom_bot'] = "False"
-            users[ctx.message.author.id]['done'] = "False"
-            await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Game start! Use d!ttt (left/middle/right_top/middle/bottom)```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
-            with open('ttt.json', 'w') as fp:
-                json.dump(users, fp, sort_keys=True, indent=4)
-            with open('ttt.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/ttt.json')
-                repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-        elif (arg1 == "white_small_square"):
-            await bot.send_message(ctx.message.channel,"**Don't use that emoji.**")
 
 @bot.command(pass_context=True)
 async def pic(ctx, membername=None):
@@ -1044,110 +1126,7 @@ async def on_typing(channel,user,when):
 @bot.event
 async def on_command_error(error, ctx):
     channel = ctx.message.channel
-    if isinstance(error, commands.MissingRequiredArgument):
-        if (error):
-            if (ctx.message.content == 'd!ttt'):
-                await bot.send_typing(ctx.message.channel)
-                if os.path.isfile('ttt.json'):
-                    with open('ttt.json', 'r') as fp:
-                        users = json.load(fp)
-                        
-                        if (users[ctx.message.author.id]['sign'] == "None"):
-                            users[ctx.message.author.id]['left_top'] = "white_small_square"
-                            users[ctx.message.author.id]['middle_top'] = "white_small_square"
-                            users[ctx.message.author.id]['right_top'] = "white_small_square"
-                            users[ctx.message.author.id]['left_middle'] = "white_small_square"
-                            users[ctx.message.author.id]['middle_middle'] = "white_small_square"
-                            users[ctx.message.author.id]['right_middle'] = "white_small_square"
-                            users[ctx.message.author.id]['left_bottom'] = "white_small_square"
-                            users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
-                            users[ctx.message.author.id]['right_bottom'] = "white_small_square"
-                            users[ctx.message.author.id]['left_top_bot'] = "False"
-                            users[ctx.message.author.id]['middle_top_bot'] = "False"
-                            users[ctx.message.author.id]['right_top_bot'] = "False"
-                            users[ctx.message.author.id]['left_middle_bot'] = "False"
-                            users[ctx.message.author.id]['middle_middle_bot'] = "False"
-                            users[ctx.message.author.id]['right_middle_bot'] = "False"
-                            users[ctx.message.author.id]['left_bottom_bot'] = "False"
-                            users[ctx.message.author.id]['middle_bottom_bot'] = "False"
-                            users[ctx.message.author.id]['right_bottom_bot'] = "False"
-                            users[ctx.message.author.id]['done'] = "False"
-                            await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Choose a sign! d!ttt (emoji without ::)```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
-                            with open('ttt.json', 'w') as fp:
-                                json.dump(users, fp, sort_keys=True, indent=4)
-                            with open('ttt.json', 'r') as fp:
-                                g = github.Github(token)
-                                user = g.get_user()
-                                repo = user.get_repo('depression-discord-bot')
-                                file = repo.get_contents('/ttt.json')
-                                repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-                        elif (users[ctx.message.author.id]['sign'] != "None"):
-                            users[ctx.message.author.id]['sign'] = "None"
-                            users[ctx.message.author.id]['left_top'] = "white_small_square"
-                            users[ctx.message.author.id]['middle_top'] = "white_small_square"
-                            users[ctx.message.author.id]['right_top'] = "white_small_square"
-                            users[ctx.message.author.id]['left_middle'] = "white_small_square"
-                            users[ctx.message.author.id]['middle_middle'] = "white_small_square"
-                            users[ctx.message.author.id]['right_middle'] = "white_small_square"
-                            users[ctx.message.author.id]['left_bottom'] = "white_small_square"
-                            users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
-                            users[ctx.message.author.id]['right_bottom'] = "white_small_square"
-                            users[ctx.message.author.id]['done'] = "False"
-                            await bot.send_message(ctx.message.channel,"```Game stopped.```")
-                            with open('ttt.json', 'w') as fp:
-                                json.dump(users, fp, sort_keys=True, indent=4)
-                            with open('ttt.json', 'r') as fp:
-                                g = github.Github(token)
-                                user = g.get_user()
-                                repo = user.get_repo('depression-discord-bot')
-                                file = repo.get_contents('/ttt.json')
-                                repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-                else:
-                    users = {}
-
-                    await bot.send_typing(ctx.message.channel)
-                    users[ctx.message.author.id] = {ctx.message.author.id: {}}
-                    users[ctx.message.author.id]['sign'] = "None"
-                    users[ctx.message.author.id]['left_top'] = "white_small_square"
-                    users[ctx.message.author.id]['middle_top'] = "white_small_square"
-                    users[ctx.message.author.id]['right_top'] = "white_small_square"
-                    users[ctx.message.author.id]['left_middle'] = "white_small_square"
-                    users[ctx.message.author.id]['middle_middle'] = "white_small_square"
-                    users[ctx.message.author.id]['right_middle'] = "white_small_square"
-                    users[ctx.message.author.id]['left_bottom'] = "white_small_square"
-                    users[ctx.message.author.id]['middle_bottom'] = "white_small_square"
-                    users[ctx.message.author.id]['right_bottom'] = "white_small_square"
-                    users[ctx.message.author.id]['done'] = "False"
-                    await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Choose a sign! d!ttt (emoji without ::)```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
-                    with open('ttt.json', 'w') as fp:
-                        json.dump(users, fp, sort_keys=True, indent=4)
-                    with open('ttt.json', 'r') as fp:
-                        g = github.Github(token)
-                        user = g.get_user()
-                        repo = user.get_repo('depression-discord-bot')
-                        file = repo.get_contents('/ttt.json')
-                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
-    elif isinstance(error, commands.CommandInvokeError):
-        no_dms = "Cannot send messages to this user"
-        is_help_cmd = ctx.command.qualified_name == "help"
-        is_forbidden = isinstance(error.original, discord.Forbidden)
-        if is_help_cmd and is_forbidden and error.original.text == no_dms:
-            msg = ("I couldn't send the help message to you in DM. Either"
-                   " you blocked me or you disabled DMs in this server.")
-            await bot.send_message(channel, msg)
-            return
-
-            message = ("Error in command '{}'. Check your console or "
-                       "logs for details."
-                       "".format(ctx.command.qualified_name))
-            log = ("Exception in command '{}'\n"
-                   "".format(ctx.command.qualified_name))
-            log += "".join(traceback.format_exception(type(error), error,
-                                                      error.__traceback__))
-            bot._last_exception = log
-            await ctx.bot.send_typing(channel)
-            await ctx.bot.send_message(channel, '```Depression - "Your opinion doesn`t count!"\n\nCommands:\n\nd!2.2 - wait for it...\nd!pic (member name) - shows profile picture.\nd!2.2leak - shows a random 2.2 leak out of 55.\nd!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!sonic06 (place) (mission) - now loading screen.\nd!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!calltest (member name) - call someone.\nd!memberlist - unfinished member list.\nd!ttt - tic-tac-toe.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!help - this command...```')
-    elif isinstance(error, commands.CommandOnCooldown):
+    if isinstance(error, commands.CommandOnCooldown):
         #await bot.send_message(channel, "This command is on cooldown. Try again in {:.2f}s".format(error.retry_after))
         await bot.send_message(channel, "This command is on cooldown of 12 hours.".format(error.retry_after))
 
