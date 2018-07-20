@@ -63,6 +63,9 @@ async def my_background_taskk():
     counter = 0
     while not bot.is_closed:
         counter += 1
+        f = open("log.json","w")
+        f.write('hi')
+        f.close()
         g = github.Github(token)
         user = g.get_user()
         repo = user.get_repo('depression-discord-bot')
@@ -130,6 +133,9 @@ async def on_ready():
 @bot.command(pass_context=True)
 async def cleanlog(ctx):
     if (ctx.message.author.id == '224185471826132992'):
+        f = open("log.json","w")
+        f.write('hi')
+        f.close()
         g = github.Github(token)
         user = g.get_user()
         repo = user.get_repo('depression-discord-bot')
