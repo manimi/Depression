@@ -61,7 +61,7 @@ def initialize(bot_class=Bot, formatter_class=Formatter):
 async def my_background_taskk():
     await bot.wait_until_ready()
     counter = 0
-    while not client.is_closed:
+    while not bot.is_closed:
         counter += 1
         with open("log.json","r") as f:
             g = github.Github(token)
@@ -74,7 +74,7 @@ async def my_background_taskk():
 async def my_background_task():
     await bot.wait_until_ready()
     counter = 0
-    while not client.is_closed:
+    while not bot.is_closed:
         counter += 1
         with open('users.json', 'r') as fp:
             g = github.Github(token)
