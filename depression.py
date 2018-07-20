@@ -1165,7 +1165,7 @@ async def on_command_error(error, ctx):
         #await bot.send_message(channel, "This command is on cooldown. Try again in {} minutes.".format(minutes[0:2]))
         #elif (error.retry_after < 60):
         #await bot.send_message(channel, "This command is on cooldown. Try again in {} seconds.".format(seconds[0:2]))
-        await bot.send_message(channel, "This command is on cooldown. Try again in {}".format(datetime.timedelta(seconds=int(error.retry_after))))
+        await bot.send_message(channel, "This command is on cooldown. Try again in {} (hours:minutes:seconds)".format(datetime.timedelta(seconds=int(error.retry_after))))
 
 @bot.event
 async def on_message(message):
