@@ -78,3 +78,7 @@ test  ->   #general
 2018-07-20 08:42:35.699000
 Manimi:           dd!cooldownhours
 
+test  ->   #general
+2018-07-20 08:42:35.768000
+Bot test:           This command is on cooldown. Try again in 1. hours.
+
