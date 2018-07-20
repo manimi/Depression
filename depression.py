@@ -748,12 +748,16 @@ async def hunt(ctx):
             await bot.say("You don't find anything, too bad.".format(credits))
         elif ((credits > 0)&(credits < 10)):
             await bot.say("You look closely and find **{}** credits.".format(credits))
+            user_add_credits(ctx.message.author.id, credits)
         elif ((credits >= 10)&(credits < 20)):
             await bot.say("You patiently look around and find **{}** credits!".format(credits))
+            user_add_credits(ctx.message.author.id, credits)
         elif ((credits >= 20)&(credits < 30)):
             await bot.say("You check every tiny hole and find **{}** credits!".format(credits))
+            user_add_credits(ctx.message.author.id, credits)
         elif (credits == 30):
             await bot.say("Wow! You found **{}** credits!".format(credits))
+            user_add_credits(ctx.message.author.id, credits)
     else:
         await bot.say("You need to hold :eyeglasses: to access.")
 
