@@ -57,6 +57,68 @@ def initialize(bot_class=Bot, formatter_class=Formatter):
 
     import __main__
     __main__.send_cmd_help = bot.send_cmd_help  # Backwards
+	
+async def my_background_taskk():
+    await bot.wait_until_ready()
+    counter = 0
+    while not client.is_closed:
+        counter += 1
+        with open("log.json","r") as f:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/log.json')
+            repo.update_file('/log.json', 'update!', 'hi', file.sha)
+            await asyncio.sleep(86400)
+	
+async def my_background_task():
+    await bot.wait_until_ready()
+    counter = 0
+    while not client.is_closed:
+        counter += 1
+        with open('users.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/users.json')
+            repo.update_file('/users.json', 'update!', fp.read(), file.sha)
+        with open('fight.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/fight.json')
+            repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
+        with open('items.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/items.json')
+            repo.update_file('/items.json', 'update!', fp.read(), file.sha)
+        with open('credits.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/credits.json')
+            repo.update_file('/credits.json', 'update!', fp.read(), file.sha)
+        with open('creditstime.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/creditstime.json')
+            repo.update_file('/creditstime.json', 'update!', fp.read(), file.sha)
+        with open('level.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/level.json')
+            repo.update_file('/level.json', 'update!', fp.read(), file.sha)
+        with open('ttt.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/ttt.json')
+            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+        await asyncio.sleep(43200)
 
 @bot.event
 async def on_ready():
@@ -65,6 +127,65 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
+
+@bot.command(pass_context=True)
+async def cleanlog(ctx):
+    if (ctx.message.author.id == '224185471826132992'):
+        with open("log.json","r") as f:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/log.json')
+            repo.update_file('/log.json', 'update!', 'hi', file.sha)
+            await bot.say("Log has been cleaned!")
+		
+@bot.command(pass_context=True)
+async def savefiles(ctx):
+    if (ctx.message.author.id == '224185471826132992'):
+        await bot.say("Saving now...")
+        with open('users.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/users.json')
+            repo.update_file('/users.json', 'update!', fp.read(), file.sha)
+        with open('fight.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/fight.json')
+            repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
+        with open('items.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/items.json')
+            repo.update_file('/items.json', 'update!', fp.read(), file.sha)
+        with open('credits.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/credits.json')
+            repo.update_file('/credits.json', 'update!', fp.read(), file.sha)
+        with open('creditstime.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/creditstime.json')
+            repo.update_file('/creditstime.json', 'update!', fp.read(), file.sha)
+        with open('level.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/level.json')
+            repo.update_file('/level.json', 'update!', fp.read(), file.sha)
+        with open('ttt.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/ttt.json')
+            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+        await bot.say("Files have been saved!")
 
 @bot.command(pass_context=True)
 async def logout(ctx):
@@ -501,7 +622,7 @@ async def hold(ctx, item=None):
 @bot.command(pass_context=True)
 async def playfile(ctx, file):
     for server in bot.servers:
-        if (server.id == '428609160024948737')&(ctx.message.author.id == '224185471826132992'):
+        if (ctx.message.author.id == '224185471826132992'):
             voice = bot.voice_client_in(server)
             player = voice.create_ffmpeg_player(file)
             player.start()
@@ -697,12 +818,6 @@ async def ttt(ctx, arg1=None):
                     await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Choose a sign! d!ttt (emoji without ::)```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
                     with open('ttt.json', 'w') as fp:
                         json.dump(users, fp, sort_keys=True, indent=4)
-                    with open('ttt.json', 'r') as fp:
-                        g = github.Github(token)
-                        user = g.get_user()
-                        repo = user.get_repo('depression-discord-bot')
-                        file = repo.get_contents('/ttt.json')
-                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
                 elif (users[ctx.message.author.id]['sign'] != "None"):
                     users[ctx.message.author.id]['sign'] = "None"
                     users[ctx.message.author.id]['left_top'] = "white_small_square"
@@ -718,12 +833,6 @@ async def ttt(ctx, arg1=None):
                     await bot.send_message(ctx.message.channel,"```Game stopped.```")
                     with open('ttt.json', 'w') as fp:
                         json.dump(users, fp, sort_keys=True, indent=4)
-                    with open('ttt.json', 'r') as fp:
-                        g = github.Github(token)
-                        user = g.get_user()
-                        repo = user.get_repo('depression-discord-bot')
-                        file = repo.get_contents('/ttt.json')
-                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
         else:
             users = {}
 
@@ -743,12 +852,6 @@ async def ttt(ctx, arg1=None):
             await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Choose a sign! d!ttt (emoji without ::)```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
             with open('ttt.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('ttt.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/ttt.json')
-                repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
     else:
         await bot.send_typing(ctx.message.channel)
         passes = False
@@ -784,33 +887,15 @@ async def ttt(ctx, arg1=None):
                         users[ctx.message.author.id]['sign_bot'] = "x"
                         with open('ttt.json', 'w') as fp:
                             json.dump(users, fp, sort_keys=True, indent=4)
-                        with open('ttt.json', 'r') as fp:
-                            g = github.Github(token)
-                            user = g.get_user()
-                            repo = user.get_repo('depression-discord-bot')
-                            file = repo.get_contents('/ttt.json')
-                            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
                     elif (users[ctx.message.author.id]['sign'] == "x"):
                         users[ctx.message.author.id]['sign_bot'] = "o"
                         with open('ttt.json', 'w') as fp:
                             json.dump(users, fp, sort_keys=True, indent=4)
-                        with open('ttt.json', 'r') as fp:
-                            g = github.Github(token)
-                            user = g.get_user()
-                            repo = user.get_repo('depression-discord-bot')
-                            file = repo.get_contents('/ttt.json')
-                            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
                     elif (users[ctx.message.author.id]['sign'] != "x")&(users[ctx.message.author.id]['sign'] != "o"):
                         import random
                         users[ctx.message.author.id]['sign_bot'] = random.choice(["x","o"])
                         with open('ttt.json', 'w') as fp:
                             json.dump(users, fp, sort_keys=True, indent=4)
-                        with open('ttt.json', 'r') as fp:
-                            g = github.Github(token)
-                            user = g.get_user()
-                            repo = user.get_repo('depression-discord-bot')
-                            file = repo.get_contents('/ttt.json')
-                            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
                     import random
                     z = random.choice(["1","2"])
                     if z == "2":
@@ -840,12 +925,6 @@ async def ttt(ctx, arg1=None):
                                 await bot.send_message(ctx.message.channel,"```Good game!```")
                                 with open('ttt.json', 'w') as fp:
                                     json.dump(users, fp, sort_keys=True, indent=4)
-                                with open('ttt.json', 'r') as fp:
-                                    g = github.Github(token)
-                                    user = g.get_user()
-                                    repo = user.get_repo('depression-discord-bot')
-                                    file = repo.get_contents('/ttt.json')
-                                    repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
 
                             elif (users[ctx.message.author.id][y] == "white_small_square"):
                                 passes = True
@@ -856,12 +935,6 @@ async def ttt(ctx, arg1=None):
                                     users[ctx.message.author.id]["{}_bot".format(y)] = "True"
                                     with open('ttt.json', 'w') as fp:
                                         json.dump(users, fp, sort_keys=True, indent=4)
-                                    with open('ttt.json', 'r') as fp:
-                                        g = github.Github(token)
-                                        user = g.get_user()
-                                        repo = user.get_repo('depression-discord-bot')
-                                        file = repo.get_contents('/ttt.json')
-                                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
                                         await bot.edit_message(c,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
                                     
                                     if (((users[ctx.message.author.id]['left_top'] != "white_small_square")&(users[ctx.message.author.id]['middle_top'] != "white_small_square")&(users[ctx.message.author.id]['right_top'] != "white_small_square")&(users[ctx.message.author.id]['left_middle'] != "white_small_square")&(users[ctx.message.author.id]['middle_middle'] != "white_small_square")&(users[ctx.message.author.id]['right_middle'] != "white_small_square")&(users[ctx.message.author.id]['left_bottom'] != "white_small_square")&(users[ctx.message.author.id]['middle_bottom'] != "white_small_square")&(users[ctx.message.author.id]['right_bottom'] != "white_small_square"))|((users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square")|(users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['middle_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['right_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['right_top'] != "white_small_square")|(users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_middle'] != "white_small_square")|(users[ctx.message.author.id]['left_bottom'] == users[ctx.message.author.id]['middle_bottom'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square"))):
@@ -880,12 +953,6 @@ async def ttt(ctx, arg1=None):
                                         await bot.send_message(ctx.message.channel,"```Good game!```")
                                         with open('ttt.json', 'w') as fp:
                                             json.dump(users, fp, sort_keys=True, indent=4)
-                                        with open('ttt.json', 'r') as fp:
-                                            g = github.Github(token)
-                                            user = g.get_user()
-                                            repo = user.get_repo('depression-discord-bot')
-                                            file = repo.get_contents('/ttt.json')
-                                            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
 
                                     elif (users[ctx.message.author.id]['done'] == "False"):
                                         await asyncio.sleep(1)
@@ -895,22 +962,10 @@ async def ttt(ctx, arg1=None):
                     await bot.send_message(ctx.message.channel,"**Don't use that emoji.**")
                     with open('ttt.json', 'w') as fp:
                         json.dump(users, fp, sort_keys=True, indent=4)
-                    with open('ttt.json', 'r') as fp:
-                        g = github.Github(token)
-                        user = g.get_user()
-                        repo = user.get_repo('depression-discord-bot')
-                        file = repo.get_contents('/ttt.json')
-                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
                 elif ((users[ctx.message.author.id][arg1] != "white_small_square")&(users[ctx.message.author.id]['sign'] != "None")):
                     await bot.send_message(ctx.message.channel,"You can't choose this spot!")
                     with open('ttt.json', 'w') as fp:
                         json.dump(users, fp, sort_keys=True, indent=4)
-                    with open('ttt.json', 'r') as fp:
-                        g = github.Github(token)
-                        user = g.get_user()
-                        repo = user.get_repo('depression-discord-bot')
-                        file = repo.get_contents('/ttt.json')
-                        repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
                 elif ((users[ctx.message.author.id][arg1] == "white_small_square")&(users[ctx.message.author.id]['sign'] != "None")):
 
                     users[ctx.message.author.id][arg1] = users[ctx.message.author.id]['sign']
@@ -933,12 +988,6 @@ async def ttt(ctx, arg1=None):
                         await bot.send_message(ctx.message.channel,"```Good game!```")
                         with open('ttt.json', 'w') as fp:
                             json.dump(users, fp, sort_keys=True, indent=4)
-                        with open('ttt.json', 'r') as fp:
-                            g = github.Github(token)
-                            user = g.get_user()
-                            repo = user.get_repo('depression-discord-bot')
-                            file = repo.get_contents('/ttt.json')
-                            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
                             return None
                     await bot.send_message(ctx.message.channel,"Hmm...")
                     await asyncio.sleep(2)
@@ -963,12 +1012,6 @@ async def ttt(ctx, arg1=None):
                             await bot.send_message(ctx.message.channel,"```Good game!```")
                             with open('ttt.json', 'w') as fp:
                                 json.dump(users, fp, sort_keys=True, indent=4)
-                            with open('ttt.json', 'r') as fp:
-                                g = github.Github(token)
-                                user = g.get_user()
-                                repo = user.get_repo('depression-discord-bot')
-                                file = repo.get_contents('/ttt.json')
-                                repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
 
                         elif (users[ctx.message.author.id][y] == "white_small_square"):
                             passes = True
@@ -979,12 +1022,6 @@ async def ttt(ctx, arg1=None):
                                 users[ctx.message.author.id]["{}_bot".format(y)] = "True"
                                 with open('ttt.json', 'w') as fp:
                                     json.dump(users, fp, sort_keys=True, indent=4)
-                                with open('ttt.json', 'r') as fp:
-                                    g = github.Github(token)
-                                    user = g.get_user()
-                                    repo = user.get_repo('depression-discord-bot')
-                                    file = repo.get_contents('/ttt.json')
-                                    repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
                                     await bot.edit_message(m,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
                                     
                                     if (((users[ctx.message.author.id]['left_top'] != "white_small_square")&(users[ctx.message.author.id]['middle_top'] != "white_small_square")&(users[ctx.message.author.id]['right_top'] != "white_small_square")&(users[ctx.message.author.id]['left_middle'] != "white_small_square")&(users[ctx.message.author.id]['middle_middle'] != "white_small_square")&(users[ctx.message.author.id]['right_middle'] != "white_small_square")&(users[ctx.message.author.id]['left_bottom'] != "white_small_square")&(users[ctx.message.author.id]['middle_bottom'] != "white_small_square")&(users[ctx.message.author.id]['right_bottom'] != "white_small_square"))|((users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square")|(users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['middle_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['right_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_top'] == users[ctx.message.author.id]['right_top'] != "white_small_square")|(users[ctx.message.author.id]['left_middle'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_middle'] != "white_small_square")|(users[ctx.message.author.id]['left_bottom'] == users[ctx.message.author.id]['middle_bottom'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['left_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['right_bottom'] != "white_small_square")|(users[ctx.message.author.id]['right_top'] == users[ctx.message.author.id]['middle_middle'] == users[ctx.message.author.id]['left_bottom'] != "white_small_square"))):
@@ -1003,12 +1040,6 @@ async def ttt(ctx, arg1=None):
                                         await bot.send_message(ctx.message.channel,"```Good game!```")
                                         with open('ttt.json', 'w') as fp:
                                             json.dump(users, fp, sort_keys=True, indent=4)
-                                        with open('ttt.json', 'r') as fp:
-                                            g = github.Github(token)
-                                            user = g.get_user()
-                                            repo = user.get_repo('depression-discord-bot')
-                                            file = repo.get_contents('/ttt.json')
-                                            repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
 
                                     elif (users[ctx.message.author.id]['done'] == "False"):
                                         await asyncio.sleep(1)
@@ -1043,12 +1074,6 @@ async def ttt(ctx, arg1=None):
                 await bot.send_message(ctx.message.channel,":{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n:{}:  :{}:  :{}:\n\n```Game start! Use d!ttt (left/middle/right_top/middle/bottom)```".format(users[ctx.message.author.id]['left_top'],users[ctx.message.author.id]['middle_top'],users[ctx.message.author.id]['right_top'],users[ctx.message.author.id]['left_middle'],users[ctx.message.author.id]['middle_middle'],users[ctx.message.author.id]['right_middle'],users[ctx.message.author.id]['left_bottom'],users[ctx.message.author.id]['middle_bottom'],users[ctx.message.author.id]['right_bottom']))
                 with open('ttt.json', 'w') as fp:
                     json.dump(users, fp, sort_keys=True, indent=4)
-                with open('ttt.json', 'r') as fp:
-                    g = github.Github(token)
-                    user = g.get_user()
-                    repo = user.get_repo('depression-discord-bot')
-                    file = repo.get_contents('/ttt.json')
-                    repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
             elif (arg1 == "white_small_square"):
                 await bot.send_message(ctx.message.channel,"**Don't use that emoji.**")
 
@@ -1807,25 +1832,14 @@ def user_add_xp(user_id, xp):
                 users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
                 with open('users.json', 'w') as fp:
                     json.dump(users, fp, sort_keys=True, indent=4)
-                with open('users.json', 'r') as fp:
-                    g = github.Github(token)
-                    user = g.get_user()
-                    repo = user.get_repo('depression-discord-bot')
-                    file = repo.get_contents('/users.json')
-                    repo.update_file('/users.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('users.json', 'r') as fp:
                 users = json.load(fp)
             users[user_id] = {}
             users[user_id]['xp'] = xp
             users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
-            with open('users.json', 'r+') as fp:
+            with open('users.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/users.json')
-                repo.update_file('/users.json', 'update!', fp.read(), file.sha)
     else:
         users = {}
         users[user_id] = {user_id: {}}
@@ -1833,12 +1847,6 @@ def user_add_xp(user_id, xp):
         users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
         with open('users.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
-        with open('users.json', 'r') as fp:
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/users.json')
-            repo.update_file('/users.json', 'update!', fp.read(), file.sha)
 	
 def user_status(user_id, hp):
     if os.path.isfile('fight.json'):
@@ -1847,36 +1855,21 @@ def user_status(user_id, hp):
                 users = json.load(fp)
 
             users[user_id]['hp'] = hp
-            with open('fight.json', 'r+') as fp:
+            with open('fight.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/fight.json')
-                repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('fight.json', 'r') as fp:
                 users = json.load(fp)
             users[user_id] = {}
             users[user_id]['hp'] = hp
-            with open('fight.json', 'r+') as fp:
+            with open('fight.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/fight.json')
-                repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
     else:
         users = {}
         users[user_id] = {user_id: {}}
         users[user_id]['hp'] = hp
-        with open('fight.json', 'r+') as fp:
+        with open('fight.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/fight.json')
-            repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
 	
 def bot_status(user_id, bothp):
     if os.path.isfile('fight.json'):
@@ -1887,36 +1880,19 @@ def bot_status(user_id, bothp):
             users[user_id]['bothp'] = bothp
             with open('fight.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('fight.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/fight.json')
-                repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('fight.json', 'r') as fp:
                 users = json.load(fp)
             users[user_id] = {}
             users[user_id]['bothp'] = bothp
-            with open('fight.json', 'r+') as fp:
+            with open('fight.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/fight.json')
-                repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
     else:
         users = {}
         users[user_id] = {user_id: {}}
         users[user_id]['bothp'] = bothp
         with open('fight.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
-        with open('fight.json', 'r') as fp:
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/fight.json')
-            repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
 	
 def user_max_status(user_id, hp):
     if os.path.isfile('fight.json'):
@@ -1927,12 +1903,6 @@ def user_max_status(user_id, hp):
             users[user_id]['maxhp'] = hp
             with open('fight.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('fight.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/fight.json')
-                repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('fight.json', 'r') as fp:
                  users = json.load(fp)
@@ -1940,24 +1910,12 @@ def user_max_status(user_id, hp):
             users[user_id]['maxhp'] = hp
             with open('fight.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('fight.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/fight.json')
-                repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
     else:
         users = {}
         users[user_id] = {user_id: {}}
         users[user_id]['maxhp'] = hp
         with open('fight.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
-        with open('fight.json', 'r') as fp:
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/fight.json')
-            repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
 	
 def bot_max_status(user_id, bothp):
     if os.path.isfile('fight.json'):
@@ -1968,12 +1926,6 @@ def bot_max_status(user_id, bothp):
             users[user_id]['maxbothp'] = bothp
             with open('fight.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('fight.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/fight.json')
-                repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('fight.json', 'r') as fp:
                  users = json.load(fp)
@@ -1981,24 +1933,12 @@ def bot_max_status(user_id, bothp):
             users[user_id]['maxbothp'] = bothp
             with open('fight.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('fight.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/fight.json')
-                repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
     else:
         users = {}
         users[user_id] = {user_id: {}}
         users[user_id]['maxbothp'] = bothp
         with open('fight.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
-        with open('fight.json', 'r') as fp:
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/fight.json')
-            repo.update_file('/fight.json', 'update!', fp.read(), file.sha)
 
 def user_add_credits(user_id, credits):
     if os.path.isfile('credits.json'):
@@ -2012,12 +1952,6 @@ def user_add_credits(user_id, credits):
             users[user_id]['time_diff'] = (datetime.datetime.utcnow() - epoch).total_seconds() - users[user_id]['credits_time']
             with open('credits.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('credits.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/credits.json')
-                repo.update_file('/credits.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('credits.json', 'r') as fp:
                 users = json.load(fp)
@@ -2027,12 +1961,6 @@ def user_add_credits(user_id, credits):
             users[user_id]['time_diff'] = (datetime.datetime.utcnow() - epoch).total_seconds() - users[user_id]['credits_time']
             with open('credits.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('credits.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/credits.json')
-                repo.update_file('/credits.json', 'update!', fp.read(), file.sha)
     else:
         users = {}
         users[user_id] = {user_id: {}}
@@ -2041,12 +1969,6 @@ def user_add_credits(user_id, credits):
         users[user_id]['time_diff'] = (datetime.datetime.utcnow() - epoch).total_seconds() - users[user_id]['credits_time']
         with open('credits.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
-        with open('credits.json', 'r') as fp:
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/credits.json')
-            repo.update_file('/credits.json', 'update!', fp.read(), file.sha)
 
 def user_take_credits(user_id, credits):
     if os.path.isfile('credits.json'):
@@ -2060,12 +1982,6 @@ def user_take_credits(user_id, credits):
             users[user_id]['time_diff'] = (datetime.datetime.utcnow() - epoch).total_seconds() - users[user_id]['credits_time']
             with open('credits.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('credits.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/credits.json')
-                repo.update_file('/credits.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('credits.json', 'r') as fp:
                 users = json.load(fp)
@@ -2075,12 +1991,6 @@ def user_take_credits(user_id, credits):
             users[user_id]['time_diff'] = (datetime.datetime.utcnow() - epoch).total_seconds() - users[user_id]['credits_time']
             with open('credits.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('credits.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/credits.json')
-                repo.update_file('/credits.json', 'update!', fp.read(), file.sha)
     else:
         users = {}
         users[user_id] = {user_id: {}}
@@ -2089,12 +1999,6 @@ def user_take_credits(user_id, credits):
         users[user_id]['time_diff'] = (datetime.datetime.utcnow() - epoch).total_seconds() - users[user_id]['credits_time']
         with open('credits.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
-        with open('credits.json', 'r') as fp:
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/credits.json')
-            repo.update_file('/credits.json', 'update!', fp.read(), file.sha)
 
 def user_add_credits_messages(user_id, credits):
     if os.path.isfile('creditstime.json'):
@@ -2108,12 +2012,6 @@ def user_add_credits_messages(user_id, credits):
                 user_add_credits(user_id, credits)
                 with open('creditstime.json', 'w') as fp:
                     json.dump(users, fp, sort_keys=True, indent=4)
-                with open('creditstime.json', 'r') as fp:
-                    g = github.Github(token)
-                    user = g.get_user()
-                    repo = user.get_repo('depression-discord-bot')
-                    file = repo.get_contents('/creditstime.json')
-                    repo.update_file('/creditstime.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('creditstime.json', 'r') as fp:
                 users = json.load(fp)
@@ -2121,24 +2019,12 @@ def user_add_credits_messages(user_id, credits):
             users[user_id]['credits_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
             with open('creditstime.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('creditstime.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/creditstime.json')
-                repo.update_file('/creditstime.json', 'update!', fp.read(), file.sha)
     else:
         users = {}
         users[user_id] = {user_id: {}}
         users[user_id]['credits_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
         with open('creditstime.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
-        with open('creditstime.json', 'r') as fp:
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/creditstime.json')
-            repo.update_file('/creditstime.json', 'update!', fp.read(), file.sha)
 
 def user_level(user_id, level):
     if os.path.isfile('level.json'):
@@ -2148,12 +2034,6 @@ def user_level(user_id, level):
             users[user_id]['level'] = level
             with open('level.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('level.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/level.json')
-                repo.update_file('/level.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('level.json', 'r') as fp:
                 users = json.load(fp)
@@ -2161,24 +2041,12 @@ def user_level(user_id, level):
             users[user_id]['level'] = level
             with open('level.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('level.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/level.json')
-                repo.update_file('/level.json', 'update!', fp.read(), file.sha)
     else:
         users = {}
         users[user_id] = {user_id: {}}
         users[user_id]['level'] = 1
         with open('level.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
-        with open('level.json', 'r') as fp:
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/level.json')
-            repo.update_file('/level.json', 'update!', fp.read(), file.sha)
 
 def user_add_item(user_id, item):
     if os.path.isfile('items.json'):
@@ -2189,12 +2057,6 @@ def user_add_item(user_id, item):
             users[user_id]['hold'] = item 
             with open('items.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('items.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/items.json')
-                repo.update_file('/items.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('items.json', 'r') as fp:
                 users = json.load(fp)
@@ -2203,12 +2065,6 @@ def user_add_item(user_id, item):
             users[user_id]['hold'] = item
             with open('items.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('items.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/items.json')
-                repo.update_file('/items.json', 'update!', fp.read(), file.sha)
     else:
         users = {}
         users[user_id] = {user_id: {}}
@@ -2221,12 +2077,6 @@ def user_add_item(user_id, item):
         users[user_id]['hold'] = item
         with open('items.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
-        with open('items.json', 'r') as fp:
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/items.json')
-            repo.update_file('/items.json', 'update!', fp.read(), file.sha)
 
 def user_hold(user_id, item):
     if os.path.isfile('items.json'):
@@ -2236,12 +2086,6 @@ def user_hold(user_id, item):
             users[user_id]['hold'] = item
             with open('items.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('items.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/items.json')
-                repo.update_file('/items.json', 'update!', fp.read(), file.sha)
         except KeyError:
             with open('items.json', 'r') as fp:
                 users = json.load(fp)
@@ -2249,24 +2093,12 @@ def user_hold(user_id, item):
             users[user_id]['hold'] = item
             with open('items.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
-            with open('items.json', 'r') as fp:
-                g = github.Github(token)
-                user = g.get_user()
-                repo = user.get_repo('depression-discord-bot')
-                file = repo.get_contents('/items.json')
-                repo.update_file('/items.json', 'update!', fp.read(), file.sha)
     else:
         users = {}
         users[user_id] = {user_id: {}}
         users[user_id]['hold'] = item
         with open('items.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
-        with open('items.json', 'r') as fp:
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/items.json')
-            repo.update_file('/items.json', 'update!', fp.read(), file.sha)
 
 def get_xp(user_id: int):
     if os.path.isfile('users.json'):
@@ -2378,4 +2210,6 @@ def get_credits_cooldown(user_id: int):
     else:
         return 0
 
+bot.loop.create_task(my_background_task())
+bot.loop.create_task(my_background_taskk())
 bot.run(bot_token)
