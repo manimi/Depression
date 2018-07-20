@@ -66,3 +66,7 @@ test  ->   #general
 2018-07-20 08:37:45.553000
 Bot test:           This command is on cooldown. Try again in 11 hours.
 
+test  ->   #general
+2018-07-20 08:42:31.574000
+Manimi:           dd!cooldownhours
+
