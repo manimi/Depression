@@ -63,13 +63,12 @@ async def my_background_taskk():
     counter = 0
     while not bot.is_closed:
         counter += 1
-        with open("log.json","r") as f:
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/log.json')
-            repo.update_file('/log.json', 'update!', 'hi', file.sha)
-            await asyncio.sleep(86400)
+        g = github.Github(token)
+        user = g.get_user()
+        repo = user.get_repo('depression-discord-bot')
+        file = repo.get_contents('/log.json')
+        repo.update_file('/log.json', 'update!', 'hi', file.sha)
+        await asyncio.sleep(86400)
 	
 async def my_background_task():
     await bot.wait_until_ready()
@@ -131,18 +130,17 @@ async def on_ready():
 @bot.command(pass_context=True)
 async def cleanlog(ctx):
     if (ctx.message.author.id == '224185471826132992'):
-        with open("log.json","r") as f:
-            g = github.Github(token)
-            user = g.get_user()
-            repo = user.get_repo('depression-discord-bot')
-            file = repo.get_contents('/log.json')
-            repo.update_file('/log.json', 'update!', 'hi', file.sha)
-            await bot.say("Log has been cleaned!")
+        g = github.Github(token)
+        user = g.get_user()
+        repo = user.get_repo('depression-discord-bot')
+        file = repo.get_contents('/log.json')
+        repo.update_file('/log.json', 'update!', 'hi', file.sha)
+        await bot.say("Log has been cleaned!")
 		
 @bot.command(pass_context=True)
 async def savefiles(ctx):
     if (ctx.message.author.id == '224185471826132992'):
-        await bot.say("Saving now...")
+        await bot.say("Saving now... (please wait)")
         with open('users.json', 'r') as fp:
             g = github.Github(token)
             user = g.get_user()
