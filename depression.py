@@ -737,6 +737,25 @@ async def fight(ctx, attack=None):
                     await bot.say(embed=emmm)
         else:
             await bot.say("You need to hold :crossed_swords: to access.")
+	
+@bot.command(pass_context=True)
+@commands.cooldown(1, 60*5, commands.BucketType.user)
+async def hunt(ctx):
+    if (get_hold(ctx.message.author.id) == ":eyeglasses:"):
+        import random
+        credits = random.randint(0,30)
+        if (credits == 0):
+            await bot.say("You don't find anything, too bad.".format(credits))
+        elif ((credits > 0)&(credits < 10)):
+            await bot.say("You look closely and find **{}** credits.".format(credits))
+        elif ((credits >= 10)&(credits < 20)):
+            await bot.say("You patiently look around and find **{}** credits!".format(credits))
+        elif ((credits >= 20)&(credits < 30)):
+            await bot.say("You check every tiny hole and find **{}** credits!".format(credits))
+        elif (credits == 30):
+            await bot.say("Wow! You found **{}** credits!".format(credits))
+    else:
+        await bot.say("You need to hold :eyeglasses: to access.")
 
 @bot.command(pass_context=True)
 async def inventory(ctx, membername=None):
@@ -1192,9 +1211,10 @@ async def on_message(message):
             em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
             em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
             em.add_field(name="Stuff:", value='d!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!hold (item) - choose an item to hold!\nd!top - top 10 list.\nd!inventory (member name) - check your inventory!\nd!holding (member name) - check what the member is holding right now!', inline=False)
-            em.add_field(name="Games:", value='d!ttt - tic-tac-toe.\nd!fight - fight against me! (You need to hold :crossed_swords:)', inline=False)
+            em.add_field(name="Games:", value='d!ttt - tic-tac-toe.', inline=False)
             em.add_field(name="Memes:", value='d!srb22.2leak - shows a random sonic robo blast 2 v2.2 leak out of 55.\nd!sonic06 (place) (mission) - now loading screen.', inline=False)
             em.add_field(name="Testing:", value='d!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!calltest (member name) - call someone.', inline=False)
+            em.add_field(name="Special:", value='d!fight - fight against me! (You need to hold :crossed_swords:)\nd!hunt - look for credits! (You need to hold :eyeglasses:)', inline=False)
             em.add_field(name="Others:", value='d!pic (member name) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.', inline=False)
             em.set_footer(text='Requested by: {}'.format(message.author.name))
             await bot.send_message(message.channel,embed=em)
