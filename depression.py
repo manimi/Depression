@@ -131,6 +131,11 @@ async def on_ready():
     print('------')
 
 @bot.command(pass_context=True)
+async def changegame(ctx, g):
+    if (ctx.message.author.id == '224185471826132992'):
+        await bot.change_presence(game=discord.Game(name=g))
+
+@bot.command(pass_context=True)
 async def cleanlog(ctx):
     if (ctx.message.author.id == '224185471826132992'):
         f = open("log.json","w")
@@ -680,8 +685,21 @@ async def holding(ctx, membername=None):
 async def fight(ctx, attack=None):
     if (attack is None):
         if (get_hold(ctx.message.author.id) == ":crossed_swords:"):
-            bot_status(ctx.message.author.id,get_level(bot.user.id)*100)
-            user_status(ctx.message.author.id,get_level(ctx.message.author.id)*100)
+            eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),get_bot_max_hp(ctx.message.author.id))
+        
+            eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),get_max_hp(ctx.message.author.id))
+
+            em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+            em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+            em.add_field(name='Choose an attack! (hit)', value='"d!fight start" to start!', inline=True)
+            em.set_footer(text='{} vs Depression!'.format(ctx.message.author.name))
+            await bot.send_message(ctx.message.channel,embed=em)
+        else:
+            await bot.send_message(ctx.message.channel,"You need to hold :crossed_swords: to access.")
+    elif (attack == "start"):
+        if (get_hold(ctx.message.author.id) == ":crossed_swords:"):
+            bot_status(ctx.message.author.id,200)
+            user_status(ctx.message.author.id,get_level(ctx.message.author.id)*50)
 		
             bot_max_status(ctx.message.author.id,get_bot_hp(ctx.message.author.id))
             user_max_status(ctx.message.author.id,get_hp(ctx.message.author.id))
@@ -1844,17 +1862,52 @@ async def on_message(message):
             user_level(message.author.id, 2)
         elif ((get_xp(message.author.id) >= 150)&(get_xp(message.author.id) < 300)):
             user_level(message.author.id, 3)
-        elif (get_xp(message.author.id) >= 300):
+        elif ((get_xp(message.author.id) >= 300)&(get_xp(message.author.id) < 500)):
             user_level(message.author.id, 4)
+        elif ((get_xp(message.author.id) >= 500)&(get_xp(message.author.id) < 750)):
+            user_level(message.author.id, 5)
+        elif ((get_xp(message.author.id) >= 750)&(get_xp(message.author.id) < 1050)):
+            user_level(message.author.id, 6)
+        elif ((get_xp(message.author.id) >= 1050)&(get_xp(message.author.id) < 1400)):
+            user_level(message.author.id, 7)
+        elif ((get_xp(message.author.id) >= 1400)&(get_xp(message.author.id) < 1800)):
+            user_level(message.author.id, 8)
+        elif ((get_xp(message.author.id) >= 1800)&(get_xp(message.author.id) < 2250)):
+            user_level(message.author.id, 9)
+        elif ((get_xp(message.author.id) >= 2250)&(get_xp(message.author.id) < 2750)):
+            user_level(message.author.id, 10)
+        elif (get_xp(message.author.id) >= 2750):
+            user_level(message.author.id, 11)
         elif ((get_xp(message.author.id) >= 50)&(get_xp(message.author.id) < 150)&(get_level(message.author.id) != 2)):
             await bot.send_typing(message.channel)
             await bot.send_message(message.channel, 'Congratulations {}! You are now level **2**!'.format(message.author.name))
         elif ((get_xp(message.author.id) >= 150)&(get_xp(message.author.id) < 300)&(get_level(message.author.id) != 3)):
             await bot.send_typing(message.channel)
             await bot.send_message(message.channel, 'Congratulations {}! You are now level **3**!'.format(message.author.name))
-        elif ((get_xp(message.author.id) >= 300)&(get_level(message.author.id) != 4)):
+        elif ((get_xp(message.author.id) >= 300)&(get_xp(message.author.id) < 500)&(get_level(message.author.id) != 4)):
             await bot.send_typing(message.channel)
             await bot.send_message(message.channel, 'Congratulations {}! You are now level **4**!'.format(message.author.name))
+        elif ((get_xp(message.author.id) >= 500)&(get_xp(message.author.id) < 750)&(get_level(message.author.id) != 5)):
+            await bot.send_typing(message.channel)
+            await bot.send_message(message.channel, 'Congratulations {}! You are now level **5**!'.format(message.author.name))
+        elif ((get_xp(message.author.id) >= 750)&(get_xp(message.author.id) < 1050)&(get_level(message.author.id) != 6)):
+            await bot.send_typing(message.channel)
+            await bot.send_message(message.channel, 'Congratulations {}! You are now level **6**!'.format(message.author.name))
+        elif ((get_xp(message.author.id) >= 1050)&(get_xp(message.author.id) < 1400)&(get_level(message.author.id) != 7)):
+            await bot.send_typing(message.channel)
+            await bot.send_message(message.channel, 'Congratulations {}! You are now level **7**!'.format(message.author.name))
+        elif ((get_xp(message.author.id) >= 1400)&(get_xp(message.author.id) < 1800)&(get_level(message.author.id) != 8)):
+            await bot.send_typing(message.channel)
+            await bot.send_message(message.channel, 'Congratulations {}! You are now level **8**!'.format(message.author.name))
+        elif ((get_xp(message.author.id) >= 1800)&(get_xp(message.author.id) < 2250)&(get_level(message.author.id) != 9)):
+            await bot.send_typing(message.channel)
+            await bot.send_message(message.channel, 'Congratulations {}! You are now level **9**!'.format(message.author.name))
+        elif ((get_xp(message.author.id) >= 2250)&(get_xp(message.author.id) < 2750)&(get_level(message.author.id) != 10)):
+            await bot.send_typing(message.channel)
+            await bot.send_message(message.channel, 'Congratulations {}! You are now level **10**!'.format(message.author.name))
+        elif ((get_xp(message.author.id) >= 2750)&(get_level(message.author.id) != 11)):
+            await bot.send_typing(message.channel)
+            await bot.send_message(message.channel, 'Congratulations {}! You are now level **11**!'.format(message.author.name))
 		
 def user_add_xp(user_id, xp):
     if os.path.isfile('users.json'):
@@ -2198,9 +2251,9 @@ def get_bot_hp(user_id: int):
         if user_id in users:
             return users[user_id]['bothp']
         else:
-            return 1
+            return 200
     else:
-        return 1
+        return 200
 
 def get_max_hp(user_id: int):
     if os.path.isfile('fight.json'):
@@ -2220,9 +2273,9 @@ def get_bot_max_hp(user_id: int):
         if user_id in users:
             return users[user_id]['maxbothp']
         else:
-            return 1
+            return 200
     else:
-        return 1
+        return 200
 
 def get_credits(user_id: int):
     if os.path.isfile('credits.json'):
