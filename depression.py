@@ -1239,7 +1239,7 @@ async def on_message(message):
             em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
             em.add_field(name="Stuff:", value='d!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!hold (item) - choose an item to hold!\nd!top - top 10 list.\nd!inventory (member name) - check your inventory!\nd!holding (member name) - check what the member is holding right now!', inline=False)
             em.add_field(name="Games:", value='d!ttt - tic-tac-toe.', inline=False)
-            em.add_field(name="Memes:", value='d!srb22.2leak - shows a random sonic robo blast 2 v2.2 leak out of 55.\nd!sonic06 (place) (mission) - now loading screen.', inline=False)
+            em.add_field(name="Memes:", value='d!2.2 - shows a random sonic robo blast 2 v2.2 leak out of 55.\nd!sonic06 (place) (mission) - now loading screen.', inline=False)
             em.add_field(name="Testing:", value='d!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!calltest (member name) - call someone.', inline=False)
             em.add_field(name="Special:", value='d!fight - fight against me! (You need to hold :crossed_swords:)\nd!hunt - look for credits! (You need to hold :eyeglasses:)', inline=False)
             em.add_field(name="Others:", value='d!pic (member name) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.', inline=False)
@@ -1704,31 +1704,7 @@ async def on_message(message):
             await bot.send_message(message.channel, "i cant")
             await bot.send_typing(message.channel)
             await bot.send_message(message.channel, "lol")
-        elif (('l' in message.content)|('i' in message.content)|('g' in message.content)|('a' in message.content)|('b' in message.content)|('k' in message.content)|('w' in message.content))&(('<@458687615785369600>' in message.content)|('depression' in message.content)):
-            await bot.send_typing(message.channel)
-            import random
-            y = random.randint(1,11)
-            if (y == 1):
-                await bot.send_message(message.channel, "I don't get it.")
-            elif (y == 2):
-                await bot.send_message(message.channel, "Nothing special.")
-            elif (y == 3):
-                await bot.send_message(message.channel, "What the fuck")
-            elif (y == 4):
-                await bot.send_message(message.channel, "Maybe you're right.")
-            elif (y == 5):
-                await bot.send_message(message.channel, "probably...")
-            elif (y == 6):
-                await bot.send_message(message.channel, "Not really.")
-            elif (y == 7):
-                await bot.send_message(message.channel, "Weird.")
-            elif (y == 8):
-                await bot.send_message(message.channel, "uhhhhh")
-            elif (y == 9):
-                await bot.send_message(message.channel, "really?")
-            elif (y == 10):
-                return
-        elif (message.content == "d!srb22.2leak"):
+        elif (message.content == "d!2.2"):
             await bot.send_typing(message.channel)
             string = "here's your random 2.2 leak:"
             urlname = "2.2.png"
@@ -1837,83 +1813,239 @@ async def on_message(message):
 
                 await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 18):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://wiki.srb2.org/w/images/thumb/1/16/DSZ-22-2.png/800px-DSZ-22-2.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://wiki.srb2.org/w/images/thumb/1/16/DSZ-22-2.png/800px-DSZ-22-2.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 19):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://wiki.srb2.org/w/images/thumb/5/58/CEZ1-22.png/800px-CEZ1-22.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://wiki.srb2.org/w/images/thumb/5/58/CEZ1-22.png/800px-CEZ1-22.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 20):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://wiki.srb2.org/w/images/thumb/8/8b/CEZ2-22.png/800px-CEZ2-22.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://wiki.srb2.org/w/images/thumb/8/8b/CEZ2-22.png/800px-CEZ2-22.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 21):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://wiki.srb2.org/w/images/thumb/6/62/ACZ2-22-1.png/800px-ACZ2-22-1.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://wiki.srb2.org/w/images/thumb/6/62/ACZ2-22-1.png/800px-ACZ2-22-1.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 22):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://wiki.srb2.org/w/images/thumb/5/5e/ACZ2-22-2.png/800px-ACZ2-22-2.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://wiki.srb2.org/w/images/thumb/5/5e/ACZ2-22-2.png/800px-ACZ2-22-2.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 23):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://wiki.srb2.org/w/images/thumb/1/16/ACZ2-22-3.png/800px-ACZ2-22-3.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://wiki.srb2.org/w/images/thumb/1/16/ACZ2-22-3.png/800px-ACZ2-22-3.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 24):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://wiki.srb2.org/w/images/thumb/5/5d/ERZ2-22.png/800px-ERZ2-22.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://wiki.srb2.org/w/images/thumb/5/5d/ERZ2-22.png/800px-ERZ2-22.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 25):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://wiki.srb2.org/w/images/thumb/d/d8/FHZ-22.png/800px-FHZ-22.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://wiki.srb2.org/w/images/thumb/d/d8/FHZ-22.png/800px-FHZ-22.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 26):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://www.srb2.org/wp-content/uploads/nov17a.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://www.srb2.org/wp-content/uploads/nov17a.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 27):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://www.srb2.org/wp-content/uploads/nov17b.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://www.srb2.org/wp-content/uploads/nov17b.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 28):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://www.srb2.org/wp-content/uploads/nov17c.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://www.srb2.org/wp-content/uploads/nov17c.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 29):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://www.srb2.org/wp-content/uploads/nov17d.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://www.srb2.org/wp-content/uploads/nov17d.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 30):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://www.srb2.org/wp-content/uploads/nov17e.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://www.srb2.org/wp-content/uploads/nov17e.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 31):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://www.srb2.org/wp-content/uploads/nov17f.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://www.srb2.org/wp-content/uploads/nov17f.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 32):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://www.srb2.org/wp-content/uploads/nov17g.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://www.srb2.org/wp-content/uploads/nov17g.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 33):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://www.srb2.org/wp-content/uploads/nov17h.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://www.srb2.org/wp-content/uploads/nov17h.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 34):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://cdn.discordapp.com/attachments/357946480063021056/450014007529832458/srb20067.gif")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://cdn.discordapp.com/attachments/357946480063021056/450014007529832458/srb20067.gif') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 35):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: http://oi64.tinypic.com/w98o5i.jpg")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('http://oi64.tinypic.com/w98o5i.jpg') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 36):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: http://mystic.srb2.org/images/srb2/nov17c1.gif")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('http://mystic.srb2.org/images/srb2/nov17c1.gif') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 37):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://i.imgur.com/0TUs516.gif")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://i.imgur.com/0TUs516.gif') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 38):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://i.imgur.com/CVwFYPz.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://i.imgur.com/CVwFYPz.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 39):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://i.imgur.com/OuuhdEm.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://i.imgur.com/OuuhdEm.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 40):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://i.imgur.com/jXVqF7L.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://i.imgur.com/jXVqF7L.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 41):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://cdn.discordapp.com/attachments/357946480063021056/450015275216273418/srb20131.gif")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://cdn.discordapp.com/attachments/357946480063021056/450015275216273418/srb20131.gif') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 42):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: http://mystic.srb2.org/images/srb2/gfz2.gif")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('http://mystic.srb2.org/images/srb2/gfz2.gif') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 43):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://zippy.gfycat.com/MaleBaggyBlackfish.gif")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://zippy.gfycat.com/MaleBaggyBlackfish.gif') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 44):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://img.fireden.net/v/image/1453/74/1453745054583.gif")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://img.fireden.net/v/image/1453/74/1453745054583.gif') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 45):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://giant.gfycat.com/RealisticPaltryGuillemot.gif")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://giant.gfycat.com/RealisticPaltryGuillemot.gif') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 46):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://www.srb2.org/wp-content/uploads/feb16a.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://www.srb2.org/wp-content/uploads/feb16a.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 47):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://zippy.gfycat.com/GrandGrimBuffalo.webm")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://zippy.gfycat.com/GrandGrimBuffalo.webm') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 48):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://fat.gfycat.com/DopeyLimpingDog.webm")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://zippy.gfycat.com/GrandGrimBuffalo.webm') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 49):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://zippy.gfycat.com/GraveGlassEwe.webm")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://zippy.gfycat.com/GraveGlassEwe.webm') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 50):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://zippy.gfycat.com/EsteemedPleasedDuck.webm")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://zippy.gfycat.com/EsteemedPleasedDuck.webm') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 51):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://fat.gfycat.com/WarpedInfantileHapuku.webm")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://fat.gfycat.com/WarpedInfantileHapuku.webm') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 52):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://www.srb2.org/wp-content/uploads/feb16c.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://www.srb2.org/wp-content/uploads/feb16c.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 53):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://www.srb2.org/wp-content/uploads/feb16d.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://www.srb2.org/wp-content/uploads/feb16d.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 54):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://cdn.discordapp.com/attachments/357946480063021056/436189628836347904/srb20367.png")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://cdn.discordapp.com/attachments/357946480063021056/436189628836347904/srb20367.png') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 55):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://imgur.com/qXM5mp4")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://imgur.com/qXM5mp4') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 56):
-                await bot.send_message(message.channel, "here's your random 2.2 leak: https://cdn.discordapp.com/attachments/357945601855586304/470710022859653130/srb20190.gif")
+                async with aiohttp.ClientSession() as session:
+                    async with session.get('https://cdn.discordapp.com/attachments/357945601855586304/470710022859653130/srb20190.gif') as resp:
+                        buffer = BytesIO(await resp.read())
+
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 57):
                 return
 
