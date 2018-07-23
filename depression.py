@@ -1851,39 +1851,6 @@ async def on_message(message):
             await bot.send_typing(message.channel)
             await bot.send_message(message.channel, "lol")
             return None
-        elif (('a' in message.content)|('i' in message.content)|('h' in message.content)|('b' in message.content)|('c' in message.content)|('e' in message.content)|('f' in message.content)|('k' in message.content)|('L' in message.content)|('l' in message.content)|('o' in message.content)|('t' in message.content)&(('<@458687615785369600>' in message.content)|('depression' in message.content))&(message.author != bot.user)):
-            await bot.send_typing(message.channel)
-            import random
-            y = random.randint(1,11)
-            if (y == 1):
-                await bot.send_message(message.channel, "Of course!")
-                return None
-            elif (y == 2):
-                await bot.send_message(message.channel, "Yeah!")
-                return None
-            elif (y == 3):
-                await bot.send_message(message.channel, "What the fuck")
-                return None
-            elif (y == 4):
-                await bot.send_message(message.channel, "n-no!")
-                return None
-            elif (y == 5):
-                await bot.send_message(message.channel, "probably...")
-                return None
-            elif (y == 6):
-                await bot.send_message(message.channel, "Not really.")
-                return None
-            elif (y == 7):
-                await bot.send_message(message.channel, "stop")
-                return None
-            elif (y == 8):
-                await bot.send_message(message.channel, "uhhhhh")
-                return None
-            elif (y == 9):
-                await bot.send_message(message.channel, ".")
-                return None
-            elif (y == 10):
-                return None
         elif (message.content == "d!2.2"):
             await bot.send_typing(message.channel)
             string = "here's your random 2.2 leak:"
