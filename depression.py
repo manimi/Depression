@@ -1739,7 +1739,7 @@ async def on_message(message):
                     async with session.get('https://www.srb2.org/wp-content/uploads/gfza.png') as resp:
                         buffer = BytesIO(await resp.read())
 
-                await bot.send_file(.message.channel, fp=buffer, filename=urlname, content=string)
+                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
             elif (y == 2):
                 async with aiohttp.ClientSession() as session:
                     async with session.get('https://www.srb2.org/wp-content/uploads/gfzb.png') as resp:
