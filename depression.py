@@ -1730,7 +1730,7 @@ async def on_message(message):
                 return
         elif (message.content == "d!srb22.2leak"):
             await bot.send_typing(message.channel)
-	    string = "here's your random 2.2 leak"
+            string = "here's your random 2.2 leak:"
             urlname = "2.2.png"
             import random
             y = random.randint(1,56)
