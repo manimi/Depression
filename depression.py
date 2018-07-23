@@ -1704,7 +1704,7 @@ async def on_message(message):
             await bot.send_message(message.channel, "i cant")
             await bot.send_typing(message.channel)
             await bot.send_message(message.channel, "lol")
-        elif ('a' in message.content)|('i' in message.content)|('h' in message.content)|('b' in message.content)|('c' in message.content)|('e' in message.content)|('f' in message.content)|('k' in message.content)|('L' in message.content)|('l' in message.content)|('o' in message.content)|('t' in message.content)&(('<@458687615785369600>' in message.content)|('depression' in message.content)):
+        elif (('a' in message.content)|('i' in message.content)|('h' in message.content)|('b' in message.content)|('c' in message.content)|('e' in message.content)|('f' in message.content)|('k' in message.content)|('L' in message.content)|('l' in message.content)|('o' in message.content)|('t' in message.content)&(('<@458687615785369600>' in message.content)|('depression' in message.content))&(message.author != bot.user)):
             await bot.send_typing(message.channel)
             import random
             y = random.randint(1,11)
