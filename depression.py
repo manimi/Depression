@@ -2229,6 +2229,40 @@ async def on_message(message):
                 await bot.send_file(message.channel, fp=buffer, filename=urlnamee, content=string)
             elif (y == 57):
                 return
+	
+        if ((message.author.id == 365975655608745985)&('wild' in message.content)&('appeared!' in message.content)):
+            await bot.send_typing(message.channel)
+            import random
+            y = random.randint(1,11)
+            if (y == 1):
+                await bot.send_message(message.channel, "pls")
+                return None
+            elif (y == 2):
+                await bot.send_message(message.channel, "oh")
+                return None
+            elif (y == 3):
+                await bot.send_message(message.channel, "f")
+                return None
+            elif (y == 4):
+                await bot.send_message(message.channel, "um")
+                return None
+            elif (y == 5):
+                await bot.send_message(message.channel, "boi")
+                return None
+            elif (y == 6):
+                await bot.send_message(message.channel, "nice")
+                return None
+            elif (y == 7):
+                await bot.send_message(message.channel, "Pokémon!")
+                return None
+            elif (y == 8):
+                await bot.send_message(message.channel, "k")
+                return None
+            elif (y == 9):
+                await bot.send_message(message.channel, "wha-")
+                return None
+            elif (y == 10):
+                return None
 
         with open("log.json","a") as f:
             print('{}  ->   #{}'.format(message.server.name,message.channel.name),file=f)
