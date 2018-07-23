@@ -1708,7 +1708,7 @@ async def on_message(message):
             await bot.send_typing(message.channel)
             string = "here's your random 2.2 leak:"
             urlname = "2.2.png"
-            urlnamee = "2.2.gif"
+            urlnamee = "2.2.png"
             import random
             y = random.randint(1,56)
             if (y == 1):
