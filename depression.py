@@ -1708,6 +1708,7 @@ async def on_message(message):
             await bot.send_typing(message.channel)
             string = "here's your random 2.2 leak:"
             urlname = "2.2.png"
+            urlnamee = "2.2.gif"
             import random
             y = random.randint(1,56)
             if (y == 1):
@@ -1913,7 +1914,7 @@ async def on_message(message):
                     async with session.get('https://cdn.discordapp.com/attachments/357946480063021056/450014007529832458/srb20067.gif') as resp:
                         buffer = BytesIO(await resp.read())
 
-                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
+                await bot.send_file(message.channel, fp=buffer, filename=urlnamee, content=string)
             elif (y == 35):
                 async with aiohttp.ClientSession() as session:
                     async with session.get('http://oi64.tinypic.com/w98o5i.jpg') as resp:
@@ -1925,13 +1926,13 @@ async def on_message(message):
                     async with session.get('http://mystic.srb2.org/images/srb2/nov17c1.gif') as resp:
                         buffer = BytesIO(await resp.read())
 
-                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
+                await bot.send_file(message.channel, fp=buffer, filename=urlnamee, content=string)
             elif (y == 37):
                 async with aiohttp.ClientSession() as session:
                     async with session.get('https://i.imgur.com/0TUs516.gif') as resp:
                         buffer = BytesIO(await resp.read())
 
-                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
+                await bot.send_file(message.channel, fp=buffer, filename=urlnamee, content=string)
             elif (y == 38):
                 async with aiohttp.ClientSession() as session:
                     async with session.get('https://i.imgur.com/CVwFYPz.png') as resp:
@@ -1955,31 +1956,31 @@ async def on_message(message):
                     async with session.get('https://cdn.discordapp.com/attachments/357946480063021056/450015275216273418/srb20131.gif') as resp:
                         buffer = BytesIO(await resp.read())
 
-                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
+                await bot.send_file(message.channel, fp=buffer, filename=urlnamee, content=string)
             elif (y == 42):
                 async with aiohttp.ClientSession() as session:
                     async with session.get('http://mystic.srb2.org/images/srb2/gfz2.gif') as resp:
                         buffer = BytesIO(await resp.read())
 
-                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
+                await bot.send_file(message.channel, fp=buffer, filename=urlnamee, content=string)
             elif (y == 43):
                 async with aiohttp.ClientSession() as session:
                     async with session.get('https://zippy.gfycat.com/MaleBaggyBlackfish.gif') as resp:
                         buffer = BytesIO(await resp.read())
 
-                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
+                await bot.send_file(message.channel, fp=buffer, filename=urlnamee, content=string)
             elif (y == 44):
                 async with aiohttp.ClientSession() as session:
                     async with session.get('https://img.fireden.net/v/image/1453/74/1453745054583.gif') as resp:
                         buffer = BytesIO(await resp.read())
 
-                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
+                await bot.send_file(message.channel, fp=buffer, filename=urlnamee, content=string)
             elif (y == 45):
                 async with aiohttp.ClientSession() as session:
                     async with session.get('https://giant.gfycat.com/RealisticPaltryGuillemot.gif') as resp:
                         buffer = BytesIO(await resp.read())
 
-                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
+                await bot.send_file(message.channel, fp=buffer, filename=urlnamee, content=string)
             elif (y == 46):
                 async with aiohttp.ClientSession() as session:
                     async with session.get('https://www.srb2.org/wp-content/uploads/feb16a.png') as resp:
@@ -2039,13 +2040,13 @@ async def on_message(message):
                     async with session.get('https://imgur.com/qXM5mp4') as resp:
                         buffer = BytesIO(await resp.read())
 
-                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
+                await bot.send_file(message.channel, fp=buffer, filename=urlnamee, content=string)
             elif (y == 56):
                 async with aiohttp.ClientSession() as session:
                     async with session.get('https://cdn.discordapp.com/attachments/357945601855586304/470710022859653130/srb20190.gif') as resp:
                         buffer = BytesIO(await resp.read())
 
-                await bot.send_file(message.channel, fp=buffer, filename=urlname, content=string)
+                await bot.send_file(message.channel, fp=buffer, filename=urlnamee, content=string)
             elif (y == 57):
                 return
 
