@@ -15,6 +15,7 @@ import requests
 import github
 import aiohttp
 from io import BytesIO
+from PIL import Image, ImageDraw
 from oauth2client.service_account import ServiceAccountCredentials
 
 bot_token = os.environ['BOT_TOKEN']
@@ -1189,6 +1190,21 @@ async def daily(ctx, membername=None):
                     await bot.send_typing(ctx.message.channel)
                     await bot.send_message(ctx.message.channel, 'Error...')
                     return None
+	
+@bot.command(pass_context=True)
+async def imagetest(ctx):
+    width = random.randint(1, 500)
+    height = random.randint(1,500)
+    red = random.randint(1, 255)
+    blue = random.randint(1, 255)
+    green = random.randint(1, 255)
+
+    size = str(width) + ", " + str(height)
+    colour = str(red) + ", " + str(green) + ", " + str(blue)
+
+    img = Image.new('RGB', (width, height), (red, green, blue))
+    img.save("pic.png", "PNG")
+    await bot.send_file(ctx.message.channel, "pic.png")
 
 @bot.event
 async def on_typing(channel,user,when):
@@ -1240,7 +1256,7 @@ async def on_message(message):
             em.add_field(name="Stuff:", value='d!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!hold (item) - choose an item to hold!\nd!top - top 10 list.\nd!inventory (member name) - check your inventory!\nd!holding (member name) - check what the member is holding right now!', inline=False)
             em.add_field(name="Games:", value='d!ttt - tic-tac-toe.', inline=False)
             em.add_field(name="Memes:", value='d!2.2 - shows a random sonic robo blast 2 v2.2 leak out of 56.\nd!sonic06 (place) (mission) - now loading screen.', inline=False)
-            em.add_field(name="Testing:", value='d!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!calltest (member name) - call someone.', inline=False)
+            em.add_field(name="Testing:", value='d!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!calltest (member name) - call someone.\nd!imagetest - random colored image.', inline=False)
             em.add_field(name="Special:", value='d!fight - fight against me! (You need to hold :crossed_swords:)\nd!hunt - look for credits! (You need to hold :eyeglasses:)', inline=False)
             em.add_field(name="Others:", value='d!pic (member name) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.', inline=False)
             em.set_footer(text='Requested by: {}'.format(message.author.name))
