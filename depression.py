@@ -735,30 +735,69 @@ async def fight(ctx, attack=None):
                 chance = random.randint(1,11)
                 await asyncio.sleep(2)
                 if (chance == 10):
-                    eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),maxhealthbot)
+                    eTitle = 'You missed! Too bad!'
         
-                    eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),maxhealthuser)
+                    eDesc = ''
 
-                    emm = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
-                    emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                    emm.add_field(name="You missed! Too bad!", value='Choose an attack! hit (more coming soon)', inline=True)
-                    emm.set_footer(text='{} vs Depression!'.format(ctx.message.author.name))
-                    await bot.say(embed=emm)
+                    em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+                    await bot.say(embed=em)
+                    await asyncio.sleep(1)
                 else:
                     import random
                     damage = random.randint(10,30)
 		
                     bot_status(ctx.message.author.id,get_bot_hp(ctx.message.author.id)-damage)
 
-                    eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),get_bot_max_hp(ctx.message.author.id))
+                    eTitle = '{} damage!'.format(damage)
         
-                    eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),get_max_hp(ctx.message.author.id))
+                    eDesc = ''
 
-                    emmm = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
-                    emmm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-                    emmm.add_field(name="{} damage!".format(damage), value='Choose an attack! hit (more coming soon)', inline=True)
-                    emmm.set_footer(text='{} vs Depression!'.format(ctx.message.author.name))
-                    await bot.say(embed=emmm)
+                    em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+                    await bot.say(embed=em)
+                    await asyncio.sleep(1)
+                eTitle = 'Depression used hit!'
+        
+                eDesc = ''
+
+                em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+                await bot.say(embed=em)
+	
+                import random
+                chance = random.randint(1,11)
+                await asyncio.sleep(2)
+                if (chance == 10):
+                    eTitle = 'Depression missed!'
+        
+                    eDesc = ''
+
+                    em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+                    await bot.say(embed=em)
+                    await asyncio.sleep(1)
+                else:
+                    import random
+                    damage = random.randint(10,30)
+		
+                    user_status(ctx.message.author.id,get_hp(ctx.message.author.id)-damage)
+
+                    eTitle = '{} damage!'.format(damage)
+        
+                    eDesc = ''
+
+                    em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+                    await bot.say(embed=em)
+                    await asyncio.sleep(1)
+                import random
+
+                eTitle = 'HP: {}/{}'.format(get_bot_hp(ctx.message.author.id),get_bot_max_hp(ctx.message.author.id))
+        
+                eDesc = 'You have {}/{}'.format(get_hp(ctx.message.author.id),get_max_hp(ctx.message.author.id))
+
+                emmm = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+                emmm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+                emmm.add_field(name="Choose an attack!", value='hit (more coming soon)', inline=True)
+                emmm.set_footer(text='{} vs Depression!'.format(ctx.message.author.name))
+                await bot.say(embed=emmm)
+                await asyncio.sleep(1)
         else:
             await bot.say("You need to hold :crossed_swords: to access.")
 	
