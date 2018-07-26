@@ -484,35 +484,51 @@ async def credits(ctx, membername=None):
                     return None
 
 @bot.command(pass_context=True)
-async def top(ctx):
-    eTitle = 'Top 10 List'
-    eDesc = ''
-    em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
-    #membersnames = []
-    #membersxp = []
-    members = []
-    #if os.path.isfile('users.json'):
-    #with open('users.json', 'r') as fp:
-    #users = json.load(fp)
-    await bot.send_typing(ctx.message.channel)
-    for member in ctx.message.server.members:
-        if not (member.bot):
-            members.append( [member.name,get_xp(member.id)] ) 
-            #print(members[0])
-            #membersnames.append(member.name)
-            #membersxp.append(users[member.id]['xp'])
-            #name = [x.name for x in members]
-            #xp = [users[x.id]['xp'] for x in members]
-            for item in members:
-                newlist = sorted(members, key=lambda x:x[1], reverse=True)[0:10]
-                quick_math = '\n'.join([str(x).replace('[','').replace(']','').replace(',','-').replace("'",'"') for x in newlist])
-    #await bot.say('**Top 10 List:**\n```Name - XP\n\n{}\n\nRequested by: {}```'.format(quick_math,ctx.message.author.name))
-    #await bot.say('\n'.join(members))
+async def top(ctx, category=None):
+    if (category is None):
+        await bot.send_typing(ctx.message.channel)
+        eTitlee = "d!top (xp/level/credits)"
+        eDescc = "Top 10 of specific category."
 
-    em.add_field(name='------', value=quick_math, inline=False)
-    em.set_author(name="{}".format(bot.user.name), icon_url=bot.user.avatar_url.replace('webp','png'))
-    em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
-    await bot.send_message(ctx.message.channel,embed=em)
+        emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
+        emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        await bot.send_message(ctx.message.channel, embed=emm)
+    elif ((category == "xp")|(category == "level")|(category == "credits")):
+        eTitle = 'Top 10 List'
+        eDesc = ''
+        em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+        #membersnames = []
+        #membersxp = []
+        members = []
+        #if os.path.isfile('users.json'):
+        #with open('users.json', 'r') as fp:
+        #users = json.load(fp)
+        await bot.send_typing(ctx.message.channel)
+        for member in ctx.message.server.members:
+            if not (member.bot):
+                if (category == "xp"):
+                    members.append( [member.name,get_xp(member.id)] )
+                elif (category == "level"):
+                    members.append( [member.name,get_level(member.id)] )
+                elif (category == "credits"):
+                    members.append( [member.name,get_credits(member.id)] )
+                #print(members[0])
+                #membersnames.append(member.name)
+                #membersxp.append(users[member.id]['xp'])
+                #name = [x.name for x in members]
+                #xp = [users[x.id]['xp'] for x in members]
+                for item in members:
+                    newlist = sorted(members, key=lambda x:x[1], reverse=True)[0:10]
+                    quick_math = '\n'.join([str(x).replace('[','').replace(']','').replace(',','-').replace("'",'"') for x in newlist])
+        #await bot.say('**Top 10 List:**\n```Name - XP\n\n{}\n\nRequested by: {}```'.format(quick_math,ctx.message.author.name))
+        #await bot.say('\n'.join(members))
+
+        em.add_field(name='------', value=quick_math, inline=False)
+        em.set_author(name="{}".format(bot.user.name), icon_url=bot.user.avatar_url.replace('webp','png'))
+        em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+        await bot.send_message(ctx.message.channel,embed=em)
+    else:
+        await bot.send_message(ctx.message.channel,"That's not a valid category!")
 
 @bot.command(pass_context=True)
 async def complete(ctx, arg1=None, arg2=None, arg3=None, arg4=None):
@@ -1292,7 +1308,7 @@ async def on_message(message):
 
             em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
             em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-            em.add_field(name="Stuff:", value='d!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!hold (item) - choose an item to hold!\nd!top - top 10 list.\nd!inventory (member name) - check your inventory!\nd!holding (member name) - check what the member is holding right now!', inline=False)
+            em.add_field(name="Stuff:", value='d!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!hold (item) - choose an item to hold!\nd!top (xp/level/credits) - top 10 of specific category.\nd!inventory (member name) - check your inventory!\nd!holding (member name) - check what the member is holding right now!', inline=False)
             em.add_field(name="Games:", value='d!ttt - tic-tac-toe.', inline=False)
             em.add_field(name="Memes:", value='d!2.2 - shows a random sonic robo blast 2 v2.2 leak out of 56.\nd!sonic06 (place) (mission) - now loading screen.', inline=False)
             em.add_field(name="Testing:", value='d!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!calltest (member name) - call someone.\nd!imagetest - random colored image.', inline=False)
@@ -2299,8 +2315,9 @@ async def on_message(message):
             file = repo.get_contents('/log.json')
             repo.update_file('/log.json', 'update!', f.read(), file.sha)
 
-        user_add_xp(message.author.id, 1)
-        user_add_credits_messages(message.author.id, 1)
+        if (message.channel.id != 460074985000796172):
+            user_add_xp(message.author.id, 1)
+            user_add_credits_messages(message.author.id, 1)
 
         if ((get_xp(message.author.id) < 50)):
             user_level(message.author.id, 1)
