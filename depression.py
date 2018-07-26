@@ -1260,6 +1260,40 @@ async def imagetest(ctx):
     img = Image.new('RGB', (width, height), (red, green, blue))
     img.save("pic.png", "PNG")
     await bot.send_file(ctx.message.channel, "pic.png")
+	
+@bot.command(pass_context=True)
+async def gem(ctx):
+    if (get_hold(ctx.message.author.id) == ":gem:"):
+        red = random.randint(1, 255)
+        blue = random.randint(1, 255)
+        green = random.randint(1, 255)
+        user = ctx.message.author
+        gemm = Image.open("gemm.png")
+        background = Image.new('RGB', (gem.width, gem.height), (red, green, blue))
+        async with aiohttp.ClientSession() as session:
+            async with session.get(user.avatar_url) as avatar:
+                data = await avatar.read()
+                av_bytes = BytesIO(data)
+                avatarr = Image.open(av_bytes)
+        dest = (5, 5)
+        size = avatarr.size
+        mask = Image.new('L', size, 0)
+        draw = ImageDraw.Draw(mask)
+        draw.ellipse((0, 0) + size, fill=255)
+        av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
+        av.putalpha(mask)
+
+        backgroundd = Image.new("RGBA", avatarr.size)
+    
+        backgroundd.paste(avatarr, (0,0))
+    
+        backgroundd.paste(gemm, (0,0), gemm)
+    
+        backgroundd.save("gempic.png", "PNG")
+    
+        await bot.send_file(ctx.message.channel, "gempic.png")
+    else:
+        await bot.say("You need to hold :gem: to access.")
 
 @bot.event
 async def on_typing(channel,user,when):
@@ -1312,7 +1346,7 @@ async def on_message(message):
             em.add_field(name="Games:", value='d!ttt - tic-tac-toe.', inline=False)
             em.add_field(name="Memes:", value='d!2.2 - shows a random sonic robo blast 2 v2.2 leak out of 56.\nd!sonic06 (place) (mission) - now loading screen.', inline=False)
             em.add_field(name="Testing:", value='d!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!calltest (member name) - call someone.\nd!imagetest - random colored image.', inline=False)
-            em.add_field(name="Special:", value='d!fight - fight against me! (You need to hold :crossed_swords:)\nd!hunt - look for credits! (You need to hold :eyeglasses:)', inline=False)
+            em.add_field(name="Special:", value='d!fight - fight against me! (You need to hold :crossed_swords:)\nd!hunt - look for credits! (You need to hold :eyeglasses:)\nd!gem - add a gem to your pfp! (You need to hold :gem:)', inline=False)
             em.add_field(name="Others:", value='d!pic (member name) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.', inline=False)
             em.set_footer(text='Requested by: {}'.format(message.author.name))
             await bot.send_message(message.channel,embed=em)
