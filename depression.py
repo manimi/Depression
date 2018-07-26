@@ -1269,7 +1269,7 @@ async def gem(ctx):
         green = random.randint(1, 255)
         user = ctx.message.author
         gemm = Image.open("gemm.png")
-        background = Image.new('RGB', (gem.width, gem.height), (red, green, blue))
+        background = Image.new('RGB', (gemm.width, gemm.height), (red, green, blue))
         async with aiohttp.ClientSession() as session:
             async with session.get(user.avatar_url) as avatar:
                 data = await avatar.read()
