@@ -15,7 +15,7 @@ import requests
 import github
 import aiohttp
 from io import BytesIO
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageOps
 from oauth2client.service_account import ServiceAccountCredentials
 
 bot_token = os.environ['BOT_TOKEN']
