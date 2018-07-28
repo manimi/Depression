@@ -578,6 +578,7 @@ async def hold(ctx, item: discord.Emoji=None):
         await bot.send_typing(ctx.message.channel)
         await bot.send_message(ctx.message.channel, "Choose an item {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')))
     else:
+        print(item.name)
         if (item.name):
             itemm = ":{}:".format(item.name)
             print(itemm)
