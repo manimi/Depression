@@ -2544,7 +2544,7 @@ def user_add_item(user_id, item):
         try:
             with open('items.json', 'r') as fp:
                 users = json.load(fp)
-            users[user_id]['items'].append( item )
+            users[user_id]["items"].append( item )
             users[user_id]['hold'] = item
             with open('items.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
@@ -2552,15 +2552,15 @@ def user_add_item(user_id, item):
             with open('items.json', 'r') as fp:
                 users = json.load(fp)
             users[user_id] = {}
-            users[user_id]['items'].append( item )
+            users[user_id]["items"].append( item )
             users[user_id]['hold'] = item
             with open('items.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
     else:
         users = {}
         users[user_id] = {user_id: {}}
-        users[user_id]['items'] = []
-        users[user_id]['items'].append( item )
+        users[user_id]["items"] = []
+        users[user_id]["items"].append( item )
         users[user_id]['hold'] = item
         with open('items.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
@@ -2614,7 +2614,7 @@ def get_items(user_id: int):
         with open('items.json', 'r') as fp:
             users = json.load(fp)
         if user_id in users:
-            return users[user_id][items]
+            return users[user_id]["items"]
         else:
             return "None"
     else:
