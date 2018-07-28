@@ -357,7 +357,7 @@ async def profile(ctx, membername=None):
         em.add_field(name="XP :sparkles:", value='{}'.format(get_xp(ctx.message.author.id)), inline=True)
         em.add_field(name="Level :star2:", value='{}'.format(get_level(ctx.message.author.id)), inline=True)
         em.add_field(name="Credits :moneybag:", value='{}'.format(get_credits(ctx.message.author.id)), inline=True)
-        em.add_field(name="Inventory :shopping_bags:", value='- {} -'.format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace('"','')), inline=True)
+        em.add_field(name="Inventory :shopping_bags:", value='- {} -'.format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace("'",' ')), inline=True)
         em.add_field(name="Holds :handbag:", value='{}'.format(get_hold(ctx.message.author.id)), inline=True)
         em.set_thumbnail(url=ctx.message.author.avatar_url.replace('webp','png'))
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
@@ -377,7 +377,7 @@ async def profile(ctx, membername=None):
                         em.add_field(name="XP :sparkles:", value='{}'.format(get_xp(m.id)), inline=True)
                         em.add_field(name="Level :star2:", value='{}'.format(get_level(m.id)), inline=True)
                         em.add_field(name="Credits :moneybag:", value='{}'.format(get_credits(m.id)), inline=True)
-                        em.add_field(name="Inventory :shopping_bags:", value='- {} -'.format(str(get_items(m.id)).replace('[','').replace(']','').replace('"','')), inline=True)
+                        em.add_field(name="Inventory :shopping_bags:", value='- {} -'.format(str(get_items(m.id)).replace('[','').replace(']','').replace("'",' ')), inline=True)
                         em.add_field(name="Holds :handbag:", value='{}'.format(get_hold(m.id)), inline=True)
                         em.set_thumbnail(url=m.avatar_url.replace('webp','png'))
                         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
@@ -534,12 +534,12 @@ async def shop(ctx, option=None):
         if ((option == "1")&(get_credits(ctx.message.author.id) < 500)):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You don\'t have enough credits!')
-        elif ((option == "1")&(get_credits(ctx.message.author.id) >= 500)):
+        elif ((option == "1")&(get_credits(ctx.message.author.id) >= 500)&~(":gem:" in get_items(ctx.message.author.id))):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You got a :gem:!')
             user_take_credits(ctx.message.author.id, 500)
             user_add_item(ctx.message.author.id, ":gem:")
-        elif ((option == "2")&(get_credits(ctx.message.author.id) >= 250)):
+        elif ((option == "2")&(get_credits(ctx.message.author.id) >= 250)&~(":eyeglasses:" in get_items(ctx.message.author.id))):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You got an :eyeglasses:!')
             user_take_credits(ctx.message.author.id, 250)
@@ -547,7 +547,7 @@ async def shop(ctx, option=None):
         elif ((option == "2")&(get_credits(ctx.message.author.id) < 250)):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You don\'t have enough credits!')
-        elif ((option == "3")&(get_credits(ctx.message.author.id) >= 150)):
+        elif ((option == "3")&(get_credits(ctx.message.author.id) >= 150)&~(":ribbon:" in get_items(ctx.message.author.id))):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You got a :ribbon:!')
             user_take_credits(ctx.message.author.id, 150)
@@ -555,7 +555,7 @@ async def shop(ctx, option=None):
         elif ((option == "3")&(get_credits(ctx.message.author.id) < 150)):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You don\'t have enough credits!')
-        elif ((option == "4")&(get_credits(ctx.message.author.id) >= 200)):
+        elif ((option == "4")&(get_credits(ctx.message.author.id) >= 200)&~(":crossed_swords:" in get_items(ctx.message.author.id))):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You got :crossed_swords:!')
             user_take_credits(ctx.message.author.id, 200)
@@ -563,7 +563,7 @@ async def shop(ctx, option=None):
         elif ((option == "4")&(get_credits(ctx.message.author.id) < 200)):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You don\'t have enough credits!')
-        elif ((option == "5")&(get_credits(ctx.message.author.id) >= 200)):
+        elif ((option == "5")&(get_credits(ctx.message.author.id) >= 200)&~(":shield:" in get_items(ctx.message.author.id))):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You got a :shield:!')
             user_take_credits(ctx.message.author.id, 200)
@@ -576,9 +576,9 @@ async def shop(ctx, option=None):
 async def hold(ctx, item=None):
     if (item is None):
         await bot.send_typing(ctx.message.channel)
-        await bot.send_message(ctx.message.channel, "Choose an item {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace('"','')))
+        await bot.send_message(ctx.message.channel, "Choose an item {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace("'",' ')))
     else:
-        if ((item in get_items(ctx.message.author.id))&(item != "nothing")):
+        if ((str(item) in get_items(ctx.message.author.id))&(item != "nothing")):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You\'re now holding the {} !'.format(item))
             user_hold(ctx.message.author.id, item)
@@ -688,7 +688,7 @@ async def fight(ctx, attack=None):
                 chance = random.randint(1,11)
                 await asyncio.sleep(2)
                 if (chance == 10):
-                    eTitle = 'You missed! Too bad!'
+                    eTitle = 'You missed!'
         
                     eDesc = ''
 
@@ -782,7 +782,7 @@ async def inventory(ctx, membername=None):
     if (membername is None):
         await bot.send_typing(ctx.message.channel)
 
-        await bot.send_message(ctx.message.channel, "You have: {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace('"','')))
+        await bot.send_message(ctx.message.channel, "You have: {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace("'",' ')))
     else:
         for server in bot.servers:
             for m in server.members:
@@ -790,7 +790,7 @@ async def inventory(ctx, membername=None):
                     if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
                         await bot.send_typing(ctx.message.channel)
 
-                        await bot.send_message(ctx.message.channel, "{} has: {}".format(m.name, str(get_items(m.id)).replace('[','').replace(']','').replace('"','')))
+                        await bot.send_message(ctx.message.channel, "{} has: {}".format(m.name, str(get_items(m.id)).replace('[','').replace(']','').replace("'",' ')))
 
                         return None
                 except KeyError:
