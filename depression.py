@@ -515,8 +515,7 @@ async def complete(ctx, arg1=None, arg2=None, arg3=None, arg4=None):
 @bot.command(pass_context=True)
 async def shop(ctx, option=None):
     if (option is None):
-        await bot.send_typing(ctx.message.channel)
-
+        number = 0
         eTitlee = "__Shop:__"
         eDescc = "Select an number:"
 
@@ -532,10 +531,16 @@ async def shop(ctx, option=None):
 
         msg = await bot.say(embed=emm)
 
+        await bot.add_reaction(msg, u'\U00002B05')
         await bot.add_reaction(msg, u'\U000027A1')
+	
         await bot.wait_for_reaction(emoji=u'\U000027A1', user=ctx.message.author, message=msg)
+        number = 2
 
-        await bot.send_typing(ctx.message.channel)
+        await bot.wait_for_reaction(emoji=u'\U00002B05', user=ctx.message.author, message=msg)
+        number = 1
+	
+       if 
 
         eTitle = "__Shop:__"
         eDesc = "Select an number:"
