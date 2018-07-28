@@ -357,7 +357,7 @@ async def profile(ctx, membername=None):
         em.add_field(name="XP :sparkles:", value='{}'.format(get_xp(ctx.message.author.id)), inline=True)
         em.add_field(name="Level :star2:", value='{}'.format(get_level(ctx.message.author.id)), inline=True)
         em.add_field(name="Credits :moneybag:", value='{}'.format(get_credits(ctx.message.author.id)), inline=True)
-        em.add_field(name="Inventory :shopping_bags:", value='- {} -'.format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace("'",' ')), inline=True)
+        em.add_field(name="Inventory :shopping_bags:", value='- {} -'.format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')), inline=True)
         em.add_field(name="Holds :handbag:", value='{}'.format(get_hold(ctx.message.author.id)), inline=True)
         em.set_thumbnail(url=ctx.message.author.avatar_url.replace('webp','png'))
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
@@ -377,7 +377,7 @@ async def profile(ctx, membername=None):
                         em.add_field(name="XP :sparkles:", value='{}'.format(get_xp(m.id)), inline=True)
                         em.add_field(name="Level :star2:", value='{}'.format(get_level(m.id)), inline=True)
                         em.add_field(name="Credits :moneybag:", value='{}'.format(get_credits(m.id)), inline=True)
-                        em.add_field(name="Inventory :shopping_bags:", value='- {} -'.format(str(get_items(m.id)).replace('[','').replace(']','').replace("'",' ')), inline=True)
+                        em.add_field(name="Inventory :shopping_bags:", value='- {} -'.format(str(get_items(m.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')), inline=True)
                         em.add_field(name="Holds :handbag:", value='{}'.format(get_hold(m.id)), inline=True)
                         em.set_thumbnail(url=m.avatar_url.replace('webp','png'))
                         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
@@ -576,9 +576,10 @@ async def shop(ctx, option=None):
 async def hold(ctx, item=None):
     if (item is None):
         await bot.send_typing(ctx.message.channel)
-        await bot.send_message(ctx.message.channel, "Choose an item {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace("'",' ')))
+        await bot.send_message(ctx.message.channel, "Choose an item {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')))
     else:
-        if ((str(item) in get_items(ctx.message.author.id))&(item != "nothing")):
+        print(item)
+        if ((item in get_items(ctx.message.author.id))&(item != "nothing")):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You\'re now holding the {} !'.format(item))
             user_hold(ctx.message.author.id, item)
@@ -782,7 +783,7 @@ async def inventory(ctx, membername=None):
     if (membername is None):
         await bot.send_typing(ctx.message.channel)
 
-        await bot.send_message(ctx.message.channel, "You have: {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace("'",' ')))
+        await bot.send_message(ctx.message.channel, "You have: {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')))
     else:
         for server in bot.servers:
             for m in server.members:
@@ -790,7 +791,7 @@ async def inventory(ctx, membername=None):
                     if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
                         await bot.send_typing(ctx.message.channel)
 
-                        await bot.send_message(ctx.message.channel, "{} has: {}".format(m.name, str(get_items(m.id)).replace('[','').replace(']','').replace("'",' ')))
+                        await bot.send_message(ctx.message.channel, "{} has: {}".format(m.name, str(get_items(m.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')))
 
                         return None
                 except KeyError:
