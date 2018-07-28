@@ -576,15 +576,13 @@ async def shop(ctx, option=None):
 async def hold(ctx, item=None):
     if (item is None):
         await bot.send_typing(ctx.message.channel)
-        await bot.send_message(ctx.message.channel, "Choose an item {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')))
+        await bot.send_message(ctx.message.channel, "Choose an item without :: ``example: gem, eyeglasses`` {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')))
     else:
-        print(str(item))
-        itemm = "{}".format(str(item.name))
-        print(itemm)
-        if ((itemm in get_items(ctx.message.author.id))&(itemm != "nothing")):
+        itemm = ":{}:".format(item)
+        if ((itemm in get_items(ctx.message.author.id))&(item != "nothing")):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You\'re now holding the {} !'.format(itemm))
-            #user_hold(ctx.message.author.id, str(item.name)) 
+            user_hold(ctx.message.author.id, itemm) 
         elif (item == "nothing"):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You\'re now holding nothing!')
