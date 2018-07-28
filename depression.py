@@ -533,7 +533,7 @@ async def shop(ctx, option=None):
         msg = await bot.say(embed=emm)
 
         await bot.add_reaction(msg, '➡️')
-        res = await bot.wait_for_reaction(emoji=➡️, user=ctx.message.author, message=msg)
+        res = await bot.wait_for_reaction(emoji='➡️', user=ctx.message.author, message=msg)
 
         await bot.send_typing(ctx.message.channel)
 
