@@ -573,21 +573,21 @@ async def shop(ctx, option=None):
             await bot.say('You don\'t have enough credits!')
 
 @bot.command(pass_context=True)
-async def hold(ctx, item: discord.Emoji):
+async def hold(ctx, item=None):
     if (item is None):
         await bot.send_typing(ctx.message.channel)
         await bot.send_message(ctx.message.channel, "Choose an item {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')))
     else:
-        print(item.name)
-        if (item.name):
-            itemm = ":{}:".format(item.name)
+        print(str(item))
+        if (item):
+            itemm = ":{}:".format(str(item))
             print(itemm)
-            if ((itemm in get_items(ctx.message.author.id))&(item.name != "nothing")):
+            if ((itemm in get_items(ctx.message.author.id))&(str(item) != "nothing")):
                 await bot.send_typing(ctx.message.channel)
-                await bot.say('You\'re now holding the {} !'.format(item))
-                user_hold(ctx.message.author.id, item)
+                await bot.say('You\'re now holding the {} !'.format(str(item)))
+                user_hold(ctx.message.author.id, str(item))
         else: 
-            if (item == "nothing"):
+            if (str(item) == "nothing"):
                 await bot.send_typing(ctx.message.channel)
                 await bot.say('You\'re now holding nothing!')
                 user_hold(ctx.message.author.id, "nothing")
