@@ -527,9 +527,25 @@ async def shop(ctx, option=None):
         emm.add_field(name="**3.** :ribbon:", value='**150** credits', inline=True)
         emm.add_field(name="**4.** :crossed_swords:", value='**200** credits', inline=True)
         emm.add_field(name="**5.** :shield:", value='**200** credits', inline=True)
-        emm.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+        emm.add_field(name="**6.** :camera:", value='**250** credits', inline=True)
+        emm.set_footer(text='Page 1, requested by: {}'.format(ctx.message.author.name))
 
-        await bot.send_message(ctx.message.channel,embed=emm)
+        msg = await bot.say(embed=emm)
+
+        await bot.add_reaction(msg, '➡️')
+        res = await bot.wait_for_reaction(emoji=➡️, user=ctx.message.author, message=msg)
+
+        await bot.send_typing(ctx.message.channel)
+
+        eTitle = "__Shop:__"
+        eDesc = "Select an number:"
+
+        em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+        em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        em.add_field(name="**7.** :star:", value='**100** credits', inline=True)
+        em.set_footer(text='Page 2, requested by: {}'.format(ctx.message.author.name))
+
+        await bot.edit_message(msg,embed=em)
     else:
         if ((option == "1")&(get_credits(ctx.message.author.id) < 500)):
             await bot.send_typing(ctx.message.channel)
@@ -569,6 +585,22 @@ async def shop(ctx, option=None):
             user_take_credits(ctx.message.author.id, 200)
             user_add_item(ctx.message.author.id, ":shield:")
         elif ((option == "5")&(get_credits(ctx.message.author.id) < 200)):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You don\'t have enough credits!')
+        elif ((option == "6")&(get_credits(ctx.message.author.id) >= 250)&~(":camera:" in get_items(ctx.message.author.id))):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You got a :camera:!')
+            user_take_credits(ctx.message.author.id, 250)
+            user_add_item(ctx.message.author.id, ":camera:")
+        elif ((option == "6")&(get_credits(ctx.message.author.id) < 250)):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You don\'t have enough credits!')
+        elif ((option == "7")&(get_credits(ctx.message.author.id) >= 100)&~(":star:" in get_items(ctx.message.author.id))):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You got a :star:!')
+            user_take_credits(ctx.message.author.id, 100)
+            user_add_item(ctx.message.author.id, ":star:")
+        elif ((option == "7")&(get_credits(ctx.message.author.id) < 100)):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You don\'t have enough credits!')
 
