@@ -579,18 +579,16 @@ async def hold(ctx, item=None):
         await bot.send_message(ctx.message.channel, "Choose an item {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')))
     else:
         print(str(item))
-        if (item):
-            itemm = ":{}:".format(str(item))
-            print(itemm)
-            if ((itemm in get_items(ctx.message.author.id))&(str(item) != "nothing")):
-                await bot.send_typing(ctx.message.channel)
-                await bot.say('You\'re now holding the {} !'.format(str(item)))
-                user_hold(ctx.message.author.id, str(item))
-        else: 
-            if (str(item) == "nothing"):
-                await bot.send_typing(ctx.message.channel)
-                await bot.say('You\'re now holding nothing!')
-                user_hold(ctx.message.author.id, "nothing")
+        itemm = "{}".format(str(item.name))
+        print(itemm)
+        if ((itemm in get_items(ctx.message.author.id))&(itemm != "nothing")):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You\'re now holding the {} !'.format(itemm))
+            #user_hold(ctx.message.author.id, str(item.name)) 
+        elif (item == "nothing"):
+            await bot.send_typing(ctx.message.channel)
+            await bot.say('You\'re now holding nothing!')
+            user_hold(ctx.message.author.id, "nothing")
 	
 @bot.command(pass_context=True)
 async def playfile(ctx, file):
