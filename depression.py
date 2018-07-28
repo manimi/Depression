@@ -573,7 +573,7 @@ async def shop(ctx, option=None):
             await bot.say('You don\'t have enough credits!')
 
 @bot.command(pass_context=True)
-async def hold(ctx, item: discord.Emoji=None):
+async def hold(ctx, item: discord.Emoji):
     if (item is None):
         await bot.send_typing(ctx.message.channel)
         await bot.send_message(ctx.message.channel, "Choose an item {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')))
