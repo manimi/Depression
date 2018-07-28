@@ -352,28 +352,12 @@ async def profile(ctx, membername=None):
         eTitle = '{} \'s Profile'.format(ctx.message.author.display_name)
         eDesc = ''
 
-        gem = ""
-        eyeglasses = ""
-        ribbon = ""
-        crossed_swords = ""
-        shield = ""
-        if (get_item(ctx.message.author.id, ":gem:") == "True"):
-            gem = ":gem:"
-        if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
-            eyeglasses = ":eyeglasses:"
-        if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
-            ribbon = ":ribbon:"
-        if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
-            crossed_swords = ":crossed_swords:"
-        if (get_item(ctx.message.author.id, ":shield:") == "True"):
-            shield = ":shield:"
-
         em = discord.Embed(title=eTitle,url=ctx.message.author.avatar_url.replace('webp','png'),description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(ctx.message.author.name), url=ctx.message.author.avatar_url.replace('webp','png'), icon_url=ctx.message.author.avatar_url.replace('webp','png'))
         em.add_field(name="XP :sparkles:", value='{}'.format(get_xp(ctx.message.author.id)), inline=True)
         em.add_field(name="Level :star2:", value='{}'.format(get_level(ctx.message.author.id)), inline=True)
         em.add_field(name="Credits :moneybag:", value='{}'.format(get_credits(ctx.message.author.id)), inline=True)
-        em.add_field(name="Inventory :shopping_bags:", value='- {} {} {} {} {} -'.format(gem, eyeglasses, ribbon, crossed_swords, shield), inline=True)
+        em.add_field(name="Inventory :shopping_bags:", value='- {} -'.format(get_items(ctx.message.author.id)), inline=True)
         em.add_field(name="Holds :handbag:", value='{}'.format(get_hold(ctx.message.author.id)), inline=True)
         em.set_thumbnail(url=ctx.message.author.avatar_url.replace('webp','png'))
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
@@ -388,28 +372,12 @@ async def profile(ctx, membername=None):
                         eTitle = '{} \'s Profile'.format(m.display_name)
                         eDesc = ''
 
-                        gem = ""
-                        eyeglasses = ""
-                        ribbon = ""
-                        crossed_swords = ""
-                        shield = ""
-                        if (get_item(m.id, ":gem:") == "True"):
-                            gem = ":gem:"
-                        if (get_item(m.id, ":eyeglasses:") == "True"):
-                            eyeglasses = ":eyeglasses:"
-                        if (get_item(m.id, ":ribbon:") == "True"):
-                            ribbon = ":ribbon:"
-                        if (get_item(m.id, ":crossed_swords:") == "True"):
-                            crossed_swords = ":crossed_swords:"
-                        if (get_item(m.id, ":shield:") == "True"):
-                            shield = ":shield:"
-
                         em = discord.Embed(title=eTitle,url=m.avatar_url.replace('webp','png'),description=eDesc,colour=discord.Colour.orange())
                         em.set_author(name="{}".format(m.name), url=m.avatar_url.replace('webp','png'), icon_url=m.avatar_url.replace('webp','png'))
                         em.add_field(name="XP :sparkles:", value='{}'.format(get_xp(m.id)), inline=True)
                         em.add_field(name="Level :star2:", value='{}'.format(get_level(m.id)), inline=True)
                         em.add_field(name="Credits :moneybag:", value='{}'.format(get_credits(m.id)), inline=True)
-                        em.add_field(name="Inventory :shopping_bags:", value='- {} {} {} {} {} -'.format(gem, eyeglasses, ribbon, crossed_swords, shield), inline=True)
+                        em.add_field(name="Inventory :shopping_bags:", value='- {} -'.format(get_items(m.id)), inline=True)
                         em.add_field(name="Holds :handbag:", value='{}'.format(get_hold(m.id)), inline=True)
                         em.set_thumbnail(url=m.avatar_url.replace('webp','png'))
                         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
@@ -607,44 +575,13 @@ async def shop(ctx, option=None):
 @bot.command(pass_context=True)
 async def hold(ctx, item=None):
     if (item is None):
-        gem = ""
-        eyeglasses = ""
-        ribbon = ""
-        crossed_swords = ""
-        shield = ""
-        if (get_item(ctx.message.author.id, ":gem:") == "True"):
-            gem = ":gem:"
-        if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
-            eyeglasses = ":eyeglasses:"
-        if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
-            ribbon = ":ribbon:"
-        if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
-            crossed_swords = ":crossed_swords:"
-        if (get_item(ctx.message.author.id, ":shield:") == "True"):
-            shield = ":shield:"
         await bot.send_typing(ctx.message.channel)
-        await bot.send_message(ctx.message.channel, "Choose an item without ``::`` {} {} {} {} {}".format(gem, eyeglasses, ribbon, crossed_swords, shield))
+        await bot.send_message(ctx.message.channel, "Choose an item {}".format(get_items(ctx.message.author.id)))
     else:
-        if ((get_item(ctx.message.author.id, ":gem:") == "True")&(item == "gem")):
+        if ((item in get_items(ctx.message.author.id))&(item != "nothing")):
             await bot.send_typing(ctx.message.channel)
-            await bot.say('You\'re now holding the :gem:!')
-            user_hold(ctx.message.author.id, ":gem:")
-        elif ((get_item(ctx.message.author.id, ":eyeglasses:") == "True")&(item == "eyeglasses")):
-            await bot.send_typing(ctx.message.channel)
-            await bot.say('You\'re now holding the :eyeglasses:!')
-            user_hold(ctx.message.author.id, ":eyeglasses:")
-        elif ((get_item(ctx.message.author.id, ":ribbon:") == "True")&(item == "ribbon")):
-            await bot.send_typing(ctx.message.channel)
-            await bot.say('You\'re now holding the :ribbon:!')
-            user_hold(ctx.message.author.id, ":ribbon:")
-        elif ((get_item(ctx.message.author.id, ":crossed_swords:") == "True")&(item == "crossed_swords")):
-            await bot.send_typing(ctx.message.channel)
-            await bot.say('You\'re now holding the :crossed_swords:!')
-            user_hold(ctx.message.author.id, ":crossed_swords:")
-        elif ((get_item(ctx.message.author.id, ":shield:") == "True")&(item == "shield")):
-            await bot.send_typing(ctx.message.channel)
-            await bot.say('You\'re now holding the :shield:!')
-            user_hold(ctx.message.author.id, ":shield:")
+            await bot.say('You\'re now holding the {} !'.format(item))
+            user_hold(ctx.message.author.id, item)
         elif (item == "nothing"):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You\'re now holding nothing!')
@@ -845,23 +782,7 @@ async def inventory(ctx, membername=None):
     if (membername is None):
         await bot.send_typing(ctx.message.channel)
 
-        gem = ""
-        eyeglasses = ""
-        ribbon = ""
-        crossed_swords = ""
-        shield = ""
-        if (get_item(ctx.message.author.id, ":gem:") == "True"):
-            gem = ":gem:"
-        if (get_item(ctx.message.author.id, ":eyeglasses:") == "True"):
-            eyeglasses = ":eyeglasses:"
-        if (get_item(ctx.message.author.id, ":ribbon:") == "True"):
-            ribbon = ":ribbon:"
-        if (get_item(ctx.message.author.id, ":crossed_swords:") == "True"):
-            crossed_swords = ":crossed_swords:"
-        if (get_item(ctx.message.author.id, ":shield:") == "True"):
-            shield = ":shield:"
-
-        await bot.send_message(ctx.message.channel, "You have: {} {} {} {} {}".format(gem, eyeglasses, ribbon, crossed_swords, shield))
+        await bot.send_message(ctx.message.channel, "You have: {}".format(get_items(ctx.message.author.id)))
     else:
         for server in bot.servers:
             for m in server.members:
@@ -869,23 +790,7 @@ async def inventory(ctx, membername=None):
                     if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
                         await bot.send_typing(ctx.message.channel)
 
-                        gem = ""
-                        eyeglasses = ""
-                        ribbon = ""
-                        crossed_swords = ""
-                        shield = ""
-                        if (get_item(m.id, ":gem:") == "True"):
-                            gem = ":gem:"
-                        if (get_item(m.id, ":eyeglasses:") == "True"):
-                            eyeglasses = ":eyeglasses:"
-                        if (get_item(m.id, ":ribbon:") == "True"):
-                            ribbon = ":ribbon:"
-                        if (get_item(m.id, ":crossed_swords:") == "True"):
-                            crossed_swords = ":crossed_swords:"
-                        if (get_item(m.id, ":shield:") == "True"):
-                            shield = ":shield:"
-
-                        await bot.send_message(ctx.message.channel, "{} has: {} {} {} {} {}".format(m.name, gem, eyeglasses, ribbon, crossed_swords, shield))
+                        await bot.send_message(ctx.message.channel, "{} has: {}".format(m.name, get_items(m.id)))
 
                         return None
                 except KeyError:
@@ -2639,27 +2544,23 @@ def user_add_item(user_id, item):
         try:
             with open('items.json', 'r') as fp:
                 users = json.load(fp)
-            users[user_id][item] = "True"
-            users[user_id]['hold'] = item 
+            users[user_id]['items'].append( item )
+            users[user_id]['hold'] = item
             with open('items.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
         except KeyError:
             with open('items.json', 'r') as fp:
                 users = json.load(fp)
             users[user_id] = {}
-            users[user_id][item] = "True"
+            users[user_id]['items'].append( item )
             users[user_id]['hold'] = item
             with open('items.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
     else:
         users = {}
         users[user_id] = {user_id: {}}
-        users[user_id][":gem:"] = "False"
-        users[user_id][":eyeglasses:"] = "False"
-        users[user_id][":ribbon:"] = "False"
-        users[user_id][":crossed_swords:"] = "False"
-        users[user_id][":shield:"] = "False"
-        users[user_id][item] = "True"
+        users[user_id]['items'] = []
+        users[user_id]['items'].append( item )
         users[user_id]['hold'] = item
         with open('items.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
@@ -2708,16 +2609,16 @@ def get_hold(user_id: int):
     else:
         return "None"
 
-def get_item(user_id: int, item: str):
+def get_items(user_id: int):
     if os.path.isfile('items.json'):
         with open('items.json', 'r') as fp:
             users = json.load(fp)
         if user_id in users:
-            return users[user_id][item]
+            return users[user_id][items]
         else:
-            return "False"
+            return "None"
     else:
-        return "False"
+        return "None"
 
 def get_level(user_id: int):
     if os.path.isfile('level.json'):
