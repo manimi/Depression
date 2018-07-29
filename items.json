@@ -1,12 +1,18 @@
 {
-    "224185471826132992": {
-        "224185471826132992": {},
-        "hold": ":gem:",
+    "213466096718708737": {
         "items": [
             ":eyeglasses:",
+            ":shield:"
+        ]
+    },
+    "224185471826132992": {
+        "224185471826132992": {},
+        "hold": "nothing",
+        "items": [
             ":gem:",
-            ":shield:",
-            ":crossed_swords:"
+            ":crossed_swords:",
+            ":eyeglasses:",
+            ":shield:"
         ]
     }
 }
