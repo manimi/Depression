@@ -635,7 +635,7 @@ async def hold(ctx, item=None):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You\'re now holding nothing!')
             user_hold(ctx.message.author.id, "nothing")
-	
+
 @bot.command(pass_context=True)
 async def giveitem(ctx, item=None, membername=None):
     if (item is None):
@@ -657,7 +657,7 @@ async def giveitem(ctx, item=None, membername=None):
                                 user_add_item(m.id, itemm)
                                 if (get_hold(ctx.message.author.id) != itemm):
                                     user_hold(ctx.message.author.id, "nothing")
-	
+
 @bot.command(pass_context=True)
 async def playfile(ctx, file):
     for server in bot.servers:
