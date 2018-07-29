@@ -648,6 +648,7 @@ async def giveitem(ctx, item=None, membername=None):
                     itemm = ":{}:".format(item)
                     if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
                         await bot.say("You can't give yourself your item!")
+                        return None
                     else:
                         if (itemm in get_items(ctx.message.author.id)):
                             await bot.send_typing(ctx.message.channel)
@@ -656,6 +657,7 @@ async def giveitem(ctx, item=None, membername=None):
                             user_add_item(m.id, itemm)
                             if (get_hold(ctx.message.author.id) != itemm):
                                 user_hold(ctx.message.author.id, "nothing")
+                            return None
 @bot.command(pass_context=True)
 async def playfile(ctx, file):
     for server in bot.servers:
