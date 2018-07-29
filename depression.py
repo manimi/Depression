@@ -2615,24 +2615,37 @@ def user_add_item(user_id, item):
         try:
             with open('items.json', 'r') as fp:
                 users = json.load(fp)
-            users[user_id]["items"].append( item )
-            users[user_id]['hold'] = item
-            with open('items.json', 'w') as fp:
-                json.dump(users, fp, sort_keys=True, indent=4)
+            if not (user_id in users):
+                users[user_id]["items"] = []
+                users[user_id]["items"].append( item )
+                #users[user_id]['hold'] = item
+                with open('items.json', 'w') as fp:
+                    json.dump(users, fp, sort_keys=True, indent=4)
+            else:
+                users[user_id]["items"].append( item )
+                #users[user_id]['hold'] = item
+                with open('items.json', 'w') as fp:
+                    json.dump(users, fp, sort_keys=True, indent=4)
         except KeyError:
-            with open('items.json', 'r') as fp:
-                users = json.load(fp)
-            users[user_id] = {}
-            users[user_id]["items"].append( item )
-            users[user_id]['hold'] = item
-            with open('items.json', 'w') as fp:
-                json.dump(users, fp, sort_keys=True, indent=4)
+            if not (user_id in users):
+                users[user_id] = {}
+                users[user_id]["items"] = []
+                users[user_id]["items"].append( item )
+                #users[user_id]['hold'] = item
+                with open('items.json', 'w') as fp:
+                    json.dump(users, fp, sort_keys=True, indent=4)
+            else:
+                users[user_id] = {}
+                users[user_id]["items"].append( item )
+                #users[user_id]['hold'] = item
+                with open('items.json', 'w') as fp:
+                    json.dump(users, fp, sort_keys=True, indent=4)
     else:
         users = {}
         users[user_id] = {user_id: {}}
         users[user_id]["items"] = []
         users[user_id]["items"].append( item )
-        users[user_id]['hold'] = item
+        #users[user_id]['hold'] = item
         with open('items.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
 	
@@ -2642,7 +2655,6 @@ def user_remove_item(user_id, item):
             with open('items.json', 'r') as fp:
                 users = json.load(fp)
             users[user_id]["items"].remove( item )
-            users[user_id]['hold'] = item
             with open('items.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
         except KeyError:
@@ -2650,7 +2662,6 @@ def user_remove_item(user_id, item):
                 users = json.load(fp)
             users[user_id] = {}
             users[user_id]["items"].remove( item )
-            users[user_id]['hold'] = item
             with open('items.json', 'w') as fp:
                 json.dump(users, fp, sort_keys=True, indent=4)
     else:
@@ -2658,7 +2669,6 @@ def user_remove_item(user_id, item):
         users[user_id] = {user_id: {}}
         users[user_id]["items"] = []
         users[user_id]["items"].remove( item )
-        users[user_id]['hold'] = item
         with open('items.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
 
