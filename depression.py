@@ -637,6 +637,28 @@ async def hold(ctx, item=None):
             user_hold(ctx.message.author.id, "nothing")
 	
 @bot.command(pass_context=True)
+async def giveitem(ctx, item=None, membername=None):
+    if (item is None):
+        await bot.send_typing(ctx.message.channel)
+        await bot.send_message(ctx.message.channel, "Choose an item without :: ``example: gem <user name>`` {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')))
+    else:
+        for server in bot.servers:
+            for m in server.members:
+                try:
+                    if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                        itemm = ":{}:".format(item)
+                        if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+                            await bot.say("You can't give yourself your item!")
+                        else:
+                            if (itemm in get_items(ctx.message.author.id)):
+                                await bot.send_typing(ctx.message.channel)
+                                await bot.say('You gave the {} to {}!'.format(itemm, m.name))
+                                user_remove_item(ctx.message.author.id, itemm)
+                                user_add_item(m.id, itemm)
+                                if (get_hold(ctx.message.author.id) != itemm):
+                                    user_hold(ctx.message.author.id, "nothing")
+	
+@bot.command(pass_context=True)
 async def playfile(ctx, file):
     for server in bot.servers:
         if (ctx.message.author.id == '224185471826132992'):
@@ -2610,6 +2632,32 @@ def user_add_item(user_id, item):
         users[user_id] = {user_id: {}}
         users[user_id]["items"] = []
         users[user_id]["items"].append( item )
+        users[user_id]['hold'] = item
+        with open('items.json', 'w') as fp:
+            json.dump(users, fp, sort_keys=True, indent=4)
+	
+def user_remove_item(user_id, item):
+    if os.path.isfile('items.json'):
+        try:
+            with open('items.json', 'r') as fp:
+                users = json.load(fp)
+            users[user_id]["items"].remove( item )
+            users[user_id]['hold'] = item
+            with open('items.json', 'w') as fp:
+                json.dump(users, fp, sort_keys=True, indent=4)
+        except KeyError:
+            with open('items.json', 'r') as fp:
+                users = json.load(fp)
+            users[user_id] = {}
+            users[user_id]["items"].remove( item )
+            users[user_id]['hold'] = item
+            with open('items.json', 'w') as fp:
+                json.dump(users, fp, sort_keys=True, indent=4)
+    else:
+        users = {}
+        users[user_id] = {user_id: {}}
+        users[user_id]["items"] = []
+        users[user_id]["items"].remove( item )
         users[user_id]['hold'] = item
         with open('items.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
