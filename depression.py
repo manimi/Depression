@@ -2647,6 +2647,7 @@ def user_add_item(user_id, item):
             if not (user_id in users):
                 users[user_id]["items"] = []
                 users[user_id]["items"].append( item )
+                users[user_id]['hold'] = "nothing"
                 #users[user_id]['hold'] = item
                 with open('items.json', 'w') as fp:
                     json.dump(users, fp, sort_keys=True, indent=4)
@@ -2660,6 +2661,7 @@ def user_add_item(user_id, item):
                 users[user_id] = {}
                 users[user_id]["items"] = []
                 users[user_id]["items"].append( item )
+                users[user_id]['hold'] = "nothing"
                 #users[user_id]['hold'] = item
                 with open('items.json', 'w') as fp:
                     json.dump(users, fp, sort_keys=True, indent=4)
