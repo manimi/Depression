@@ -654,9 +654,8 @@ async def giveitem(ctx, item=None, membername=None):
                             await bot.say('You gave the {} to {}!'.format(itemm, m.name))
                             user_remove_item(ctx.message.author.id, itemm)
                             user_add_item(m.id, itemm)
-                            if (get_hold(ctx.message.author.id) != itemm)):
+                            if (get_hold(ctx.message.author.id) != itemm):
                                 user_hold(ctx.message.author.id, "nothing")
-
 @bot.command(pass_context=True)
 async def playfile(ctx, file):
     for server in bot.servers:
