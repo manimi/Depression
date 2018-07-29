@@ -1961,6 +1961,39 @@ async def on_message(message):
             await bot.send_typing(message.channel)
             await bot.send_message(message.channel, "lol")
             return None
+        elif (('l' in message.content)|('i' in message.content)|('g' in message.content)|('a' in message.content)|('b' in message.content)|('k' in message.content)|('w' in message.content))&(('<@458687615785369600>' in message.content)|('depression' in message.content)):
+            await bot.send_typing(message.channel)
+            import random
+            y = random.randint(1,11)
+            if (y == 1):
+                await bot.send_message(message.channel, "I don't get it.")
+                return None
+            elif (y == 2):
+                await bot.send_message(message.channel, "Nothing special.")
+                return None
+            elif (y == 3):
+                await bot.send_message(message.channel, "What the fuck")
+                return None
+            elif (y == 4):
+                await bot.send_message(message.channel, "Maybe you're right.")
+                return None
+            elif (y == 5):
+                await bot.send_message(message.channel, "probably...")
+                return None
+            elif (y == 6):
+                await bot.send_message(message.channel, "Not really.")
+                return None
+            elif (y == 7):
+                await bot.send_message(message.channel, "Weird.")
+                return None
+            elif (y == 8):
+                await bot.send_message(message.channel, "uhhhhh")
+                return None
+            elif (y == 9):
+                await bot.send_message(message.channel, "really?")
+                return None
+            elif (y == 10):
+                return None
         elif (message.content == "d!2.2"):
             await bot.send_typing(message.channel)
             string = "here's your random 2.2 leak:"
