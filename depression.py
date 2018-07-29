@@ -638,25 +638,24 @@ async def hold(ctx, item=None):
 
 @bot.command(pass_context=True)
 async def giveitem(ctx, item=None, membername=None):
-    if (item is None):
+    if ((item is None)|(membername is None)):
         await bot.send_typing(ctx.message.channel)
-        await bot.send_message(ctx.message.channel, "Choose an item without :: ``example: gem <user name>`` {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')))
+        await bot.say("Choose an item without :: ``example: gem <user name>`` {}".format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')))
     else:
         for server in bot.servers:
             for m in server.members:
-                try:
-                    if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
-                        itemm = ":{}:".format(item)
-                        if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
-                            await bot.say("You can't give yourself your item!")
-                        else:
-                            if (itemm in get_items(ctx.message.author.id)):
-                                await bot.send_typing(ctx.message.channel)
-                                await bot.say('You gave the {} to {}!'.format(itemm, m.name))
-                                user_remove_item(ctx.message.author.id, itemm)
-                                user_add_item(m.id, itemm)
-                                if (get_hold(ctx.message.author.id) != itemm):
-                                    user_hold(ctx.message.author.id, "nothing")
+                if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                    itemm = ":{}:".format(item)
+                    if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+                        await bot.say("You can't give yourself your item!")
+                    else:
+                        if (itemm in get_items(ctx.message.author.id)):
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.say('You gave the {} to {}!'.format(itemm, m.name))
+                            user_remove_item(ctx.message.author.id, itemm)
+                            user_add_item(m.id, itemm)
+                            if (get_hold(ctx.message.author.id) != itemm)):
+                                user_hold(ctx.message.author.id, "nothing")
 
 @bot.command(pass_context=True)
 async def playfile(ctx, file):
