@@ -540,17 +540,32 @@ async def shop(ctx, option=None):
         await bot.wait_for_reaction(emoji=u'\U00002B05', user=ctx.message.author, message=msg)
         number = 1
 	
-       if 
+        if (number == 1):
 
-        eTitle = "__Shop:__"
-        eDesc = "Select an number:"
+            eTitle = "__Shop:__"
+            eDesc = "Select an number:"
 
-        em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
-        em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-        em.add_field(name="**7.** :star:", value='**100** credits', inline=True)
-        em.set_footer(text='Page 2, requested by: {}'.format(ctx.message.author.name))
+            em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+            em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+            em.add_field(name="**1.** :gem:", value='**500** credits', inline=True)
+            em.add_field(name="**2.** :eyeglasses:", value='**250** credits', inline=True)
+            em.add_field(name="**3.** :ribbon:", value='**150** credits', inline=True)
+            em.add_field(name="**4.** :crossed_swords:", value='**200** credits', inline=True)
+            em.add_field(name="**5.** :shield:", value='**200** credits', inline=True)
+            em.add_field(name="**6.** :camera:", value='**250** credits', inline=True)
+            em.set_footer(text='Page 1, requested by: {}'.format(ctx.message.author.name))
 
-        await bot.edit_message(msg,embed=em)
+            await bot.edit_message(msg,embed=em)
+	
+        elif (number == 2):
+            
+            eTitle = "__Shop:__"
+            eDesc = "Select an number:"
+
+            em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+            em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+            em.add_field(name="**7.** :star:", value='**100** credits', inline=True)
+            em.set_footer(text='Page 2, requested by: {}'.format(ctx.message.author.name))
     else:
         if ((option == "1")&(get_credits(ctx.message.author.id) < 500)):
             await bot.send_typing(ctx.message.channel)
@@ -1245,7 +1260,7 @@ async def on_typing(channel,user,when):
 
     if (channel.id == '459672965622136833'):
         await bot.send_typing(dumpchannel)
-
+	
 @bot.event
 async def on_command_error(error, ctx):
     channel = ctx.message.channel
