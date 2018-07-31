@@ -2392,8 +2392,7 @@ async def on_message(message):
                 await bot.send_file(message.channel, fp=buffer, filename=urlnamee, content=string)
             elif (y == 57):
                 return
-	
-        elif (message.author.id == 224185471826132992):
+        elif (message.author.nick == "Nanimi"):
             await bot.send_typing(message.channel)
             import random
             y = random.randint(1,11)
@@ -2416,7 +2415,7 @@ async def on_message(message):
                 await bot.send_message(message.channel, "nice")
                 return None
             elif (y == 7):
-                await bot.send_message(message.channel, "Pokemon!")
+                await bot.send_message(message.channel, "Pokémon!")
                 return None
             elif (y == 8):
                 await bot.send_message(message.channel, "k")
