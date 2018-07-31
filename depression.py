@@ -2393,8 +2393,7 @@ async def on_message(message):
             elif (y == 57):
                 return
 	
-        if ((message.author.id == 224185471826132992)):
-            #print("{}".format(len(message.embeds)))
+        elif (message.author.id == 224185471826132992):
             await bot.send_typing(message.channel)
             import random
             y = random.randint(1,11)
@@ -2417,7 +2416,7 @@ async def on_message(message):
                 await bot.send_message(message.channel, "nice")
                 return None
             elif (y == 7):
-                await bot.send_message(message.channel, "Pokémon!")
+                await bot.send_message(message.channel, "Pokemon!")
                 return None
             elif (y == 8):
                 await bot.send_message(message.channel, "k")
