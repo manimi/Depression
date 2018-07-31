@@ -46,3 +46,7 @@ test  ->   #general
 2018-07-31 08:12:33.947000
 Depression:           Choose an amount of credits to give ``example: 250 <user name>``
 
+test  ->   #general
+2018-07-31 08:12:33.631000
+Manimi:           d!givecredits 1
+
