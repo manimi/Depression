@@ -2394,7 +2394,7 @@ async def on_message(message):
                 return
         elif (message.author.name == "Pokécord"):
             if ((message.embeds is not None)&(len(message.embeds) == 1)):
-                if ("Profile" in message.embeds[0]['title']):
+                if ("appeared" in message.embeds[0]['title']):
                     await bot.send_typing(message.channel)
                     import random
                     y = random.randint(1,11)
