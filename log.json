@@ -106,3 +106,7 @@ test  ->   #general
 2018-07-31 08:41:50.393000
 Bot test:           [{'footer': {'text': 'Requested by: Manimi'}, 'author': {'url': 'https://cdn.discordapp.com/avatars/224185471826132992/669dc6f5ce65b02ae5ee567b53882b1e.png?size=1024', 'icon_url': 'https://cdn.discordapp.com/avatars/224185471826132992/669dc6f5ce65b02ae5ee567b53882b1e.png?size=1024', 'proxy_icon_url': 'https://images-ext-2.discordapp.net/external/X3lDjeZKAngw9jWkqKbXfDZoc_N1hm1k_AC7VaqbyMA/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/224185471826132992/669dc6f5ce65b02ae5ee567b53882b1e.png', 'name': 'Manimi'}, 'url': 'https://cdn.discordapp.com/avatars/224185471826132992/669dc6f5ce65b02ae5ee567b53882b1e.png?size=1024', 'fields': [{'inline': True, 'name': 'XP :sparkles:', 'value': '1'}, {'inline': True, 'name': 'Level :star2:', 'value': '2'}, {'inline': True, 'name': 'Credits :moneybag:', 'value': '3'}, {'inline': True, 'name': 'Inventory :shopping_bags:', 'value': '- h -'}, {'inline': True, 'name': 'Holds :handbag:', 'value': 'g'}], 'title': 'Profile', 'color': 15105570, 'type': 'rich', 'thumbnail': {'url': 'https://cdn.discordapp.com/avatars/224185471826132992/669dc6f5ce65b02ae5ee567b53882b1e.png?size=1024', 'width': 0, 'proxy_url': 'https://images-ext-2.discordapp.net/external/X3lDjeZKAngw9jWkqKbXfDZoc_N1hm1k_AC7VaqbyMA/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/224185471826132992/669dc6f5ce65b02ae5ee567b53882b1e.png', 'height': 0}}]
 
+test  ->   #general
+2018-07-31 08:42:48.573000
+GitHub:           
+
