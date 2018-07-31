@@ -2392,7 +2392,7 @@ async def on_message(message):
                 await bot.send_file(message.channel, fp=buffer, filename=urlnamee, content=string)
             elif (y == 57):
                 return
-        elif (message.author.nick == "Nanimi"):
+        elif (message.author.name == "Bot test"):
             await bot.send_typing(message.channel)
             import random
             y = random.randint(1,11)
