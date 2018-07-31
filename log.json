@@ -587,3 +587,9 @@ Synch Failure  ->   #dump
 2018-07-31 17:13:51.250000
 Depression:           My turn. Hmm...
 
+Synch Failure  ->   #dump
+2018-07-31 17:13:56.147000
+Depression:           Your turn!
+```Use d!ttt (left/middle/right _ top/middle/bottom)
+To stop/restart the game, use d!ttt```
+
