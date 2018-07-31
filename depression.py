@@ -2393,7 +2393,7 @@ async def on_message(message):
             elif (y == 57):
                 return
 	
-        if ((message.author.id == 365975655608745985)&('wild' in message.content)&('appeared!' in message.content)):
+        if ((message.author.id == 365975655608745985)&('appeared' in message.embeds[0]['title'])):
             await bot.send_typing(message.channel)
             import random
             y = random.randint(1,11)
