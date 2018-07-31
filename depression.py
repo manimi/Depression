@@ -1326,7 +1326,7 @@ async def star(ctx):
     
         backgroundd.paste(avatarr, (0,0))
     
-        backgroundd.paste(gemm, (0,45), gemm)
+        backgroundd.paste(gemm, (0,25), gemm)
     
         backgroundd.save("youtried.png", "PNG")
     
