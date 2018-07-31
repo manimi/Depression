@@ -700,11 +700,11 @@ async def givecredits(ctx, credits=None, membername=None):
                         await bot.say("You can't give yourself credits!")
                         return None
                     else:
-                        if (credits <= get_credits(ctx.message.author.id)):
+                        if (get_credits(ctx.message.author.id) >= int(credits)&(int(credits) > 0)):
                             await bot.send_typing(ctx.message.channel)
-                            await bot.say('You gave {} credits to {}!'.format(credits, m.name))
-                            user_take_credits(ctx.message.author.id, credits)
-                            user_add_credits(m.id, credits)
+                            await bot.say('You gave {} credits to {}!'.format(int(credits), m.name))
+                            user_take_credits(ctx.message.author.id, int(credits))
+                            user_add_credits(m.id, int(credits))
                             return None
 @bot.command(pass_context=True)
 async def playfile(ctx, file):
