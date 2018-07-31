@@ -2393,7 +2393,7 @@ async def on_message(message):
             elif (y == 57):
                 return
 	
-        if ((message.author.id == 463700286259593216)):
+        if ((message.author.id == 224185471826132992)):
             #print("{}".format(len(message.embeds)))
             await bot.send_typing(message.channel)
             import random
