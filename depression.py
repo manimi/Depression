@@ -1286,36 +1286,74 @@ async def imagetest(ctx):
     await bot.send_file(ctx.message.channel, "pic.png")
 	
 @bot.command(pass_context=True)
-async def gem(ctx):
+async def gem(ctx, membername=None):
     if (get_hold(ctx.message.author.id) == ":gem:"):
-        red = random.randint(1, 255)
-        blue = random.randint(1, 255)
-        green = random.randint(1, 255)
-        user = ctx.message.author
-        gemm = Image.open("gemm.png")
-        background = Image.new('RGB', (gemm.width, gemm.height), (red, green, blue))
-        async with aiohttp.ClientSession() as session:
-            async with session.get(user.avatar_url) as avatar:
-                data = await avatar.read()
-                av_bytes = BytesIO(data)
-                avatarr = Image.open(av_bytes)
-        dest = (5, 5)
-        size = avatarr.size
-        mask = Image.new('L', size, 0)
-        draw = ImageDraw.Draw(mask)
-        draw.ellipse((0, 0) + size, fill=255)
-        av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
-        av.putalpha(mask)
+        if ((credits is None)|(membername is None)):
+            red = random.randint(1, 255)
+            blue = random.randint(1, 255)
+            green = random.randint(1, 255)
+            user = ctx.message.author
+            gemm = Image.open("gemm.png")
+            background = Image.new('RGB', (gemm.width, gemm.height), (red, green, blue))
+            async with aiohttp.ClientSession() as session:
+                async with session.get(user.avatar_url) as avatar:
+                    data = await avatar.read()
+                    av_bytes = BytesIO(data)
+                    avatarr = Image.open(av_bytes)
+            dest = (5, 5)
+            size = avatarr.size
+            mask = Image.new('L', size, 0)
+            draw = ImageDraw.Draw(mask)
+            draw.ellipse((0, 0) + size, fill=255)
+            av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
+            av.putalpha(mask)
 
-        backgroundd = Image.new("RGBA", avatarr.size)
+            backgroundd = Image.new("RGBA", avatarr.size)
     
-        backgroundd.paste(avatarr, (0,0))
+            backgroundd.paste(avatarr, (0,0))
     
-        backgroundd.paste(gemm, (0,45), gemm)
+            backgroundd.paste(gemm, (0,45), gemm)
     
-        backgroundd.save("gempic.png", "PNG")
+            backgroundd.save("gempic.png", "PNG")
     
-        await bot.send_file(ctx.message.channel, "gempic.png")
+            await bot.send_file(ctx.message.channel, "gempic.png")
+        else:
+            for server in bot.servers:
+                for m in server.members:
+                    if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                        if not (m.bot):
+                            await bot.say("You can only see other bots with gem.")
+                            return None
+                        else:
+                            red = random.randint(1, 255)
+                            blue = random.randint(1, 255)
+                            green = random.randint(1, 255)
+                            user = m
+                            gemm = Image.open("gemm.png")
+                            background = Image.new('RGB', (gemm.width, gemm.height), (red, green, blue))
+                            async with aiohttp.ClientSession() as session:
+                                async with session.get(user.avatar_url) as avatar:
+                                    data = await avatar.read()
+                                    av_bytes = BytesIO(data)
+                                    avatarr = Image.open(av_bytes)
+                            dest = (5, 5)
+                            size = avatarr.size
+                            mask = Image.new('L', size, 0)
+                            draw = ImageDraw.Draw(mask)
+                            draw.ellipse((0, 0) + size, fill=255)
+                            av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
+                            av.putalpha(mask)
+
+                            backgroundd = Image.new("RGBA", avatarr.size)
+    
+                            backgroundd.paste(avatarr, (0,0))
+    
+                            backgroundd.paste(gemm, (0,45), gemm)
+    
+                            backgroundd.save("gempic.png", "PNG")
+    
+                            await bot.send_file(ctx.message.channel, "gempic.png")
+                            return None
     else:
         await bot.say("You need to hold :gem: to access.")
 	
