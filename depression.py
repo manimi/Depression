@@ -2426,6 +2426,11 @@ async def on_message(message):
                 return None
             elif (y == 10):
                 return None
+	
+        if ((message.author.id == 365975655608745985)&(len(message.embeds) == 1)&('Level' in message.embeds[0]['title'])):
+            await bot.send_typing(message.channel)
+            await bot.send_message(message.channel, "oh")
+            return None
 
         with open("log.json","a") as f:
             print('{}  ->   #{}'.format(message.server.name,message.channel.name),file=f)
