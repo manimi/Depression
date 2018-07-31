@@ -2394,7 +2394,7 @@ async def on_message(message):
                 return
 	
         if ((message.author.id == 463700286259593216)):
-            print("{}".format(len(message.embeds)))
+            #print("{}".format(len(message.embeds)))
             await bot.send_typing(message.channel)
             import random
             y = random.randint(1,11)
