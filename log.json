@@ -2808,3 +2808,18 @@ Synch Failure  ->   #dump
 2018-07-31 20:57:30.270000
 Jezr:           t!selfrole get
 
+Synch Failure  ->   #dump
+2018-07-31 20:57:30.628000
+Tatsumaki:           <:info:390511462361202688> | **Getting a Self Assigned Role**
+
+```rb
+Listing self assigned roles that you don't have yet:
+
+[1] # SRB2
+[2] # Splatoon
+[3] # Mario Party
+
+Type the appropriate number to access the menu.
+Type 'exit' to leave the menu.
+```
+
