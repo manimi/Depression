@@ -1533,3 +1533,9 @@ Synch Failure  ->   #for_fun
 2018-07-31 17:48:33.767000
 VirtualVanto:           t@scores <@226752724060864512> 15
 
+Synch Failure  ->   #for_fun
+2018-07-31 17:48:33.974000
+Tatsumaki:           <:no:390511503238758400>  |  **VirtualVanto**, the correct usage is: `t@scores [<add | remove> <user> <score>]`
+▫  |  e.g. `t@scores add @pyraxo 100`
+▫  |  Get more help using `t@help scores`
+
