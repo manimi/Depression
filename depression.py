@@ -688,6 +688,25 @@ async def giveitem(ctx, item=None, membername=None):
                                 user_hold(ctx.message.author.id, "nothing")
                             return None
 @bot.command(pass_context=True)
+async def givecredits(ctx, credits=None, membername=None):
+    if ((credits is None)|(membername is None)):
+        await bot.send_typing(ctx.message.channel)
+        await bot.say("Choose an amount of credits to give ``example: 250 <user name>``")
+    else:
+        for server in bot.servers:
+            for m in server.members:
+                if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                    if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
+                        await bot.say("You can't give yourself credits!")
+                        return None
+                    else:
+                        if (credits <= get_credits(ctx.message.author.id)):
+                            await bot.send_typing(ctx.message.channel)
+                            await bot.say('You gave {} credits to {}!'.format(credits, m.name))
+                            user_take_credits(ctx.message.author.id, credits)
+                            user_add_credits(m.id, credits)
+                            return None
+@bot.command(pass_context=True)
 async def playfile(ctx, file):
     for server in bot.servers:
         if (ctx.message.author.id == '224185471826132992'):
@@ -1381,7 +1400,7 @@ async def on_message(message):
 
             em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
             em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-            em.add_field(name="Stuff:", value='d!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!hold (item) - choose an item to hold!\nd!top (xp/level/credits) - top 10 of specific category.\nd!inventory (member name) - check your inventory!\nd!holding (member name) - check what the member is holding right now!\nd!giveitem (item) (member name) - choose an item to give!', inline=False)
+            em.add_field(name="Stuff:", value='d!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!hold (item) - choose an item to hold!\nd!top (xp/level/credits) - top 10 of specific category.\nd!inventory (member name) - check your inventory!\nd!holding (member name) - check what the member is holding right now!\nd!giveitem (item) (member name) - choose an item to give!\nd!givecredits (credits) (member name) - choose an amount of credits to give!', inline=False)
             em.add_field(name="Games:", value='d!ttt - tic-tac-toe.', inline=False)
             em.add_field(name="Memes:", value='d!2.2 - shows a random sonic robo blast 2 v2.2 leak out of 56.\nd!sonic06 (place) (mission) - now loading screen.', inline=False)
             em.add_field(name="Testing:", value='d!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!calltest (member name) - call someone.\nd!imagetest - random colored image.', inline=False)
