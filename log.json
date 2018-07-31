@@ -506,3 +506,7 @@ Synch Failure  ->   #dump
 2018-07-31 17:00:55.079000
 Jezr:           ~>iam Red
 
+Synch Failure  ->   #dump
+2018-07-31 17:00:55.138000
+Mantaro:           ✖ There isn't an autorole with the name ``Red``!
+
