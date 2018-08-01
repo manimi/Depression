@@ -8,14 +8,19 @@
     },
     "224185471826132992": {
         "224185471826132992": {},
-        "hold": ":star:",
+        "hold": "nothing",
         "items": [
             ":crossed_swords:",
             ":eyeglasses:",
             ":shield:",
             ":ribbon:",
             ":camera:",
-            ":gem:",
+            ":gem:"
+        ]
+    },
+    "231807805500293121": {
+        "hold": "nothing",
+        "items": [
             ":star:"
         ]
     },
