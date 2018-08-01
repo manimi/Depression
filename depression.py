@@ -1403,6 +1403,86 @@ async def star(ctx):
         await bot.send_file(ctx.message.channel, "youtried.png")
     else:
         await bot.say("You need to hold :star: to access.")
+	
+@bot.command(pass_context=True)
+async def help(ctx, category=None):
+    if (category is None):
+        await bot.send_typing(ctx.message.channel)
+        eTitle = 'Depression - "Your opinion doesn`t count!"'
+        eDesc = 'Choose a category:'
+
+        em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+        em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        em.add_field(name="Stuff", value='-', inline=False)
+        em.add_field(name="Games", value='-', inline=False)
+        em.add_field(name="Memes", value='-', inline=False)
+        em.add_field(name="Testing", value='-', inline=False)
+        em.add_field(name="Special", value='-', inline=False)
+        em.add_field(name="Others", value='-', inline=False)
+        em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+        await bot.send_message(ctx.message.channel,embed=em)
+    elif ((category == "Stuff")|(category == "stuff")|(category == "STUFF")):
+        await bot.send_typing(ctx.message.channel)
+        eTitle = 'Depression - "Your opinion doesn`t count!"'
+        eDesc = 'Category:'
+
+        em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+        em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        em.add_field(name="Stuff:", value='d!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!hold (item) - choose an item to hold!\nd!top (xp/level/credits) - top 10 of specific category.\nd!inventory (member name) - check your inventory!\nd!holding (member name) - check what the member is holding right now!\nd!giveitem (item) (member name) - choose an item to give!\nd!givecredits (credits) (member name) - choose an amount of credits to give!', inline=False)
+        em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+        await bot.send_message(ctx.message.channel,embed=em)
+    elif ((category == "Games")|(category == "games")|(category == "GAMES")):
+        await bot.send_typing(ctx.message.channel)
+        eTitle = 'Depression - "Your opinion doesn`t count!"'
+        eDesc = 'Category:'
+
+        em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+        em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        em.add_field(name="Games:", value='d!ttt - tic-tac-toe.', inline=False)
+        em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+        await bot.send_message(ctx.message.channel,embed=em)
+    elif ((category == "Memes")|(category == "memes")|(category == "MEMES")):
+        await bot.send_typing(ctx.message.channel)
+        eTitle = 'Depression - "Your opinion doesn`t count!"'
+        eDesc = 'Category:'
+
+        em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+        em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        em.add_field(name="Memes:", value='d!2.2 - shows a random sonic robo blast 2 v2.2 leak out of 56.\nd!sonic06 (place) (mission) - now loading screen.', inline=False)
+        em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+        await bot.send_message(ctx.message.channel,embed=em)
+    elif ((category == "Testing")|(category == "testing")|(category == "TESTING")):
+        await bot.send_typing(ctx.message.channel)
+        eTitle = 'Depression - "Your opinion doesn`t count!"'
+        eDesc = 'Category:'
+
+        em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+        em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        em.add_field(name="Testing:", value='d!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!calltest (member name) - call someone.\nd!imagetest - random colored image.', inline=False)
+        em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+        await bot.send_message(ctx.message.channel,embed=em)
+    elif ((category == "Special")|(category == "special")|(category == "SPECIAL")):
+        await bot.send_typing(ctx.message.channel)
+        eTitle = 'Depression - "Your opinion doesn`t count!"'
+        eDesc = 'Category:'
+
+        em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+        em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        em.add_field(name="Special:", value='d!fight - fight against me! (You need to hold :crossed_swords:)\nd!hunt - look for credits! (You need to hold :eyeglasses:)\nd!gem - add a gem to your pfp! (You need to hold :gem:)\nd!star - you tried pfp! (You need to hold :star:)', inline=False)
+        em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+        await bot.send_message(ctx.message.channel,embed=em)
+    elif ((category == "Others")|(category == "others")|(category == "OTHERS")):
+        await bot.send_typing(ctx.message.channel)
+        eTitle = 'Depression - "Your opinion doesn`t count!"'
+        eDesc = 'Category:'
+
+        em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+        em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        em.add_field(name="Others:", value='d!pic (member name) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!claps "(sentence)" - make :clap: a :clap: sentence :clap:', inline=False)
+        em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+        await bot.send_message(ctx.message.channel,embed=em)
+    else:
+        await bot.send_message(ctx.message.channel,"That is not a valid category!")
 
 @bot.event
 async def on_typing(channel,user,when):
@@ -1443,24 +1523,7 @@ async def on_message(message):
                 await bot.send_message(dumpchannel, message.content)
                 print('{}'.format(message.content))
 
-        if (message.content == "d!help"):
-            await bot.send_typing(message.channel)
-            #await bot.send_message(message.channel, '```Depression - "Your opinion doesn`t count!"\n\nCommands:\n\nd!pic (member name) - shows profile picture.\nd!srb22.2leak - shows a random sonic robo blast 2 v2.2 leak out of 55.\nd!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!sonic06 (place) (mission) - now loading screen.\nd!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!calltest (member name) - call someone.\nd!top - unfinished top list.\nd!ttt - tic-tac-toe.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!hold (item) - choose an item to hold!\nd!help - this command...```')
-            eTitle = 'Depression - "Your opinion doesn`t count!"'
-            eDesc = 'Commands:'
-
-            em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
-            em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-            em.add_field(name="Stuff:", value='d!daily (member name) - get/give good stuff.\nd!xp (member name) - shows the member\'s XP.\nd!level (member name) - shows the member\'s level.\nd!credits (member name) - shows the member\'s credits.\nd!profile (member name) - shows the profile of the member.\nd!shop (option) - buy something!\nd!hold (item) - choose an item to hold!\nd!top (xp/level/credits) - top 10 of specific category.\nd!inventory (member name) - check your inventory!\nd!holding (member name) - check what the member is holding right now!\nd!giveitem (item) (member name) - choose an item to give!\nd!givecredits (credits) (member name) - choose an amount of credits to give!', inline=False)
-            em.add_field(name="Games:", value='d!ttt - tic-tac-toe.', inline=False)
-            em.add_field(name="Memes:", value='d!2.2 - shows a random sonic robo blast 2 v2.2 leak out of 56.\nd!sonic06 (place) (mission) - now loading screen.', inline=False)
-            em.add_field(name="Testing:", value='d!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!calltest (member name) - call someone.\nd!imagetest - random colored image.', inline=False)
-            em.add_field(name="Special:", value='d!fight - fight against me! (You need to hold :crossed_swords:)\nd!hunt - look for credits! (You need to hold :eyeglasses:)\nd!gem - add a gem to your pfp! (You need to hold :gem:)\nd!star - you tried pfp! (You need to hold :star:)', inline=False)
-            em.add_field(name="Others:", value='d!pic (member name) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!claps "(sentence)" - make :clap: a :clap: sentence :clap:', inline=False)
-            em.set_footer(text='Requested by: {}'.format(message.author.name))
-            await bot.send_message(message.channel,embed=em)
-			
-        elif ('depressed' in message.content):
+        if ('depressed' in message.content):
             await bot.send_typing(message.channel)
             await bot.send_message(message.channel, 'indeed.'.format(message.author.name))
         elif (message.content == "d!randomtest"):
