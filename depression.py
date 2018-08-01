@@ -664,6 +664,19 @@ async def hold(ctx, item=None):
             await bot.send_typing(ctx.message.channel)
             await bot.say('You\'re now holding nothing!')
             user_hold(ctx.message.author.id, "nothing")
+	
+@bot.command(pass_context=True)
+async def claps(ctx, sentence=None):
+    if (sentence is None):
+        await bot.send_typing(ctx.message.channel)
+        eTitlee = 'd!claps "(sentence)"'
+        eDescc = 'Make :clap: a :clap: sentence :clap: (make sure it starts with " and ends with ")'
+
+        emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
+        emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        await bot.send_message(ctx.message.channel, embed=emm)
+    else:
+        await bot.say('{}'.format(sentence.replace(" "," :clap: ")))
 
 @bot.command(pass_context=True)
 async def giveitem(ctx, item=None, membername=None):
@@ -1443,7 +1456,7 @@ async def on_message(message):
             em.add_field(name="Memes:", value='d!2.2 - shows a random sonic robo blast 2 v2.2 leak out of 56.\nd!sonic06 (place) (mission) - now loading screen.', inline=False)
             em.add_field(name="Testing:", value='d!randomtest - random numbers test.\nd!edittest - message edit test.\nd!deletetest - message delete test.\nd!cooldowntest - cooldown between messages test.\nd!reactiontest - react message test.\nd!reactionremovetest - reaction remove test.\nd!calltest (member name) - call someone.\nd!imagetest - random colored image.', inline=False)
             em.add_field(name="Special:", value='d!fight - fight against me! (You need to hold :crossed_swords:)\nd!hunt - look for credits! (You need to hold :eyeglasses:)\nd!gem - add a gem to your pfp! (You need to hold :gem:)\nd!star - you tried pfp! (You need to hold :star:)', inline=False)
-            em.add_field(name="Others:", value='d!pic (member name) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.', inline=False)
+            em.add_field(name="Others:", value='d!pic (member name) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!claps "(sentence)" - make :clap: a :clap: sentence :clap:', inline=False)
             em.set_footer(text='Requested by: {}'.format(message.author.name))
             await bot.send_message(message.channel,embed=em)
 			
