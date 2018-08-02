@@ -1523,7 +1523,8 @@ async def customemojitest(ctx):
     alien = Image.open("blackalien.png")
     gunsolider = await bot.create_custom_emoji(ctx.message.server, name="gunsolider", image=solider)
     blackalien = await bot.create_custom_emoji(ctx.message.server, name="blackalien", image=alien)
-    await bot.send_message(ctx.message.channel,'{} {}'.format(gunsolider, blackalien))
+    print("this worked")
+    await bot.send_message(ctx.message.channel,'<{0.name}:{0.id}> <{1.name}:{1.id}>'.format(gunsolider, blackalien))
 
 @bot.event
 async def on_typing(channel,user,when):
