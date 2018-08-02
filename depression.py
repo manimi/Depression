@@ -1496,6 +1496,27 @@ async def help(ctx, category=None):
     else:
         await bot.send_message(ctx.message.channel,"That is not a valid category!")
 
+@bot.command(pass_context=True)
+async def shadow(ctx, option=None):
+    if (option is None):
+        if (shadow_load_status(ctx.message.author.id) == "Menu"):
+            solider = Image.open("gunsolider.png")
+            alien = Image.open("blackalien.png")
+            gunsolider = await bot.create_custom_emoji(ctx.message.server, name="gunsolider", image=solider)
+            blackalien = await bot.create_custom_emoji(ctx.message.server, name="blackalien", image=alien)
+            await bot.send_typing(ctx.message.channel)
+            eTitle = 'Shadow the Hedgehog {} {}'.format(gunsolider, blackalien)
+            eDesc = '(Coming soon...)'
+
+            em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+            em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+            em.add_field(name="Slot 1", value='Level: {}\nHero mission amount: {}\nDark mission amount: {}'.format(shadow_load_level(ctx.message.author.id, 1),shadow_load_hnum(ctx.message.author.id, 1),shadow_load_dnum(ctx.message.author.id, 1)), inline=False)
+            em.add_field(name="Slot 2", value='Level: {}\nHero mission amount: {}\nDark mission amount: {}'.format(shadow_load_level(ctx.message.author.id, 2),shadow_load_hnum(ctx.message.author.id, 2),shadow_load_dnum(ctx.message.author.id, 2)), inline=False)
+            em.add_field(name="Slot 3", value='Level: {}\nHero mission amount: {}\nDark mission amount: {}'.format(shadow_load_level(ctx.message.author.id, 3),shadow_load_hnum(ctx.message.author.id, 3),shadow_load_dnum(ctx.message.author.id, 3)), inline=False)
+            em.add_field(name="Slot 4", value='Level: {}\nHero mission amount: {}\nDark mission amount: {}'.format(shadow_load_level(ctx.message.author.id, 4),shadow_load_hnum(ctx.message.author.id, 4),shadow_load_dnum(ctx.message.author.id, 4)), inline=False)
+            em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+            await bot.send_message(ctx.message.channel,embed=em)
+
 @bot.event
 async def on_typing(channel,user,when):
 
@@ -2972,6 +2993,37 @@ def shadow_save(user_id, slot, level, act, hnum, dnum):
         with open('shadow.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
 
+def shadow_save_status(user_id, status):
+    if os.path.isfile('shadow.json'):
+        try:
+            with open('shadow.json', 'r') as fp:
+                users = json.load(fp)
+            if not (user_id in users):
+                users[user_id]["status"] = status
+                with open('shadow.json', 'w') as fp:
+                    json.dump(users, fp, sort_keys=True, indent=4)
+            else:
+                users[user_id]["status"] = status
+                with open('shadow.json', 'w') as fp:
+                    json.dump(users, fp, sort_keys=True, indent=4)
+        except KeyError:
+            if not (user_id in users):
+                users[user_id] = {}
+                users[user_id]["status"] = status
+                with open('shadow.json', 'w') as fp:
+                    json.dump(users, fp, sort_keys=True, indent=4)
+            else:
+                users[user_id] = {}
+                users[user_id]["status"] = status
+                with open('shadow.json', 'w') as fp:
+                    json.dump(users, fp, sort_keys=True, indent=4)
+    else:
+        users = {}
+        users[user_id] = {user_id: {}}
+        users[user_id]["status"] = status
+        with open('shadow.json', 'w') as fp:
+            json.dump(users, fp, sort_keys=True, indent=4)
+
 def get_xp(user_id: int):
     if os.path.isfile('users.json'):
         with open('users.json', 'r') as fp:
@@ -3100,9 +3152,9 @@ def shadow_load_act(user_id: int, slot: int):
         if user_id in users:
             return users[user_id]["save{}".format(slot)][1]
         else:
-            return "???"
+            return 0
     else:
-        return "???"
+        return 0
 
 def shadow_load_hnum(user_id: int, slot: int):
     if os.path.isfile('credits.json'):
@@ -3111,9 +3163,9 @@ def shadow_load_hnum(user_id: int, slot: int):
         if user_id in users:
             return users[user_id]["save{}".format(slot)][2]
         else:
-            return "???"
+            return 0
     else:
-        return "???"
+        return 0
 
 def shadow_load_dnum(user_id: int, slot: int):
     if os.path.isfile('credits.json'):
@@ -3122,9 +3174,20 @@ def shadow_load_dnum(user_id: int, slot: int):
         if user_id in users:
             return users[user_id]["save{}".format(slot)][3]
         else:
-            return "???"
+            return 0
     else:
-        return "???"
+        return 0
+
+def shadow_load_status(user_id: int):
+    if os.path.isfile('credits.json'):
+        with open('credits.json', 'r') as fp:
+            users = json.load(fp)
+        if user_id in users:
+            return users[user_id]["status"]
+        else:
+            return "Menu"
+    else:
+        return "Menu"
 
 bot.loop.create_task(my_background_task())
 bot.loop.create_task(my_background_taskk())
