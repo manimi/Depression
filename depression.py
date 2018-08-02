@@ -1498,10 +1498,10 @@ async def help(ctx, category=None):
 
 @bot.command(pass_context=True)
 async def shadow(ctx, option=None):
-    print(shadow_load_status(ctx.message.author.id))
-    print(shadow_load_level(ctx.message.author.id, 1))
-    print(str(shadow_load_hnum(ctx.message.author.id, 1)))
-    print(str(shadow_load_dnum(ctx.message.author.id, 1)))
+    print("{}".format(str(shadow_load_status(ctx.message.author.id))))
+    print("{}".format(str(shadow_load_level(ctx.message.author.id, 1))))
+    print("{}".format(str(shadow_load_hnum(ctx.message.author.id, 1))))
+    print("{}".format(str(shadow_load_dnum(ctx.message.author.id, 1))))
     if (option is None):
         if (shadow_load_status(ctx.message.author.id) == "Menu"):
             await bot.send_typing(ctx.message.channel)
