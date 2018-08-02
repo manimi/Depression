@@ -1500,12 +1500,8 @@ async def help(ctx, category=None):
 async def shadow(ctx, option=None):
     if (option is None):
         if (shadow_load_status(ctx.message.author.id) == "Menu"):
-            solider = Image.open("gunsolider.png")
-            alien = Image.open("blackalien.png")
-            gunsolider = await bot.create_custom_emoji(ctx.message.server, name="gunsolider", image=solider)
-            blackalien = await bot.create_custom_emoji(ctx.message.server, name="blackalien", image=alien)
             await bot.send_typing(ctx.message.channel)
-            eTitle = 'Shadow the Hedgehog {} {}'.format(gunsolider, blackalien)
+            eTitle = ':gun: Shadow the Hedgehog'
             eDesc = '(Coming soon...)'
 
             em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
@@ -1516,6 +1512,14 @@ async def shadow(ctx, option=None):
             em.add_field(name="Slot 4", value='Level: {}\nHero mission amount: {}\nDark mission amount: {}'.format(shadow_load_level(ctx.message.author.id, 4),shadow_load_hnum(ctx.message.author.id, 4),shadow_load_dnum(ctx.message.author.id, 4)), inline=False)
             em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
             await bot.send_message(ctx.message.channel,embed=em)
+	
+@bot.command(pass_context=True)
+async def customemojitest(ctx):
+    solider = Image.open("gunsolider.png")
+    alien = Image.open("blackalien.png")
+    gunsolider = await bot.create_custom_emoji(ctx.message.server, name="gunsolider", image=solider)
+    blackalien = await bot.create_custom_emoji(ctx.message.server, name="blackalien", image=alien)
+    await bot.send_message(ctx.message.channel,'{} {}'.format(gunsolider, blackalien))
 
 @bot.event
 async def on_typing(channel,user,when):
