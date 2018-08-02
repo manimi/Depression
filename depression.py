@@ -3143,8 +3143,8 @@ def get_credits_cooldown(user_id: int):
         return 0
 
 def shadow_load_level(user_id: int, slot: int):
-    if os.path.isfile('credits.json'):
-        with open('credits.json', 'r') as fp:
+    if os.path.isfile('shadow.json'):
+        with open('shadow.json', 'r') as fp:
             users = json.load(fp)
         if user_id in users:
             if (slot == 1):
@@ -3161,8 +3161,8 @@ def shadow_load_level(user_id: int, slot: int):
         return "???"
 
 def shadow_load_act(user_id: int, slot: int):
-    if os.path.isfile('credits.json'):
-        with open('credits.json', 'r') as fp:
+    if os.path.isfile('shadow.json'):
+        with open('shadow.json', 'r') as fp:
             users = json.load(fp)
         if user_id in users:
             if (slot == 1):
@@ -3179,8 +3179,8 @@ def shadow_load_act(user_id: int, slot: int):
         return 0
 
 def shadow_load_hnum(user_id: int, slot: int):
-    if os.path.isfile('credits.json'):
-        with open('credits.json', 'r') as fp:
+    if os.path.isfile('shadow.json'):
+        with open('shadow.json', 'r') as fp:
             users = json.load(fp)
         if user_id in users:
             if (slot == 1):
@@ -3197,8 +3197,8 @@ def shadow_load_hnum(user_id: int, slot: int):
         return 0
 
 def shadow_load_dnum(user_id: int, slot: int):
-    if os.path.isfile('credits.json'):
-        with open('credits.json', 'r') as fp:
+    if os.path.isfile('shadow.json'):
+        with open('shadow.json', 'r') as fp:
             users = json.load(fp)
         if user_id in users:
             if (slot == 1):
@@ -3215,8 +3215,8 @@ def shadow_load_dnum(user_id: int, slot: int):
         return 0
 
 def shadow_load_status(user_id: int):
-    if os.path.isfile('credits.json'):
-        with open('credits.json', 'r') as fp:
+    if os.path.isfile('shadow.json'):
+        with open('shadow.json', 'r') as fp:
             users = json.load(fp)
         if user_id in users:
             return users[user_id]["status"]
