@@ -1498,10 +1498,10 @@ async def help(ctx, category=None):
 
 @bot.command(pass_context=True)
 async def shadow(ctx, option=None):
-    print("{}".format(str(shadow_load_status(ctx.message.author.id))))
-    print("{}".format(str(shadow_load_level(ctx.message.author.id, 1))))
-    print("{}".format(str(shadow_load_hnum(ctx.message.author.id, 1))))
-    print("{}".format(str(shadow_load_dnum(ctx.message.author.id, 1))))
+    print("{}".format(shadow_load_status(ctx.message.author.id)))
+    print("{}".format(shadow_load_level(ctx.message.author.id, 1)))
+    print("{}".format(shadow_load_hnum(ctx.message.author.id, 1)))
+    print("{}".format(shadow_load_dnum(ctx.message.author.id, 1)))
     if (option is None):
         if (shadow_load_status(ctx.message.author.id) == "Menu"):
             await bot.send_typing(ctx.message.channel)
@@ -2974,30 +2974,30 @@ def shadow_save(user_id, slot, level, act, hnum, dnum):
                 users = json.load(fp)
             if not (user_id in users):
                 users[user_id]["save{}".format(slot)] = []
-                users[user_id]["save{}".format(slot)] = [(level,act,hnum,dnum)]
+                users[user_id]["save{}".format(slot)] = [level,act,hnum,dnum]
                 with open('shadow.json', 'w') as fp:
                     json.dump(users, fp, sort_keys=True, indent=4)
             else:
-                users[user_id]["save{}".format(slot)] = [(level,act,hnum,dnum)]
+                users[user_id]["save{}".format(slot)] = [level,act,hnum,dnum]
                 with open('shadow.json', 'w') as fp:
                     json.dump(users, fp, sort_keys=True, indent=4)
         except KeyError:
             if not (user_id in users):
                 users[user_id] = {}
                 users[user_id]["save{}".format(slot)] = []
-                users[user_id]["save{}".format(slot)] = [(level,act,hnum,dnum)]
+                users[user_id]["save{}".format(slot)] = [level,act,hnum,dnum]
                 with open('shadow.json', 'w') as fp:
                     json.dump(users, fp, sort_keys=True, indent=4)
             else:
                 users[user_id] = {}
-                users[user_id]["save{}".format(slot)] = [(level,act,hnum,dnum)]
+                users[user_id]["save{}".format(slot)] = [level,act,hnum,dnum]
                 with open('shadow.json', 'w') as fp:
                     json.dump(users, fp, sort_keys=True, indent=4)
     else:
         users = {}
         users[user_id] = {user_id: {}}
         users[user_id]["save{}".format(slot)] = []
-        users[user_id]["save{}".format(slot)] = [(level,act,hnum,dnum)]
+        users[user_id]["save{}".format(slot)] = [level,act,hnum,dnum]
         with open('shadow.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
 
