@@ -126,6 +126,12 @@ async def my_background_task():
             repo = user.get_repo('depression-discord-bot')
             file = repo.get_contents('/ttt.json')
             repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+        with open('shadow.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/shadow.json')
+            repo.update_file('/shadow.json', 'update!', fp.read(), file.sha)
         await asyncio.sleep(43200)
 
 @bot.event
@@ -200,6 +206,12 @@ async def savefiles(ctx):
             repo = user.get_repo('depression-discord-bot')
             file = repo.get_contents('/ttt.json')
             repo.update_file('/ttt.json', 'update!', fp.read(), file.sha)
+        with open('shadow.json', 'r') as fp:
+            g = github.Github(token)
+            user = g.get_user()
+            repo = user.get_repo('depression-discord-bot')
+            file = repo.get_contents('/shadow.json')
+            repo.update_file('/shadow.json', 'update!', fp.read(), file.sha)
         await bot.say("Files have been saved!")
 
 @bot.command(pass_context=True)
@@ -1438,7 +1450,7 @@ async def help(ctx, category=None):
 
         em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-        em.add_field(name="Games:", value='d!ttt - tic-tac-toe.', inline=False)
+        em.add_field(name="Games:", value='d!ttt - tic-tac-toe.\nd!shadow (option) - play through shadow\'s stories. (unfinished)', inline=False)
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
         await bot.send_message(ctx.message.channel,embed=em)
     elif ((category == "Memes")|(category == "memes")|(category == "MEMES")):
@@ -2925,6 +2937,40 @@ def user_hold(user_id, item):
         users[user_id]['hold'] = item
         with open('items.json', 'w') as fp:
             json.dump(users, fp, sort_keys=True, indent=4)
+	
+def shadow_save(user_id, slot, level, act, hnum, dnum):
+    if os.path.isfile('shadow.json'):
+        try:
+            with open('shadow.json', 'r') as fp:
+                users = json.load(fp)
+            if not (user_id in users):
+                users[user_id]["save{}".format(slot)] = []
+                users[user_id]["save{}".format(slot)] = [(level,act,hnum,dnum)]
+                with open('shadow.json', 'w') as fp:
+                    json.dump(users, fp, sort_keys=True, indent=4)
+            else:
+                users[user_id]["save{}".format(slot)] = [(level,act,hnum,dnum)]
+                with open('shadow.json', 'w') as fp:
+                    json.dump(users, fp, sort_keys=True, indent=4)
+        except KeyError:
+            if not (user_id in users):
+                users[user_id] = {}
+                users[user_id]["save{}".format(slot)] = []
+                users[user_id]["save{}".format(slot)] = [(level,act,hnum,dnum)]
+                with open('shadow.json', 'w') as fp:
+                    json.dump(users, fp, sort_keys=True, indent=4)
+            else:
+                users[user_id] = {}
+                users[user_id]["save{}".format(slot)] = [(level,act,hnum,dnum)]
+                with open('shadow.json', 'w') as fp:
+                    json.dump(users, fp, sort_keys=True, indent=4)
+    else:
+        users = {}
+        users[user_id] = {user_id: {}}
+        users[user_id]["save{}".format(slot)] = []
+        users[user_id]["save{}".format(slot)] = [(level,act,hnum,dnum)]
+        with open('shadow.json', 'w') as fp:
+            json.dump(users, fp, sort_keys=True, indent=4)
 
 def get_xp(user_id: int):
     if os.path.isfile('users.json'):
@@ -3035,6 +3081,50 @@ def get_credits_cooldown(user_id: int):
             return 0
     else:
         return 0
+
+def shadow_load_level(user_id: int, slot: int):
+    if os.path.isfile('credits.json'):
+        with open('credits.json', 'r') as fp:
+            users = json.load(fp)
+        if user_id in users:
+            return users[user_id]["save{}".format(slot)][0]
+        else:
+            return "???"
+    else:
+        return "???"
+
+def shadow_load_act(user_id: int, slot: int):
+    if os.path.isfile('credits.json'):
+        with open('credits.json', 'r') as fp:
+            users = json.load(fp)
+        if user_id in users:
+            return users[user_id]["save{}".format(slot)][1]
+        else:
+            return "???"
+    else:
+        return "???"
+
+def shadow_load_hnum(user_id: int, slot: int):
+    if os.path.isfile('credits.json'):
+        with open('credits.json', 'r') as fp:
+            users = json.load(fp)
+        if user_id in users:
+            return users[user_id]["save{}".format(slot)][2]
+        else:
+            return "???"
+    else:
+        return "???"
+
+def shadow_load_dnum(user_id: int, slot: int):
+    if os.path.isfile('credits.json'):
+        with open('credits.json', 'r') as fp:
+            users = json.load(fp)
+        if user_id in users:
+            return users[user_id]["save{}".format(slot)][3]
+        else:
+            return "???"
+    else:
+        return "???"
 
 bot.loop.create_task(my_background_task())
 bot.loop.create_task(my_background_taskk())
