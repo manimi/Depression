@@ -3147,7 +3147,14 @@ def shadow_load_level(user_id: int, slot: int):
         with open('credits.json', 'r') as fp:
             users = json.load(fp)
         if user_id in users:
-            return users[user_id]["save{}".format(slot)][0]
+            if (slot == 1):
+                return users[user_id]["save1"][0]
+            elif (slot == 2):
+                return users[user_id]["save2"][0]
+            elif (slot == 3):
+                return users[user_id]["save3"][0]
+            elif (slot == 4):
+                return users[user_id]["save4"][0]
         else:
             return "???"
     else:
@@ -3158,7 +3165,14 @@ def shadow_load_act(user_id: int, slot: int):
         with open('credits.json', 'r') as fp:
             users = json.load(fp)
         if user_id in users:
-            return users[user_id]["save{}".format(slot)][1]
+            if (slot == 1):
+                return users[user_id]["save1"][1]
+            elif (slot == 2):
+                return users[user_id]["save2"][1]
+            elif (slot == 3):
+                return users[user_id]["save3"][1]
+            elif (slot == 4):
+                return users[user_id]["save4"][1]
         else:
             return 0
     else:
@@ -3169,7 +3183,14 @@ def shadow_load_hnum(user_id: int, slot: int):
         with open('credits.json', 'r') as fp:
             users = json.load(fp)
         if user_id in users:
-            return users[user_id]["save{}".format(slot)][2]
+            if (slot == 1):
+                return users[user_id]["save1"][2]
+            elif (slot == 2):
+                return users[user_id]["save2"][2]
+            elif (slot == 3):
+                return users[user_id]["save3"][2]
+            elif (slot == 4):
+                return users[user_id]["save4"][2]
         else:
             return 0
     else:
@@ -3180,7 +3201,14 @@ def shadow_load_dnum(user_id: int, slot: int):
         with open('credits.json', 'r') as fp:
             users = json.load(fp)
         if user_id in users:
-            return users[user_id]["save{}".format(slot)][3]
+            if (slot == 1):
+                return users[user_id]["save1"][3]
+            elif (slot == 2):
+                return users[user_id]["save2"][3]
+            elif (slot == 3):
+                return users[user_id]["save3"][3]
+            elif (slot == 4):
+                return users[user_id]["save4"][3]
         else:
             return 0
     else:
