@@ -128,3 +128,7 @@ Synch Failure  ->   #spawn
 2018-08-03 19:17:22.164000
 Mocha:           I don't think they're doing that on purpose
 
+Synch Failure  ->   #spawn
+2018-08-03 19:17:46.953000
+Mocha:           It seems like they're trying to join but then get disconnected instantly by something
+
