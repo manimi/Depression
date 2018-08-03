@@ -246,3 +246,7 @@ Synch Failure  ->   #spawn
 2018-08-03 19:30:39.064000
 Mocha:           I don't think that you can just instantly leave a server that quickly after joining
 
+Synch Failure  ->   #spawn
+2018-08-03 19:31:40.968000
+Mocha:           Although it is possible they're using something on their end that makes themselves get auto kicked from a server they join
+
