@@ -1472,7 +1472,7 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
             size = auraa.size
             mask = Image.new('L', size, 0)
             draw = ImageDraw.Draw(mask)
-            draw.ellipse((0, 0) + size, fill=155)
+            draw.ellipse((0, 0) + size, fill=255)
             #av = ImageOps.fit(gemmm, mask.size, centering=(0.5, 0.5))
             #av.putalpha(mask)
 
