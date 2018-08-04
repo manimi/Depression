@@ -1472,7 +1472,7 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
             size = auraa.size
             mask = Image.new('L', size, 0)
             draw = ImageDraw.Draw(mask)
-            draw.ellipse((0, 0) + size, fill=255)
+            draw.ellipse((0, 0) + size, fill=155)
             #av = ImageOps.fit(gemmm, mask.size, centering=(0.5, 0.5))
             #av.putalpha(mask)
 
@@ -1480,7 +1480,7 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
     
             backgroundd.paste(avatarr, (0,0))
 	
-            backgroundd.paste(auraa, (x,y), auraa)
+            backgroundd.paste(auraa, (x,y), mask)
 	
             backgroundd.paste(gemmm, (x,y), gemmm)
     
