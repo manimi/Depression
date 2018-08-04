@@ -1466,19 +1466,16 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
             dest = (5, 5)
 
             gemmm = gemm.resize((avatarr.width, avatarr.height), Image.LANCZOS)
-		
+
             size = gemmm.size
-            mask = Image.new('L', size, 0)
-            draw = ImageDraw.Draw(mask, mode='RGBA')
-            draw.ellipse((0, 0) + size, fill=255)
-            av = ImageOps.fit(gemmm, mask.size, centering=(0.5, 0.5))
-            av.putalpha(mask)
+            draw = ImageDraw.Draw(gemmm)
+            draw.ellipse((0, 0) + size, fill=(255, 128, 10, 50))
 
             backgroundd = Image.new("RGBA", avatarr.size)
     
             backgroundd.paste(avatarr, (0,0))
 
-            backgroundd.paste(av, (x,y), av)
+            backgroundd.paste(draw, (x,y), draw)
     
             backgroundd.save("gempic.png", "PNG")
     
