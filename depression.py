@@ -1467,12 +1467,12 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
             dest = (5, 5)
 
             gemmm = gemm.resize((avatarr.width, avatarr.height), Image.LANCZOS)
-            auraa = gemm.resize((avatarr.width, avatarr.height), Image.LANCZOS)
+            auraa = aura.resize((avatarr.width, avatarr.height), Image.LANCZOS)
 		
             size = auraa.size
             mask = Image.new('L', size, 0)
             draw = ImageDraw.Draw(mask)
-            draw.ellipse((0, 0) + size, fill=155)
+            draw.ellipse((0, 0) + size, fill=255)
             #av = ImageOps.fit(gemmm, mask.size, centering=(0.5, 0.5))
             #av.putalpha(mask)
 
@@ -1480,9 +1480,9 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
     
             backgroundd.paste(avatarr, (0,0))
 	
-            backgroundd.paste(auraa, (x,y), mask)
-	
             backgroundd.paste(gemmm, (x,y), gemmm)
+
+            backgroundd.paste(auraa, (x,y), auraa)
     
             backgroundd.save("gempic.png", "PNG")
     
