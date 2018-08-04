@@ -1699,7 +1699,7 @@ async def help(ctx, category=None):
 
         em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-        em.add_field(name="Others:", value='d!pic (member name) (width/height) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!claps "(sentence)" - make :clap: a :clap: sentence :clap:', inline=False)
+        em.add_field(name="Others:", value='d!pic (member name) (width/height) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!claps "(sentence)" - make :clap: a :clap: sentence :clap:\nd!find (word/sentence) - find a match for fun', inline=False)
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
         await bot.send_message(ctx.message.channel,embed=em)
     else:
@@ -1734,6 +1734,30 @@ async def customemojitest(ctx):
     blackalien = await bot.create_custom_emoji(ctx.message.server, name="blackalien", image=alien)
     print("this worked")
     await bot.send_message(ctx.message.channel,'<{0.name}:{0.id}> <{1.name}:{1.id}>'.format(gunsolider, blackalien))
+	
+@bot.command(pass_context=True)
+async def find(ctx, con : str):
+    counter = []
+    #print("counter installed")
+    for message in bot.messages:
+        if ((message.server == ctx.message.server)&(con in message.content)&(message.content != ctx.message.content)):
+            #print(message.author.name)
+            counter.append( [message.author.name,message.content,str(message.timestamp),message.author.avatar_url] )
+    #print("done searching")
+    c = random.choice(counter)
+    #print("pick a random item that fits")
+    #msg = bot.get_message(ctx.message.channel, c)
+    #print("get the message from id")
+    #await bot.say(c[1])
+    #await bot.say(c[0])
+   
+    eTitle = c[1]
+    eDesc = c[2]
+
+    em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
+    em.set_author(name="{}".format(c[0]), url=c[3].replace('webp','png'), icon_url=c[3].replace('webp','png'))
+    em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+    await bot.send_message(ctx.message.channel,embed=em)
 
 @bot.event
 async def on_typing(channel,user,when):
