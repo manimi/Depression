@@ -1482,7 +1482,7 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
 	
             backgroundd.paste(gemmm, (x,y), gemmm)
 
-            backgroundd.paste(auraa, (x,y), auraa)
+            backgroundd.paste(auraa, (x,y), mask)
     
             backgroundd.save("gempic.png", "PNG")
     
