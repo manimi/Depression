@@ -1475,7 +1475,7 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
     
             backgroundd.paste(avatarr, (0,0))
 
-            backgroundd.paste(draw, (x,y), draw)
+            backgroundd.paste(draw, (x,y), gemmm)
     
             backgroundd.save("gempic.png", "PNG")
     
