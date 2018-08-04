@@ -1468,7 +1468,7 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
             gemmm = gemm.resize((avatarr.width, avatarr.height), Image.LANCZOS)
 		
             size = gemmm.size
-            mask = Image.new('L', size, 0)
+            mask = Image.new('RGBA', size, 0)
             draw = ImageDraw.Draw(mask)
             draw.ellipse((0, 0) + size, fill=255)
             av = ImageOps.fit(gemmm, mask.size, centering=(0.5, 0.5))
