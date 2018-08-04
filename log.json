@@ -566,3 +566,20 @@ Synch Failure  ->   #spawn
 2018-08-04 19:40:48.973000
 VirtualVanto:           t@welcome
 
+Synch Failure  ->   #spawn
+2018-08-04 19:40:49.179000
+Tatsumaki:           <:info:390511462361202688> | **Welcome Messages - #spawn**
+
+```rb
+Setup welcome (user join) messages using this menu
+
+Welcome messages are disabled on #spawn
+
+[1] # Enable welcome messages
+[2] # View channels with welcome messages enabled
+[3] # Set a welcome message
+
+Type the appropriate number to access the menu.
+Type 'exit' to leave the menu.
+```
+
