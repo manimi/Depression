@@ -1672,7 +1672,7 @@ async def help(ctx, category=None):
 
         em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-        em.add_field(name="Special:", value='d!fight - fight against me! (You need to hold :crossed_swords:)\nd!hunt - look for credits! (You need to hold :eyeglasses:)\nd!gem (bot name) (xdist num) (ydist num) - pfp with gem (You need to hold :gem:)\nd!star (bot name) (xdist num) (ydist num) - you tried pfp! (You need to hold :star:)', inline=False)
+        em.add_field(name="Special:", value='d!fight - fight against me! (You need to hold :crossed_swords:)\nd!hunt - look for credits! (You need to hold :eyeglasses:)\nd!gem (bot name/your name) (xdist num) (ydist num) - pfp with gem (You need to hold :gem:)\nd!star (bot name/your name) (xdist num) (ydist num) - you tried pfp! (You need to hold :star:)', inline=False)
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
         await bot.send_message(ctx.message.channel,embed=em)
     elif ((category == "Others")|(category == "others")|(category == "OTHERS")):
