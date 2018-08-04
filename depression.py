@@ -1366,6 +1366,7 @@ async def pic(ctx, membername=None, addon=None):
                                 avatarr = Image.open(av_bytes)
                         await bot.send_typing(ctx.message.channel)
                         await bot.send_message(ctx.message.channel, "{}'s pfp width is **{}**".format(m.name, avatarr.width))
+                        return None
                 except KeyError:
                     await bot.send_typing(ctx.message.channel)
                     await bot.send_message(ctx.message.channel, 'This option isn\'t available yet!')
@@ -1382,6 +1383,7 @@ async def pic(ctx, membername=None, addon=None):
                                 avatarr = Image.open(av_bytes)
                         await bot.send_typing(ctx.message.channel)
                         await bot.send_message(ctx.message.channel, "{}'s pfp height is **{}**".format(m.name, avatarr.height))
+                        return None
                 except KeyError:
                     await bot.send_typing(ctx.message.channel)
                     await bot.send_message(ctx.message.channel, 'This option isn\'t available yet!')
@@ -1389,6 +1391,7 @@ async def pic(ctx, membername=None, addon=None):
     else:
         await bot.send_typing(ctx.message.channel)
         await bot.send_message(ctx.message.channel, "Something went wrong.")
+        return None
 
 @bot.command(pass_context=True)
 @commands.cooldown(1, 60*60*12, commands.BucketType.user)
