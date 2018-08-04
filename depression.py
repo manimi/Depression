@@ -1736,7 +1736,7 @@ async def customemojitest(ctx):
     await bot.send_message(ctx.message.channel,'<{0.name}:{0.id}> <{1.name}:{1.id}>'.format(gunsolider, blackalien))
 	
 @bot.command(pass_context=True)
-async def find(ctx, channel : discord.TextChannel, con : str):
+async def find(ctx, channel : discord.Channel, con : str):
     counter = []
     #channel = get_channel(channelid)
     #print("counter installed")
