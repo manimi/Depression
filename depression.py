@@ -1469,10 +1469,10 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
 		
             size = gemmm.size
             mask = Image.new('L', size, 0)
-            draw = ImageDraw.Draw(mask)
+            draw = ImageDraw.Draw(mask, mode='RGBA')
             draw.ellipse((0, 0) + size, fill=255)
             av = ImageOps.fit(gemmm, mask.size, centering=(0.5, 0.5))
-            #av.putalpha(mask)
+            av.putalpha(mask)
 
             backgroundd = Image.new("RGBA", avatarr.size)
     
