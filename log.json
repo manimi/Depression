@@ -595,3 +595,20 @@ Synch Failure  ->   #spawn
 2018-08-04 19:41:04.597000
 VirtualVanto:           t@goodbye
 
+Synch Failure  ->   #spawn
+2018-08-04 19:41:04.781000
+Tatsumaki:           <:info:390511462361202688> | **Goodbye Messages - #spawn**
+
+```rb
+Setup goodbye (user leave) messages using this menu
+
+Goodbye messages are disabled in spawn.
+
+[1] # Enable goodbye messages
+[2] # View channels with goodbye messages enabled
+[3] # Set a goodbye message
+
+Type the appropriate number to access the menu.
+Type 'exit' to leave the menu.
+```
+
