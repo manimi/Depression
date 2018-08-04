@@ -329,27 +329,73 @@ async def calltest(ctx, membername=None):
 async def xp(ctx, membername=None):
     if (membername is None):
         await bot.send_typing(ctx.message.channel)
-        await bot.send_message(ctx.message.channel, "You have: ** {} XP!**".format(get_xp(ctx.message.author.id)))
+	
+        if (get_level(ctx.message.author.id) == 1):
+            xplimit = 50
+        elif (get_level(ctx.message.author.id) == 2):
+            xplimit = 150
+        elif (get_level(ctx.message.author.id) == 3):
+            xplimit = 300
+        elif (get_level(ctx.message.author.id) == 4):
+            xplimit = 500
+        elif (get_level(ctx.message.author.id) == 5):
+            xplimit = 750
+        elif (get_level(ctx.message.author.id) == 6):
+            xplimit = 1050
+        elif (get_level(ctx.message.author.id) == 7):
+            xplimit = 1400
+        elif (get_level(ctx.message.author.id) == 8):
+            xplimit = 1800
+        elif (get_level(ctx.message.author.id) == 9):
+            xplimit = 2250
+        elif (get_level(ctx.message.author.id) == 10):
+            xplimit = 2750
+        elif (get_level(ctx.message.author.id) == 11):
+            xplimit = "????"
+
+        await bot.send_message(ctx.message.channel, "You have: ** {}/{} XP!**".format(get_xp(ctx.message.author.id), xplimit))
     else:
         for server in bot.servers:
             for m in server.members:
                 try:
                     if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                        if (get_level(m.id) == 1):
+                            xplimit = 50
+                        elif (get_level(m.id) == 2):
+                            xplimit = 150
+                        elif (get_level(m.id) == 3):
+                            xplimit = 300
+                        elif (get_level(m.id) == 4):
+                            xplimit = 500
+                        elif (get_level(m.id) == 5):
+                            xplimit = 750
+                        elif (get_level(m.id) == 6):
+                            xplimit = 1050
+                        elif (get_level(m.id) == 7):
+                            xplimit = 1400
+                        elif (get_level(m.id) == 8):
+                            xplimit = 1800
+                        elif (get_level(m.id) == 9):
+                            xplimit = 2250
+                        elif (get_level(m.id) == 10):
+                            xplimit = 2750
+                        elif (get_level(m.id) == 11):
+                            xplimit = "????"
                         if (((m.name == ctx.message.author.name)|(m.name.upper() == ctx.message.author.name)|(m.name.lower() == ctx.message.author.name))|(m.mention == ctx.message.author.mention)):
                             await bot.send_typing(ctx.message.channel)
-                            await bot.send_message(ctx.message.channel, "You have: ** {} XP!**".format(get_xp(ctx.message.author.id)))
+                            await bot.send_message(ctx.message.channel, "You have: ** {}/{} XP!**".format(get_xp(ctx.message.author.id), xplimit))
                             return None
                         elif (((m.name == bot.user.name)|(m.name.upper() == bot.user.name)|(m.name.lower() == bot.user.name))|(m.mention == bot.user.mention)):
                             await bot.send_typing(ctx.message.channel)
-                            await bot.send_message(ctx.message.channel, "I have: ** {} XP!**".format(get_xp(bot.user.id)))
+                            await bot.send_message(ctx.message.channel, "I have: ** {}/{} XP!**".format(get_xp(bot.user.id), xplimit))
                             return None
                         else:
                             await bot.send_typing(ctx.message.channel)
-                            await bot.send_message(ctx.message.channel, "{} has: ** {} XP!**".format(membername,get_xp(m.id)))
+                            await bot.send_message(ctx.message.channel, "{} has: ** {}/{} XP!**".format(membername,get_xp(m.id), xplimit))
                             return None
                     elif ((membername == "me")|(membername == "myself")):
                         await bot.send_typing(ctx.message.channel)
-                        await bot.send_message(ctx.message.channel, "You have: ** {} XP!**".format(get_xp(ctx.message.author.id)))
+                        await bot.send_message(ctx.message.channel, "You have: ** {}/{} XP!**".format(get_xp(ctx.message.author.id), xplimit))
                         return None
                 except KeyError:
                     await bot.send_typing(ctx.message.channel)
@@ -360,13 +406,36 @@ async def xp(ctx, membername=None):
 async def profile(ctx, membername=None):
     if (membername is None):
         await bot.send_typing(ctx.message.channel)
+	
+        if (get_level(ctx.message.author.id) == 1):
+            xplimit = 50
+        elif (get_level(ctx.message.author.id) == 2):
+            xplimit = 150
+        elif (get_level(ctx.message.author.id) == 3):
+            xplimit = 300
+        elif (get_level(ctx.message.author.id) == 4):
+            xplimit = 500
+        elif (get_level(ctx.message.author.id) == 5):
+            xplimit = 750
+        elif (get_level(ctx.message.author.id) == 6):
+            xplimit = 1050
+        elif (get_level(ctx.message.author.id) == 7):
+            xplimit = 1400
+        elif (get_level(ctx.message.author.id) == 8):
+            xplimit = 1800
+        elif (get_level(ctx.message.author.id) == 9):
+            xplimit = 2250
+        elif (get_level(ctx.message.author.id) == 10):
+            xplimit = 2750
+        elif (get_level(ctx.message.author.id) == 11):
+            xplimit = "????"
 
         eTitle = '{} \'s Profile'.format(ctx.message.author.display_name)
         eDesc = ''
 
         em = discord.Embed(title=eTitle,url=ctx.message.author.avatar_url.replace('webp','png'),description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(ctx.message.author.name), url=ctx.message.author.avatar_url.replace('webp','png'), icon_url=ctx.message.author.avatar_url.replace('webp','png'))
-        em.add_field(name="XP :sparkles:", value='{}'.format(get_xp(ctx.message.author.id)), inline=True)
+        em.add_field(name="XP :sparkles:", value='{}/{}'.format(get_xp(ctx.message.author.id),xplimit), inline=True)
         em.add_field(name="Level :star2:", value='{}'.format(get_level(ctx.message.author.id)), inline=True)
         em.add_field(name="Credits :moneybag:", value='{}'.format(get_credits(ctx.message.author.id)), inline=True)
         em.add_field(name="Inventory :shopping_bags:", value='- {} -'.format(str(get_items(ctx.message.author.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')), inline=True)
@@ -380,13 +449,36 @@ async def profile(ctx, membername=None):
                 try:
                     if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
                         await bot.send_typing(ctx.message.channel)
+			
+                        if (get_level(m.id) == 1):
+                            xplimitt = 50
+                        elif (get_level(m.id) == 2):
+                            xplimitt = 150
+                        elif (get_level(m.id) == 3):
+                            xplimitt = 300
+                        elif (get_level(m.id) == 4):
+                            xplimitt = 500
+                        elif (get_level(m.id) == 5):
+                            xplimitt = 750
+                        elif (get_level(m.id) == 6):
+                            xplimitt = 1050
+                        elif (get_level(m.id) == 7):
+                            xplimitt = 1400
+                        elif (get_level(m.id) == 8):
+                            xplimitt = 1800
+                        elif (get_level(m.id) == 9):
+                            xplimitt = 2250
+                        elif (get_level(m.id) == 10):
+                            xplimitt = 2750
+                        elif (get_level(m.id) == 11):
+                            xplimitt = "????"
 
                         eTitle = '{} \'s Profile'.format(m.display_name)
                         eDesc = ''
 
                         em = discord.Embed(title=eTitle,url=m.avatar_url.replace('webp','png'),description=eDesc,colour=discord.Colour.orange())
                         em.set_author(name="{}".format(m.name), url=m.avatar_url.replace('webp','png'), icon_url=m.avatar_url.replace('webp','png'))
-                        em.add_field(name="XP :sparkles:", value='{}'.format(get_xp(m.id)), inline=True)
+                        em.add_field(name="XP :sparkles:", value='{}/{}'.format(get_xp(m.id),xplimitt), inline=True)
                         em.add_field(name="Level :star2:", value='{}'.format(get_level(m.id)), inline=True)
                         em.add_field(name="Credits :moneybag:", value='{}'.format(get_credits(m.id)), inline=True)
                         em.add_field(name="Inventory :shopping_bags:", value='- {} -'.format(str(get_items(m.id)).replace('[','').replace(']','').replace(",",' ').replace("'",'')), inline=True)
@@ -1333,11 +1425,13 @@ async def gem(ctx, membername=None):
             av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
             av.putalpha(mask)
 
+            gemmm = gemm.resize((avatarr.width, avatarr.height), Image.LANCZOS)
+
             backgroundd = Image.new("RGBA", avatarr.size)
     
             backgroundd.paste(avatarr, (0,0))
     
-            backgroundd.paste(gemm, (0,45), gemm)
+            backgroundd.paste(gemmm, (0,45), gemmm)
     
             backgroundd.save("gempic.png", "PNG")
     
@@ -1368,12 +1462,14 @@ async def gem(ctx, membername=None):
                             draw.ellipse((0, 0) + size, fill=255)
                             av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
                             av.putalpha(mask)
+			
+                            gemmm = gemm.resize((avatarr.width, avatarr.height), Image.LANCZOS)
 
                             backgroundd = Image.new("RGBA", avatarr.size)
     
                             backgroundd.paste(avatarr, (0,0))
     
-                            backgroundd.paste(gemm, (0,45), gemm)
+                            backgroundd.paste(gemmm, (0,45), gemmm)
     
                             backgroundd.save("gempic.png", "PNG")
     
