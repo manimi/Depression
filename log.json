@@ -260,3 +260,7 @@ test  ->   #general
 2018-08-04 14:23:42.672000
 Manimi:           dd!connect 460074985000796174
 
+test  ->   #general
+2018-08-04 14:24:06.649000
+Manimi:           dd!disconnect 460074985000796170
+
