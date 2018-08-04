@@ -1482,7 +1482,7 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
 	
             backgroundd.paste(gemmm, (x,y), gemmm)
 
-            backgroundd.paste(auraa, (x,y), mask)
+            backgroundd.paste(auraa, (x,y), auraa)
     
             backgroundd.save("gempic.png", "PNG")
     
@@ -1496,7 +1496,8 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
                             blue = random.randint(1, 255)
                             green = random.randint(1, 255)
                             user = m
-                            gemm = Image.open("gemm.png")
+                            gemm = Image.open("gemitself.png")
+                            aura = Image.open("auraitself.png")
                             background = Image.new('RGB', (gemm.width, gemm.height), (red, green, blue))
                             async with aiohttp.ClientSession() as session:
                                 async with session.get(user.avatar_url) as avatar:
@@ -1512,12 +1513,15 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
                             av.putalpha(mask)
 			
                             gemmm = gemm.resize((avatarr.width, avatarr.height), Image.LANCZOS)
+                            auraa = aura.resize((avatarr.width, avatarr.height), Image.LANCZOS)
 
                             backgroundd = Image.new("RGBA", avatarr.size)
     
                             backgroundd.paste(avatarr, (0,0))
     
                             backgroundd.paste(gemmm, (x,y), gemmm)
+	
+                            backgroundd.paste(auraa, (x,y), auraa)
     
                             backgroundd.save("gempic.png", "PNG")
     
