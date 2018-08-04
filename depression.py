@@ -1441,7 +1441,7 @@ async def imagetest(ctx):
     await bot.send_file(ctx.message.channel, "pic.png")
 	
 @bot.command(pass_context=True)
-async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
+async def gem(ctx, membername=None, xpos : int=None, ypos : int=None, addscale : int=None):
     if (get_hold(ctx.message.author.id) == ":gem:"):
         if (xpos is None):
             x = 0
@@ -1451,6 +1451,10 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
             y = 45
         else:
             y = ypos
+        if (addscale is None):
+            s = 0
+        else:
+            s = addscale
         if (membername is None):
             red = random.randint(1, 255)
             blue = random.randint(1, 255)
@@ -1466,8 +1470,8 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
                     avatarr = Image.open(av_bytes)
             dest = (5, 5)
 
-            gemmm = gemm.resize((avatarr.width, avatarr.height), Image.LANCZOS)
-            auraa = aura.resize((avatarr.width, avatarr.height), Image.LANCZOS)
+            gemmm = gemm.resize((avatarr.width+s, avatarr.height+s), Image.LANCZOS)
+            auraa = aura.resize((avatarr.width+s, avatarr.height+s), Image.LANCZOS)
 		
             size = auraa.size
             mask = Image.new('L', size, 0)
@@ -1512,8 +1516,8 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
                             av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
                             av.putalpha(mask)
 			
-                            gemmm = gemm.resize((avatarr.width, avatarr.height), Image.LANCZOS)
-                            auraa = aura.resize((avatarr.width, avatarr.height), Image.LANCZOS)
+                            gemmm = gemm.resize((avatarr.width+s, avatarr.height+s), Image.LANCZOS)
+                            auraa = aura.resize((avatarr.width+s, avatarr.height+s), Image.LANCZOS)
 
                             backgroundd = Image.new("RGBA", avatarr.size)
     
@@ -1534,7 +1538,7 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
         await bot.say("You need to hold :gem: to access.")
 	
 @bot.command(pass_context=True)
-async def star(ctx, membername=None, xpos : int=None, ypos : int=None):
+async def star(ctx, membername=None, xpos : int=None, ypos : int=None, addscale : int=None):
     if (get_hold(ctx.message.author.id) == ":star:"):
         if (xpos is None):
             x = 0
@@ -1544,6 +1548,10 @@ async def star(ctx, membername=None, xpos : int=None, ypos : int=None):
             y = 20
         else:
             y = ypos
+        if (addscale is None):
+            s = 0
+        else:
+            s = addscale
         if (membername is None):
             red = random.randint(1, 255)
             blue = random.randint(1, 255)
@@ -1564,7 +1572,7 @@ async def star(ctx, membername=None, xpos : int=None, ypos : int=None):
             av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
             av.putalpha(mask)
 
-            gemmm = gemm.resize((avatarr.width, avatarr.height), Image.LANCZOS)
+            gemmm = gemm.resize((avatarr.width+s, avatarr.height+s), Image.LANCZOS)
 
             backgroundd = Image.new("RGBA", avatarr.size)
     
@@ -1599,7 +1607,7 @@ async def star(ctx, membername=None, xpos : int=None, ypos : int=None):
                             av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
                             av.putalpha(mask)
 			
-                            gemmm = gemm.resize((avatarr.width, avatarr.height), Image.LANCZOS)
+                            gemmm = gemm.resize((avatarr.width+s, avatarr.height+s), Image.LANCZOS)
 
                             backgroundd = Image.new("RGBA", avatarr.size)
     
@@ -1681,7 +1689,7 @@ async def help(ctx, category=None):
 
         em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-        em.add_field(name="Special:", value='d!fight - fight against me! (You need to hold :crossed_swords:)\nd!hunt - look for credits! (You need to hold :eyeglasses:)\nd!gem (bot name/your name) (xdist num) (ydist num) - pfp with gem (You need to hold :gem:)\nd!star (bot name/your name) (xdist num) (ydist num) - you tried pfp! (You need to hold :star:)', inline=False)
+        em.add_field(name="Special:", value='d!fight - fight against me! (You need to hold :crossed_swords:)\nd!hunt - look for credits! (You need to hold :eyeglasses:)\nd!gem (bot name/your name) (xdist num) (ydist num) (add scale) - pfp with gem (You need to hold :gem:)\nd!star (bot name/your name) (xdist num) (ydist num) (add scale) - you tried pfp! (You need to hold :star:)', inline=False)
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
         await bot.send_message(ctx.message.channel,embed=em)
     elif ((category == "Others")|(category == "others")|(category == "OTHERS")):
