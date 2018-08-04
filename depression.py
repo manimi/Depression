@@ -1486,10 +1486,7 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
             for server in bot.servers:
                 for m in server.members:
                     if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
-                        if not (m.bot)&~(m.name == ctx.message.author.name):
-                            await bot.say("You can only see other bots with gem or yourself.")
-                            return None
-                        elif ((m.bot)|(m.name == ctx.message.author.name)):
+                        if ((m.bot)|(m.name == ctx.message.author.name)):
                             red = random.randint(1, 255)
                             blue = random.randint(1, 255)
                             green = random.randint(1, 255)
@@ -1520,6 +1517,9 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
                             backgroundd.save("gempic.png", "PNG")
     
                             await bot.send_file(ctx.message.channel, "gempic.png")
+                            return None
+                        else:
+                            await bot.say("You can only see other bots with gem or yourself.")
                             return None
     else:
         await bot.say("You need to hold :gem: to access.")
@@ -1570,10 +1570,7 @@ async def star(ctx, membername=None, xpos : int=None, ypos : int=None):
             for server in bot.servers:
                 for m in server.members:
                     if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
-                        if not (m.bot)&~(m.name == ctx.message.author.name):
-                            await bot.say("You can only see other bots with gem or yourself.")
-                            return None
-                        elif ((m.bot)|(m.name == ctx.message.author.name)):
+                        if ((m.bot)|(m.name == ctx.message.author.name)):
                             red = random.randint(1, 255)
                             blue = random.randint(1, 255)
                             green = random.randint(1, 255)
@@ -1604,6 +1601,9 @@ async def star(ctx, membername=None, xpos : int=None, ypos : int=None):
                             backgroundd.save("youtried.png", "PNG")
     
                             await bot.send_file(ctx.message.channel, "youtried.png")
+                            return None
+                        else:
+                            await bot.say("You can only see other bots with gem or yourself.")
                             return None
     else:
         await bot.say("You need to hold :star: to access.")
