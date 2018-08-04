@@ -1486,10 +1486,10 @@ async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
             for server in bot.servers:
                 for m in server.members:
                     if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
-                        if not (m.bot):
-                            await bot.say("You can only see other bots with gem.")
+                        if not (m.bot)&~(m.name == ctx.message.author.name):
+                            await bot.say("You can only see other bots with gem or yourself.")
                             return None
-                        else:
+                        elif ((m.bot)|(m.name == ctx.message.author.name)):
                             red = random.randint(1, 255)
                             blue = random.randint(1, 255)
                             green = random.randint(1, 255)
@@ -1570,10 +1570,10 @@ async def star(ctx, membername=None, xpos : int=None, ypos : int=None):
             for server in bot.servers:
                 for m in server.members:
                     if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
-                        if not (m.bot):
-                            await bot.say("You can only see other bots with star.")
+                        if not (m.bot)&~(m.name == ctx.message.author.name):
+                            await bot.say("You can only see other bots with gem or yourself.")
                             return None
-                        else:
+                        elif ((m.bot)|(m.name == ctx.message.author.name)):
                             red = random.randint(1, 255)
                             blue = random.randint(1, 255)
                             green = random.randint(1, 255)
