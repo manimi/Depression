@@ -1325,11 +1325,11 @@ async def ttt(ctx, arg1=None):
                 await bot.send_message(ctx.message.channel,"**Don't use that emoji.**")
 
 @bot.command(pass_context=True)
-async def pic(ctx, membername=None):
-    if (membername is None):
+async def pic(ctx, membername=None, addon=None):
+    if ((membername is None)&(addon is None)):
         await bot.send_typing(ctx.message.channel)
         await bot.send_message(ctx.message.channel, '{} so beautiful! <3'.format(ctx.message.author.avatar_url.replace('webp','png')))
-    else:
+    elif ((membername is not None)&(addon is None)):
         for server in bot.servers:
             for m in server.members:
                 try:
@@ -1354,6 +1354,41 @@ async def pic(ctx, membername=None):
                     await bot.send_typing(ctx.message.channel)
                     await bot.send_message(ctx.message.channel, 'This option isn\'t available yet!')
                     return None
+    elif ((membername is not None)&(addon == "width")):
+        for server in bot.servers:
+            for m in server.members:
+                try:
+                    if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                        async with aiohttp.ClientSession() as session:
+                            async with session.get(m.avatar_url) as avatar:
+                                data = await avatar.read()
+                                av_bytes = BytesIO(data)
+                                avatarr = Image.open(av_bytes)
+                        await bot.send_typing(ctx.message.channel)
+                        await bot.send_message(ctx.message.channel, "{}'s pfp width is **{}**".format(m.name, avatarr.width))
+                except KeyError:
+                    await bot.send_typing(ctx.message.channel)
+                    await bot.send_message(ctx.message.channel, 'This option isn\'t available yet!')
+                    return None
+    elif ((membername is not None)&(addon == "height")):
+        for server in bot.servers:
+            for m in server.members:
+                try:
+                    if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                        async with aiohttp.ClientSession() as session:
+                            async with session.get(m.avatar_url) as avatar:
+                                data = await avatar.read()
+                                av_bytes = BytesIO(data)
+                                avatarr = Image.open(av_bytes)
+                        await bot.send_typing(ctx.message.channel)
+                        await bot.send_message(ctx.message.channel, "{}'s pfp height is **{}**".format(m.name, avatarr.height))
+                except KeyError:
+                    await bot.send_typing(ctx.message.channel)
+                    await bot.send_message(ctx.message.channel, 'This option isn\'t available yet!')
+                    return None
+    else:
+        await bot.send_typing(ctx.message.channel)
+        await bot.send_message(ctx.message.channel, "Something went wrong.")
 
 @bot.command(pass_context=True)
 @commands.cooldown(1, 60*60*12, commands.BucketType.user)
@@ -1403,9 +1438,17 @@ async def imagetest(ctx):
     await bot.send_file(ctx.message.channel, "pic.png")
 	
 @bot.command(pass_context=True)
-async def gem(ctx, membername=None):
+async def gem(ctx, membername=None, xpos : int=None, ypos : int=None):
     if (get_hold(ctx.message.author.id) == ":gem:"):
-        if ((credits is None)|(membername is None)):
+        if (xpos is None):
+            x = 0
+        else:
+            x = xpos
+        if (ypos is None):
+            y = 45
+        else:
+            y = ypos
+        if (membername is None):
             red = random.randint(1, 255)
             blue = random.randint(1, 255)
             green = random.randint(1, 255)
@@ -1430,8 +1473,8 @@ async def gem(ctx, membername=None):
             backgroundd = Image.new("RGBA", avatarr.size)
     
             backgroundd.paste(avatarr, (0,0))
-    
-            backgroundd.paste(gemmm, (0,45), gemmm)
+
+            backgroundd.paste(gemmm, (x,y), gemmm)
     
             backgroundd.save("gempic.png", "PNG")
     
@@ -1469,7 +1512,7 @@ async def gem(ctx, membername=None):
     
                             backgroundd.paste(avatarr, (0,0))
     
-                            backgroundd.paste(gemmm, (0,45), gemmm)
+                            backgroundd.paste(gemmm, (x,y), gemmm)
     
                             backgroundd.save("gempic.png", "PNG")
     
@@ -1479,36 +1522,86 @@ async def gem(ctx, membername=None):
         await bot.say("You need to hold :gem: to access.")
 	
 @bot.command(pass_context=True)
-async def star(ctx):
+async def star(ctx, membername=None, xpos : int=None, ypos : int=None):
     if (get_hold(ctx.message.author.id) == ":star:"):
-        red = random.randint(1, 255)
-        blue = random.randint(1, 255)
-        green = random.randint(1, 255)
-        user = ctx.message.author
-        gemm = Image.open("you_tried.png")
-        background = Image.new('RGB', (gemm.width, gemm.height), (red, green, blue))
-        async with aiohttp.ClientSession() as session:
-            async with session.get(user.avatar_url) as avatar:
-                data = await avatar.read()
-                av_bytes = BytesIO(data)
-                avatarr = Image.open(av_bytes)
-        dest = (5, 5)
-        size = avatarr.size
-        mask = Image.new('L', size, 0)
-        draw = ImageDraw.Draw(mask)
-        draw.ellipse((0, 0) + size, fill=255)
-        av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
-        av.putalpha(mask)
+        if (xpos is None):
+            x = 0
+        else:
+            x = xpos
+        if (ypos is None):
+            y = 20
+        else:
+            y = ypos
+        if (membername is None):
+            red = random.randint(1, 255)
+            blue = random.randint(1, 255)
+            green = random.randint(1, 255)
+            user = ctx.message.author
+            gemm = Image.open("you_tried.png")
+            background = Image.new('RGB', (gemm.width, gemm.height), (red, green, blue))
+            async with aiohttp.ClientSession() as session:
+                async with session.get(user.avatar_url) as avatar:
+                    data = await avatar.read()
+                    av_bytes = BytesIO(data)
+                    avatarr = Image.open(av_bytes)
+            dest = (5, 5)
+            size = avatarr.size
+            mask = Image.new('L', size, 0)
+            draw = ImageDraw.Draw(mask)
+            draw.ellipse((0, 0) + size, fill=255)
+            av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
+            av.putalpha(mask)
 
-        backgroundd = Image.new("RGBA", avatarr.size)
+            gemmm = gemm.resize((avatarr.width, avatarr.height), Image.LANCZOS)
+
+            backgroundd = Image.new("RGBA", avatarr.size)
     
-        backgroundd.paste(avatarr, (0,0))
+            backgroundd.paste(avatarr, (0,0))
+
+            backgroundd.paste(gemmm, (x,y), gemmm)
     
-        backgroundd.paste(gemm, (0,25), gemm)
+            backgroundd.save("youtried.png", "PNG")
     
-        backgroundd.save("youtried.png", "PNG")
+            await bot.send_file(ctx.message.channel, "youtried.png")
+        else:
+            for server in bot.servers:
+                for m in server.members:
+                    if (((m.name == membername)|(m.name.upper() == membername)|(m.name.lower() == membername))|(m.mention == membername)):
+                        if not (m.bot):
+                            await bot.say("You can only see other bots with star.")
+                            return None
+                        else:
+                            red = random.randint(1, 255)
+                            blue = random.randint(1, 255)
+                            green = random.randint(1, 255)
+                            user = m
+                            gemm = Image.open("you_tried.png")
+                            background = Image.new('RGB', (gemm.width, gemm.height), (red, green, blue))
+                            async with aiohttp.ClientSession() as session:
+                                async with session.get(user.avatar_url) as avatar:
+                                    data = await avatar.read()
+                                    av_bytes = BytesIO(data)
+                                    avatarr = Image.open(av_bytes)
+                            dest = (5, 5)
+                            size = avatarr.size
+                            mask = Image.new('L', size, 0)
+                            draw = ImageDraw.Draw(mask)
+                            draw.ellipse((0, 0) + size, fill=255)
+                            av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
+                            av.putalpha(mask)
+			
+                            gemmm = gemm.resize((avatarr.width, avatarr.height), Image.LANCZOS)
+
+                            backgroundd = Image.new("RGBA", avatarr.size)
     
-        await bot.send_file(ctx.message.channel, "youtried.png")
+                            backgroundd.paste(avatarr, (0,0))
+    
+                            backgroundd.paste(gemmm, (x,y), gemmm)
+    
+                            backgroundd.save("youtried.png", "PNG")
+    
+                            await bot.send_file(ctx.message.channel, "youtried.png")
+                            return None
     else:
         await bot.say("You need to hold :star: to access.")
 	
@@ -1576,7 +1669,7 @@ async def help(ctx, category=None):
 
         em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-        em.add_field(name="Special:", value='d!fight - fight against me! (You need to hold :crossed_swords:)\nd!hunt - look for credits! (You need to hold :eyeglasses:)\nd!gem (bot name) - pfp with gem, also works for bots! (You need to hold :gem:)\nd!star - you tried pfp! (You need to hold :star:)', inline=False)
+        em.add_field(name="Special:", value='d!fight - fight against me! (You need to hold :crossed_swords:)\nd!hunt - look for credits! (You need to hold :eyeglasses:)\nd!gem (bot name) (xdist num) (ydist num) - pfp with gem (You need to hold :gem:)\nd!star (bot name) (xdist num) (ydist num) - you tried pfp! (You need to hold :star:)', inline=False)
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
         await bot.send_message(ctx.message.channel,embed=em)
     elif ((category == "Others")|(category == "others")|(category == "OTHERS")):
@@ -1586,7 +1679,7 @@ async def help(ctx, category=None):
 
         em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-        em.add_field(name="Others:", value='d!pic (member name) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!claps "(sentence)" - make :clap: a :clap: sentence :clap:', inline=False)
+        em.add_field(name="Others:", value='d!pic (member name) (width/height) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!claps "(sentence)" - make :clap: a :clap: sentence :clap:', inline=False)
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
         await bot.send_message(ctx.message.channel,embed=em)
     else:
