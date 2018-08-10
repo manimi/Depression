@@ -1422,3 +1422,7 @@ Synch Failure  ->   #dump
 2018-08-10 17:00:06.340000
 Voltrix:           ~>iam srb2
 
+Synch Failure  ->   #dump
+2018-08-10 17:00:06.505000
+Mantaro:           ✖ There isn't an autorole with the name ``srb2``!
+
