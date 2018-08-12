@@ -198,3 +198,7 @@ Synch Failure  ->   #dump
 2018-08-12 01:54:58.153000
 Mantaro:           ✖ There isn't an autorole with the name ``artist``!
 
+Synch Failure  ->   #player-logs
+2018-08-12 01:55:06.366000
+Dyno:           
+
