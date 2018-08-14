@@ -1626,7 +1626,7 @@ async def star(ctx, membername=None, xpos : int=None, ypos : int=None, addscale 
         await bot.say("You need to hold :star: to access.")
 
 @bot.command(pass_context=True)
-async def smash(ctx, url : str=None, name : str=None, desc : str=None, r : int=None, g : int=None, b : int=None):
+async def smash(ctx, url : str=None, name : str=None, desc : str=None, r=None, g=None, b=None):
     if ((url is None)|(name is None)|(desc is None)|(r is None)|(g is None)|(b is None)):
         await bot.send_typing(ctx.message.channel)
         eTitlee = "d!smash (url) (name) (description) (bg red value) (bg green value) (bg blue value)"
@@ -1636,13 +1636,12 @@ async def smash(ctx, url : str=None, name : str=None, desc : str=None, r : int=N
         emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
         await bot.send_message(ctx.message.channel, embed=emm)
     else:
-        if ((r > 0)&(r < 256)&(g > 0)&(g < 256)&(b > 0)&(b < 256)):
+        if ((int(r) > 0)&(int(r) < 256)&(int(g) > 0)&(int(g) < 256)&(int(b) > 0)&(int(b) < 256)):
             width = 900
             height = 500
-            red = r
-            blue = b
-            green = g
-            colour = discord.Colour.color()
+            red = int(r)
+            blue = int(b)
+            green = int(g)
 
             size = str(width) + ", " + str(height)
 
