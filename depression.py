@@ -15,7 +15,7 @@ import requests
 import github
 import aiohttp
 from io import BytesIO
-from PIL import Image, ImageDraw, ImageOps
+from PIL import Image, ImageDraw, ImageOps, ImageFont
 from oauth2client.service_account import ServiceAccountCredentials
 
 bot_token = os.environ['BOT_TOKEN']
@@ -1624,6 +1624,46 @@ async def star(ctx, membername=None, xpos : int=None, ypos : int=None, addscale 
                             return None
     else:
         await bot.say("You need to hold :star: to access.")
+
+@bot.command(pass_context=True)
+async def smash(ctx, url : str=None, name : str=None, desc : str=None):
+    if ((url is None)|(name is None)|(desc is None)):
+        await bot.send_typing(ctx.message.channel)
+        eTitlee = "d!smash (url) (name) (description)"
+        eDescc = "Make a new character in Smash Bros!"
+
+        emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
+        emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        await bot.send_message(ctx.message.channel, embed=emm)
+    else:
+        width = 500
+        height = 500
+        red = random.randint(1, 255)
+        blue = random.randint(1, 255)
+        green = random.randint(1, 255)
+
+        size = str(width) + ", " + str(height)
+        colour = str(red) + ", " + str(green) + ", " + str(blue)
+
+        img = Image.new('RGBA', (width, height), (red, green, blue))
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as resp:
+                buffer = BytesIO(await resp.read())
+                theimage = Image.open(buffer)
+
+        txt = Image.new('RGBA', img.size, (255,255,255,0))
+        fnt = ImageFont.truetype('Smash.ttc', 60)
+        d = ImageDraw.Draw(txt)
+        
+        d.text((250,100), name, font=fnt, fill=(255,255,255,128))
+        d.text((150,160), desc, font=fnt, fill=(255,255,255,255))
+        
+        ttheimage = theimage.resize((300, 300), Image.LANCZOS)
+        
+        img.paste(ttheimage, (50,100), ttheimage)
+        img.paste(txt, (0,0), txt)
+        img.save("smashleak.png", "PNG")
+        await bot.send_file(ctx.message.channel, "smashleak.png")
 	
 @bot.command(pass_context=True)
 async def help(ctx, category=None):
@@ -1669,7 +1709,7 @@ async def help(ctx, category=None):
 
         em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-        em.add_field(name="Memes:", value='d!2.2 - shows a random sonic robo blast 2 v2.2 leak out of 56.\nd!sonic06 (place) (mission) - now loading screen.', inline=False)
+        em.add_field(name="Memes:", value='d!2.2 - shows a random sonic robo blast 2 v2.2 leak out of 56.\nd!sonic06 (place) (mission) - now loading screen.\nd!smash (url) (name) (description) - make a new smash bros character!', inline=False)
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
         await bot.send_message(ctx.message.channel,embed=em)
     elif ((category == "Testing")|(category == "testing")|(category == "TESTING")):
