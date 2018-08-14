@@ -1626,7 +1626,7 @@ async def star(ctx, membername=None, xpos : int=None, ypos : int=None, addscale 
         await bot.say("You need to hold :star: to access.")
 
 @bot.command(pass_context=True)
-async def smash(ctx, url : str=None, name : str=None, desc : str=None, r=None, g=None, b=None):
+async def smash(ctx, url : str=None, name : str=None, desc : str=None, r=None, g=None, b=None, tsize=None):
     if ((url is None)|(name is None)|(desc is None)|(r is None)|(g is None)|(b is None)|(tsize is None)):
         await bot.send_typing(ctx.message.channel)
         eTitlee = "d!smash (url) (name) (description) (bg red value) (bg green value) (bg blue value) (text size)"
