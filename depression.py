@@ -1626,37 +1626,37 @@ async def star(ctx, membername=None, xpos : int=None, ypos : int=None, addscale 
         await bot.say("You need to hold :star: to access.")
 
 @bot.command(pass_context=True)
-async def smash(ctx, url : str=None, name : str=None, desc : str=None):
-    if ((url is None)|(name is None)|(desc is None)):
+async def smash(ctx, url : str=None, name : str=None, desc : str=None, color=None):
+    if ((url is None)|(name is None)|(desc is None)|(color is None)):
         await bot.send_typing(ctx.message.channel)
-        eTitlee = "d!smash (url) (name) (description)"
+        eTitlee = "d!smash (url) (name) (description) (bg color)"
         eDescc = "Make a new character in Smash Bros!"
 
         emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
         emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
         await bot.send_message(ctx.message.channel, embed=emm)
     else:
-        width = 500
+        width = 900
         height = 500
         red = random.randint(1, 255)
         blue = random.randint(1, 255)
         green = random.randint(1, 255)
+        colour = discord.Colour.color()
 
         size = str(width) + ", " + str(height)
-        colour = str(red) + ", " + str(green) + ", " + str(blue)
 
-        img = Image.new('RGBA', (width, height), (red, green, blue))
+        img = Image.new('RGBA', (width, height), colour)
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as resp:
                 buffer = BytesIO(await resp.read())
                 theimage = Image.open(buffer)
 
         txt = Image.new('RGBA', img.size, (255,255,255,0))
-        fnt = ImageFont.truetype('Smash.ttc', 60)
+        fnt = ImageFont.truetype('Smash.ttf', 60)
         d = ImageDraw.Draw(txt)
         
-        d.text((250,100), name, font=fnt, fill=(255,255,255,128))
-        d.text((150,160), desc, font=fnt, fill=(255,255,255,255))
+        d.text((400,100), name, font=fnt, fill=(255,255,255,128))
+        d.text((300,160), desc, font=fnt, fill=(255,255,255,255))
         
         ttheimage = theimage.resize((300, 300), Image.LANCZOS)
         
@@ -1709,7 +1709,7 @@ async def help(ctx, category=None):
 
         em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-        em.add_field(name="Memes:", value='d!2.2 - shows a random sonic robo blast 2 v2.2 leak out of 56.\nd!sonic06 (place) (mission) - now loading screen.\nd!smash (url) (name) (description) - make a new smash bros character!', inline=False)
+        em.add_field(name="Memes:", value='d!2.2 - shows a random sonic robo blast 2 v2.2 leak out of 56.\nd!sonic06 (place) (mission) - now loading screen.\nd!smash (url) (name) (description) (bg color) - make a new smash bros character!', inline=False)
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
         await bot.send_message(ctx.message.channel,embed=em)
     elif ((category == "Testing")|(category == "testing")|(category == "TESTING")):
