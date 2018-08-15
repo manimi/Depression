@@ -1811,8 +1811,8 @@ async def shadow(ctx, option=None):
 @bot.command(pass_context=True)
 async def customemojitest(ctx):
     print("fucking...")
-    solider = Image.open("gunsolider.png", "rb")
-    alien = Image.open("blackalien.png", "rb")
+    solider = Image.open("gunsolider.png")
+    alien = Image.open("blackalien.png")
     print("opened")
     await bot.create_custom_emoji(server=ctx.message.server, name="gunsoliderr", image=solider)
     print("one")
