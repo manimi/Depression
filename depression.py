@@ -1636,7 +1636,7 @@ async def smash(ctx, url : str=None, name : str=None, desc : str=None, r=None, g
         emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
         await bot.send_message(ctx.message.channel, embed=emm)
     else:
-        if ((int(r) > 0)&(int(r) < 256)&(int(g) > 0)&(int(g) < 256)&(int(b) > 0)&(int(b) < 256)&((tsize is None)|((tsize is not None)&(int(tsize) > 0)))&((s is None)|((s is not None)&(int(s) > 0)))):
+        if ((int(r) > 0)&(int(r) < 256)&(int(g) > 0)&(int(g) < 256)&(int(b) > 0)&(int(b) < 256)&((tsize is None)|((tsize != None)&(int(tsize) > 0)))&((s is None)|((s != None)&(int(s) > 0)))):
             if (tsize is None):
                 actualsize = 60
             else:
