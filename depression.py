@@ -1888,7 +1888,7 @@ async def on_typing(channel,user,when):
 
 @bot.event
 async def on_reaction_add(reaction,user):
-    if (reaction.message.author == bot.user):
+    if ((reaction.message.author == bot.user)&(user != bot.user)):
         if ((reaction.message.embeds is not None)&(len(reaction.message.embeds) == 1)):
             if ("encounters" in reaction.message.embeds[0]['title']):
                 if (reaction.emoji == u'\U000025B6'):
@@ -1910,7 +1910,7 @@ async def on_reaction_add(reaction,user):
 
 @bot.event
 async def on_reaction_remove(reaction,user):
-    if (reaction.message.author == bot.user):
+    if ((reaction.message.author == bot.user)&(user != bot.user)):
         if ((reaction.message.embeds is not None)&(len(reaction.message.embeds) == 1)):
             if ("encounters" in reaction.message.embeds[0]['title']):
                 if (reaction.emoji == u'\U000025B6'):
