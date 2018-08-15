@@ -1781,7 +1781,7 @@ async def help(ctx, category=None):
 
         em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-        em.add_field(name="Others:", value='d!pic (member name) (width/height) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!claps "(sentence)" - make :clap: a :clap: sentence :clap:\nd!find (word/sentence) - find a match for fun\nd!color (red value) (green value) (blue value) - Check the color values!', inline=False)
+        em.add_field(name="Others:", value='d!pic (member name) (width/height) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!claps "(sentence)" - make :clap: a :clap: sentence :clap:\nd!find (word/sentence) - find a match for fun\nd!color (red value) (green value) (blue value) - Check the color values!\nd!encounter - get a random pokémon encounter!', inline=False)
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
         await bot.send_message(ctx.message.channel,embed=em)
     else:
@@ -1847,6 +1847,34 @@ async def find(ctx, channel : discord.Channel, con : str):
         em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(c[0]), url=c[3].replace('webp','png'), icon_url=c[3].replace('webp','png'))
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+        await bot.send_message(ctx.message.channel,embed=em)
+
+@bot.command(pass_context=True)
+async def encounter(ctx):
+    counter = []
+    #channel = get_channel(channelid)
+    #print("counter installed")
+    async for message in bot.logs_from(discord.Object(id='442404112349528074'), limit=1000):
+        if (message.author.name == "Pokécord"):
+            if ((message.embeds is not None)&(len(message.embeds) == 1)):
+                if ("appeared" in message.embeds[0]['title']):
+                    #print(message.author.name)
+                    counter.append( [message.embeds[0]['image']['url'],str(message.timestamp),message.author.avatar_url] )
+    if (len(counter) == 0):
+        await bot.say("No results were found!")
+    else:
+        #print("done searching")
+        c = random.choice(counter)
+        #print("pick a random item that fits")
+        #msg = bot.get_message(ctx.message.channel, c)
+        #print("get the message from id")
+        #await bot.say(c[1])
+        #await bot.say(c[0])
+
+        em = discord.Embed(title="Here's one of the encounters:", colour=discord.Colour.orange())
+        em.set_author(name="Pokécord", url=c[2].replace('webp','png'), icon_url=c[2].replace('webp','png'))
+        em.set_footer(text='Requested by: {}, {}'.format(ctx.message.author.name, c[1]))
+        em.set_image(url=c[0])
         await bot.send_message(ctx.message.channel,embed=em)
 
 @bot.event
