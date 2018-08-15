@@ -1875,7 +1875,8 @@ async def encounter(ctx):
         em.set_author(name="Pokécord", url=c[2].replace('webp','png'), icon_url=c[2].replace('webp','png'))
         em.set_footer(text='Requested by: {}, {}'.format(ctx.message.author.name, c[1]))
         em.set_image(url=c[0])
-        await bot.send_message(ctx.message.channel,embed=em)
+        msg = await bot.say(embed=em)
+        await bot.add_reaction(msg, u'\U000025B6')
 
 @bot.event
 async def on_typing(channel,user,when):
@@ -1884,6 +1885,50 @@ async def on_typing(channel,user,when):
 
     if (channel.id == '459672965622136833'):
         await bot.send_typing(dumpchannel)
+
+@bot.event
+async def on_reaction_add(reaction,user):
+    if (reaction.message.author == bot.user):
+        if ((reaction.message.embeds is not None)&(len(reaction.message.embeds) == 1)):
+            if ("encounters" in reaction.message.embeds[0]['title']):
+                if (reaction == u'\U000025B6'):
+                    counter = []
+                    async for message in bot.logs_from(discord.Object(id='442404112349528074'), limit=1000):
+                        if (message.author.name == "Pokécord"):
+                            if ((message.embeds is not None)&(len(message.embeds) == 1)):
+                                if ("appeared" in message.embeds[0]['title']):
+                                    counter.append( [message.embeds[0]['image']['url'],str(message.timestamp),message.author.avatar_url] )
+                    if (len(counter) == 0):
+                        await bot.say("No results were found!")
+                    else:
+                        c = random.choice(counter)
+                        em = discord.Embed(title="Here's one of the encounters:", colour=discord.Colour.orange())
+                        em.set_author(name="Pokécord", url=c[2].replace('webp','png'), icon_url=c[2].replace('webp','png'))
+                        em.set_footer(text='Requested by: {}, {}'.format(ctx.message.author.name, c[1]))
+                        em.set_image(url=c[0])
+                        await bot.edit_message(reaction.message,embed=em)
+
+@bot.event
+async def on_reaction_remove(reaction,user):
+    if (reaction.message.author == bot.user):
+        if ((reaction.message.embeds is not None)&(len(reaction.message.embeds) == 1)):
+            if ("encounters" in reaction.message.embeds[0]['title']):
+                if (reaction == u'\U000025B6'):
+                    counter = []
+                    async for message in bot.logs_from(discord.Object(id='442404112349528074'), limit=1000):
+                        if (message.author.name == "Pokécord"):
+                            if ((message.embeds is not None)&(len(message.embeds) == 1)):
+                                if ("appeared" in message.embeds[0]['title']):
+                                    counter.append( [message.embeds[0]['image']['url'],str(message.timestamp),message.author.avatar_url] )
+                    if (len(counter) == 0):
+                        await bot.say("No results were found!")
+                    else:
+                        c = random.choice(counter)
+                        em = discord.Embed(title="Here's one of the encounters:", colour=discord.Colour.orange())
+                        em.set_author(name="Pokécord", url=c[2].replace('webp','png'), icon_url=c[2].replace('webp','png'))
+                        em.set_footer(text='Requested by: {}, {}'.format(ctx.message.author.name, c[1]))
+                        em.set_image(url=c[0])
+                        await bot.edit_message(reaction.message,embed=em)
 	
 @bot.event
 async def on_command_error(error, ctx):
