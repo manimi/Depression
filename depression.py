@@ -1807,17 +1807,18 @@ async def shadow(ctx, option=None):
             em.add_field(name="Slot 4", value='Level: {}\nHero mission amount: {}\nDark mission amount: {}'.format(shadow_load_level(ctx.message.author.id, 4),shadow_load_hnum(ctx.message.author.id, 4),shadow_load_dnum(ctx.message.author.id, 4)), inline=False)
             em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
             await bot.send_message(ctx.message.channel,embed=em)
-	
+
 @bot.command(pass_context=True)
 async def customemojitest(ctx):
-    solider = Image.open("gunsolider.png", "rb")
-    alien = Image.open("blackalien.png", "rb")
+    print("fucking...")
+    solider = Image.open("gunsolider.png")
+    alien = Image.open("blackalien.png")
     print("opened")
     gunsolider = await bot.create_custom_emoji(ctx.message.server, name="gunsolider", image=solider)
     blackalien = await bot.create_custom_emoji(ctx.message.server, name="blackalien", image=alien)
     print("converted")
     await bot.send_message(ctx.message.channel,'<{0.name}:{0.id}> <{1.name}:{1.id}>'.format(gunsolider, blackalien))
-	
+
 @bot.command(pass_context=True)
 async def find(ctx, channel : discord.Channel, con : str):
     counter = []
