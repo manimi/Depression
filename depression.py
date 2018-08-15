@@ -1636,15 +1636,21 @@ async def smash(ctx, url : str=None, name : str=None, desc : str=None, r=None, g
         emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
         await bot.send_message(ctx.message.channel, embed=emm)
     else:
-        if ((int(r) > 0)&(int(r) < 256)&(int(g) > 0)&(int(g) < 256)&(int(b) > 0)&(int(b) < 256)&((tsize is None)|((tsize != None)&(int(tsize) > 0)))&((s is None)|((s != None)&(int(s) > 0)))):
+        if ((int(r) > 0)&(int(r) < 256)&(int(g) > 0)&(int(g) < 256)&(int(b) > 0)&(int(b) < 256)):
             if (tsize is None):
                 actualsize = 60
             else:
-                actualsize = int(tsize)
+                if (int(tsize) > 0):
+                    actualsize = int(tsize)
+                else:
+                    actualsize = 60
             if (s is None):
                 ss = 900
             else:
-                ss = int(s)
+                if (int(s) > 0):
+                    ss = int(s)
+                else:
+                    ss = 900
             width = ss
             height = 500
             red = int(r)
@@ -1673,7 +1679,7 @@ async def smash(ctx, url : str=None, name : str=None, desc : str=None, r=None, g
             img.save("smashleak.png", "PNG")
             await bot.send_file(ctx.message.channel, "smashleak.png")
         else:
-            await bot.send_message(ctx.message.channel, "The color values must be 0 - 255, the text size and the width must be over 0!")
+            await bot.send_message(ctx.message.channel, "The color values must be 0 - 255.")
 
 @bot.command(pass_context=True)
 async def color(ctx, r=None, g=None, b=None):
