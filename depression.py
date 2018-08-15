@@ -1891,7 +1891,7 @@ async def on_reaction_add(reaction,user):
     if (reaction.message.author == bot.user):
         if ((reaction.message.embeds is not None)&(len(reaction.message.embeds) == 1)):
             if ("encounters" in reaction.message.embeds[0]['title']):
-                if (reaction == u'\U000025B6'):
+                if (reaction.emoji == u'\U000025B6'):
                     counter = []
                     async for message in bot.logs_from(discord.Object(id='442404112349528074'), limit=1000):
                         if (message.author.name == "Pokécord"):
@@ -1913,7 +1913,7 @@ async def on_reaction_remove(reaction,user):
     if (reaction.message.author == bot.user):
         if ((reaction.message.embeds is not None)&(len(reaction.message.embeds) == 1)):
             if ("encounters" in reaction.message.embeds[0]['title']):
-                if (reaction == u'\U000025B6'):
+                if (reaction.emoji == u'\U000025B6'):
                     counter = []
                     async for message in bot.logs_from(discord.Object(id='442404112349528074'), limit=1000):
                         if (message.author.name == "Pokécord"):
