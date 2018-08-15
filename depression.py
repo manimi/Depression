@@ -1814,8 +1814,11 @@ async def customemojitest(ctx):
     solider = Image.open("gunsolider.png")
     alien = Image.open("blackalien.png")
     print("opened")
-    gunsolider = await bot.create_custom_emoji(ctx.message.server, name="gunsolider", image=solider)
-    blackalien = await bot.create_custom_emoji(ctx.message.server, name="blackalien", image=alien)
+    g = BytesIO(await solider.read())
+    b = BytesIO(await alien.read())
+    print("mmm bytes")
+    gunsolider = await bot.create_custom_emoji(server=ctx.message.server, name="gunsolider", image=g)
+    blackalien = await bot.create_custom_emoji(server=ctx.message.server, name="blackalien", image=b)
     print("converted")
     await bot.send_message(ctx.message.channel,'<{0.name}:{0.id}> <{1.name}:{1.id}>'.format(gunsolider, blackalien))
 
