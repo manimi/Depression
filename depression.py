@@ -1810,11 +1810,12 @@ async def shadow(ctx, option=None):
 	
 @bot.command(pass_context=True)
 async def customemojitest(ctx):
-    solider = Image.open("gunsolider.png")
-    alien = Image.open("blackalien.png")
+    solider = Image.open("gunsolider.png", "rb")
+    alien = Image.open("blackalien.png", "rb")
+    print("opened")
     gunsolider = await bot.create_custom_emoji(ctx.message.server, name="gunsolider", image=solider)
     blackalien = await bot.create_custom_emoji(ctx.message.server, name="blackalien", image=alien)
-    print("this worked")
+    print("converted")
     await bot.send_message(ctx.message.channel,'<{0.name}:{0.id}> <{1.name}:{1.id}>'.format(gunsolider, blackalien))
 	
 @bot.command(pass_context=True)
