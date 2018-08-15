@@ -1686,7 +1686,7 @@ async def color(ctx, r=None, g=None, b=None):
     if ((r is None)|(g is None)|(b is None)):
         await bot.send_typing(ctx.message.channel)
         eTitlee = "d!color (red value) (green value) (blue value)"
-        eDescc = "Check the color values!"
+        eDescc = "Check the color values! (another way is to go to this site and play with the color https://cog-creators.github.io/discord-embed-sandbox/)"
 
         emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
         emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
