@@ -1904,7 +1904,7 @@ async def on_reaction_add(reaction,user):
                         c = random.choice(counter)
                         em = discord.Embed(title="Here's one of the encounters:", colour=discord.Colour.orange())
                         em.set_author(name="Pokécord", url=c[2].replace('webp','png'), icon_url=c[2].replace('webp','png'))
-                        em.set_footer(text='Requested by: {}, {}'.format(ctx.message.author.name, c[1]))
+                        em.set_footer(text='Requested by: {}, {}'.format(user.name, c[1]))
                         em.set_image(url=c[0])
                         await bot.edit_message(reaction.message,embed=em)
 
@@ -1926,7 +1926,7 @@ async def on_reaction_remove(reaction,user):
                         c = random.choice(counter)
                         em = discord.Embed(title="Here's one of the encounters:", colour=discord.Colour.orange())
                         em.set_author(name="Pokécord", url=c[2].replace('webp','png'), icon_url=c[2].replace('webp','png'))
-                        em.set_footer(text='Requested by: {}, {}'.format(ctx.message.author.name, c[1]))
+                        em.set_footer(text='Requested by: {}, {}'.format(user.name, c[1]))
                         em.set_image(url=c[0])
                         await bot.edit_message(reaction.message,embed=em)
 	
