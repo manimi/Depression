@@ -1626,18 +1626,26 @@ async def star(ctx, membername=None, xpos : int=None, ypos : int=None, addscale 
         await bot.say("You need to hold :star: to access.")
 
 @bot.command(pass_context=True)
-async def smash(ctx, url : str=None, name : str=None, desc : str=None, r=None, g=None, b=None, tsize=None):
-    if ((url is None)|(name is None)|(desc is None)|(r is None)|(g is None)|(b is None)|(tsize is None)):
+async def smash(ctx, url : str=None, name : str=None, desc : str=None, r=None, g=None, b=None, tsize=None, s=None):
+    if ((url is None)|(name is None)|(desc is None)|(r is None)|(g is None)|(b is None)):
         await bot.send_typing(ctx.message.channel)
-        eTitlee = "d!smash (url) (name) (description) (bg red value) (bg green value) (bg blue value) (text size)"
-        eDescc = "Make a new character in Smash Bros!"
+        eTitlee = "d!smash (url of an avatar) (name) (description) (bg red value) (bg green value) (bg blue value) (text size) (width)"
+        eDescc = "Make a new character in Smash Bros! (text size default = 60) (width default = 900)"
 
         emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
         emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
         await bot.send_message(ctx.message.channel, embed=emm)
     else:
-        if ((int(r) > 0)&(int(r) < 256)&(int(g) > 0)&(int(g) < 256)&(int(b) > 0)&(int(b) < 256)&(int(tsize) > 0)):
-            width = 900
+        if ((int(r) > 0)&(int(r) < 256)&(int(g) > 0)&(int(g) < 256)&(int(b) > 0)&(int(b) < 256)&((tsize is None)|((tsize is not None)&(int(tsize) > 0)))&((s is None)|((s is not None)&(int(s) > 0)))):
+            if (tsize is None):
+                actualsize = 60
+            else:
+                actualsize = int(tsize)
+            if (s is None):
+                ss = 900
+            else:
+                ss = int(s)
+            width = ss
             height = 500
             red = int(r)
             blue = int(b)
@@ -1652,7 +1660,7 @@ async def smash(ctx, url : str=None, name : str=None, desc : str=None, r=None, g
                     theimage = Image.open(buffer)
 
             txt = Image.new('RGBA', img.size, (255,255,255,0))
-            fnt = ImageFont.truetype('Smash.ttf', int(tsize))
+            fnt = ImageFont.truetype('Smash.ttf', actualsize)
             d = ImageDraw.Draw(txt)
         
             d.text((420,100), name, font=fnt, fill=(255,255,255,128))
@@ -1665,7 +1673,33 @@ async def smash(ctx, url : str=None, name : str=None, desc : str=None, r=None, g
             img.save("smashleak.png", "PNG")
             await bot.send_file(ctx.message.channel, "smashleak.png")
         else:
-            await bot.send_message(ctx.message.channel, "The color values must be 0 - 255 and the text size must be over 0!")
+            await bot.send_message(ctx.message.channel, "The color values must be 0 - 255, the text size and the width must be over 0!")
+
+@bot.command(pass_context=True)
+async def color(ctx, r=None, g=None, b=None):
+    if ((r is None)|(g is None)|(b is None)):
+        await bot.send_typing(ctx.message.channel)
+        eTitlee = "d!color (red value) (green value) (blue value)"
+        eDescc = "Check the color values!"
+
+        emm = discord.Embed(title=eTitlee,description=eDescc,colour=discord.Colour.orange())
+        emm.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
+        await bot.send_message(ctx.message.channel, embed=emm)
+    else:
+        if ((int(r) > 0)&(int(r) < 256)&(int(g) > 0)&(int(g) < 256)&(int(b) > 0)&(int(b) < 256)):
+            width = 500
+            height = 500
+            red = int(r)
+            blue = int(b)
+            green = int(g)
+
+            size = str(width) + ", " + str(height)
+
+            img = Image.new('RGBA', (width, height), (red, green, blue))
+            img.save("color.png", "PNG")
+            await bot.send_file(ctx.message.channel, "color.png")
+        else:
+            await bot.send_message(ctx.message.channel, "The color values must be 0 - 255.")
 	
 @bot.command(pass_context=True)
 async def help(ctx, category=None):
@@ -1711,7 +1745,7 @@ async def help(ctx, category=None):
 
         em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-        em.add_field(name="Memes:", value='d!2.2 - shows a random sonic robo blast 2 v2.2 leak out of 56.\nd!sonic06 (place) (mission) - now loading screen.\nd!smash (url) (name) (description) (bg red value) (bg green value) (bg blue value) (text size) - make a new smash bros character!', inline=False)
+        em.add_field(name="Memes:", value='d!2.2 - shows a random sonic robo blast 2 v2.2 leak out of 56.\nd!sonic06 (place) (mission) - now loading screen.\nd!smash (url of an avatar) (name) (description) (bg red value) (bg green value) (bg blue value) (text size) (width) - make a new smash bros character!', inline=False)
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
         await bot.send_message(ctx.message.channel,embed=em)
     elif ((category == "Testing")|(category == "testing")|(category == "TESTING")):
@@ -1741,7 +1775,7 @@ async def help(ctx, category=None):
 
         em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-        em.add_field(name="Others:", value='d!pic (member name) (width/height) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!claps "(sentence)" - make :clap: a :clap: sentence :clap:\nd!find (word/sentence) - find a match for fun', inline=False)
+        em.add_field(name="Others:", value='d!pic (member name) (width/height) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!claps "(sentence)" - make :clap: a :clap: sentence :clap:\nd!find (word/sentence) - find a match for fun\nd!color (red value) (green value) (blue value) - Check the color values!', inline=False)
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
         await bot.send_message(ctx.message.channel,embed=em)
     else:
