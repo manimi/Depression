@@ -1669,7 +1669,7 @@ async def smash(ctx, url : str=None, name : str=None, desc : str=None, r=None, g
             fnt = ImageFont.truetype('Smash.ttf', actualsize)
             d = ImageDraw.Draw(txt)
         
-            d.text((420,100), name, font=fnt, fill=(255,255,255,128))
+            d.text((420,100), name, font=fnt, fill=(255,255,255,255))
             d.text((355,160), desc, font=fnt, fill=(255,255,255,255))
         
             ttheimage = theimage.resize((300, 300), Image.LANCZOS)
