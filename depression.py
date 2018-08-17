@@ -1781,7 +1781,7 @@ async def help(ctx, category=None):
 
         em = discord.Embed(title=eTitle,description=eDesc,colour=discord.Colour.orange())
         em.set_author(name="{}".format(bot.user.name), url=bot.user.avatar_url.replace('webp','png'), icon_url=bot.user.avatar_url.replace('webp','png'))
-        em.add_field(name="Others:", value='d!pic (member name) (width/height) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!claps "(sentence)" - make :clap: a :clap: sentence :clap:\nd!find (word/sentence) - find a match for fun\nd!color (red value) (green value) (blue value) - Check the color values!\nd!encounter (channel) (specific url image) - get a pokémon encounter!', inline=False)
+        em.add_field(name="Others:", value='d!pic (member name) (width/height) - shows profile picture.\nd!complete (part 1) (part 2) (part 3) (part 4) - complete the next sentence.\nd!claps "(sentence)" - make :clap: a :clap: sentence :clap:\nd!find (word/sentence) - find a match for fun\nd!color (red value) (green value) (blue value) - Check the color values!\nd!encounter (specific url image) - get a random pokémon encounter!', inline=False)
         em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
         await bot.send_message(ctx.message.channel,embed=em)
     else:
@@ -1850,16 +1850,12 @@ async def find(ctx, channel : discord.Channel, con : str):
         await bot.send_message(ctx.message.channel,embed=em)
 
 @bot.command(pass_context=True)
-async def encounter(ctx, channel : discord.Channel=None, url : str=None):
+async def encounter(ctx, url : str=None):
     if (url is None):
-        if (channel is None):
-            chl = ctx.message.channel
-        else:
-            chl = channel
         counter = []
         #channel = get_channel(channelid)
         #print("counter installed")
-        async for message in bot.logs_from(chl, limit=1000):
+        async for message in bot.logs_from(ctx.message.channel, limit=1000):
             if (message.author.name == "Pokécord"):
                 if ((message.embeds is not None)&(len(message.embeds) == 1)):
                     if ("appeared" in message.embeds[0]['title']):
@@ -1876,21 +1872,17 @@ async def encounter(ctx, channel : discord.Channel=None, url : str=None):
             #await bot.say(c[1])
             #await bot.say(c[0])
 
-            em = discord.Embed(title="Here's one of the encounters:", description='{}'.format(chl), colour=discord.Colour.orange())
+            em = discord.Embed(title="Here's one of the encounters:", colour=discord.Colour.orange())
             em.set_author(name="Pokécord", url=c[2].replace('webp','png'), icon_url=c[2].replace('webp','png'))
             em.set_footer(text='Requested by: {}, {}'.format(ctx.message.author.name, c[1]))
             em.set_image(url=c[0])
             msg = await bot.say(embed=em)
             await bot.add_reaction(msg, u'\U000025B6')
     else:
-        if (channel is None):
-            chl = ctx.message.channel
-        else:
-            chl = channel
         counter = []
         #channel = get_channel(channelid)
         #print("counter installed")
-        async for message in bot.logs_from(chl, limit=1000):
+        async for message in bot.logs_from(ctx.message.channel, limit=1000):
             if (message.author.name == "Pokécord"):
                 if ((message.embeds is not None)&(len(message.embeds) == 1)):
                     if (("appeared" in message.embeds[0]['title'])&(url == message.embeds[0]['image']['url'])):
@@ -1907,7 +1899,7 @@ async def encounter(ctx, channel : discord.Channel=None, url : str=None):
             #await bot.say(c[1])
             #await bot.say(c[0])
 
-            em = discord.Embed(title="{} results were found!".format(len(counter)), description='{}'.format(chl), colour=discord.Colour.orange())
+            em = discord.Embed(title="{} results were found!".format(len(counter)), colour=discord.Colour.orange())
             em.set_author(name="Pokécord", url=c[2].replace('webp','png'), icon_url=c[2].replace('webp','png'))
             em.set_footer(text='Requested by: {}, {}'.format(ctx.message.author.name, c[1]))
             em.set_image(url=c[0])
@@ -1929,7 +1921,7 @@ async def on_reaction_add(reaction,user):
             if ("encounters" in reaction.message.embeds[0]['title']):
                 if (reaction.emoji == u'\U000025B6'):
                     counter = []
-                    async for message in bot.logs_from(reaction.message.embeds[0]['description'], limit=1000):
+                    async for message in bot.logs_from(reaction.message.channel, limit=1000):
                         if (message.author.name == "Pokécord"):
                             if ((message.embeds is not None)&(len(message.embeds) == 1)):
                                 if ("appeared" in message.embeds[0]['title']):
@@ -1946,7 +1938,7 @@ async def on_reaction_add(reaction,user):
             elif ("results" in reaction.message.embeds[0]['title']):
                 if (reaction.emoji == u'\U000025B6'):
                     counter = []
-                    async for message in bot.logs_from(reaction.message.embeds[0]['description'], limit=1000):
+                    async for message in bot.logs_from(reaction.message.channel, limit=1000):
                         if (message.author.name == "Pokécord"):
                             if ((message.embeds is not None)&(len(message.embeds) == 1)):
                                 if (("results" in message.embeds[0]['title'])&(reaction.message.embeds[0]['image']['url'] == message.embeds[0]['image']['url'])):
@@ -1955,7 +1947,7 @@ async def on_reaction_add(reaction,user):
                         await bot.say("No results were found!")
                     else:
                         c = random.choice(counter)
-                        em = discord.Embed(title="{} results were found!".format(len(counter)), description=reaction.message.embeds[0]['description'], colour=discord.Colour.orange())
+                        em = discord.Embed(title="{} results were found!".format(len(counter)), colour=discord.Colour.orange())
                         em.set_author(name="Pokécord", url=c[2].replace('webp','png'), icon_url=c[2].replace('webp','png'))
                         em.set_footer(text='Requested by: {}, {}'.format(user.name, c[1]))
                         em.set_image(url=c[0])
@@ -1968,7 +1960,7 @@ async def on_reaction_remove(reaction,user):
             if ("encounters" in reaction.message.embeds[0]['title']):
                 if (reaction.emoji == u'\U000025B6'):
                     counter = []
-                    async for message in bot.logs_from(reaction.message.embeds[0]['description'], limit=1000):
+                    async for message in bot.logs_from(reaction.message.channel, limit=1000):
                         if (message.author.name == "Pokécord"):
                             if ((message.embeds is not None)&(len(message.embeds) == 1)):
                                 if ("appeared" in message.embeds[0]['title']):
@@ -1985,7 +1977,7 @@ async def on_reaction_remove(reaction,user):
             elif ("results" in reaction.message.embeds[0]['title']):
                 if (reaction.emoji == u'\U000025B6'):
                     counter = []
-                    async for message in bot.logs_from(reaction.message.embeds[0]['description'], limit=1000):
+                    async for message in bot.logs_from(reaction.message.channel, limit=1000):
                         if (message.author.name == "Pokécord"):
                             if ((message.embeds is not None)&(len(message.embeds) == 1)):
                                 if (("results" in message.embeds[0]['title'])&(reaction.message.embeds[0]['image']['url'] == message.embeds[0]['image']['url'])):
@@ -1994,7 +1986,7 @@ async def on_reaction_remove(reaction,user):
                         await bot.say("No results were found!")
                     else:
                         c = random.choice(counter)
-                        em = discord.Embed(title="{} results were found!".format(len(counter)), description=reaction.message.embeds[0]['description'], colour=discord.Colour.orange())
+                        em = discord.Embed(title="{} results were found!".format(len(counter)), colour=discord.Colour.orange())
                         em.set_author(name="Pokécord", url=c[2].replace('webp','png'), icon_url=c[2].replace('webp','png'))
                         em.set_footer(text='Requested by: {}, {}'.format(user.name, c[1]))
                         em.set_image(url=c[0])
