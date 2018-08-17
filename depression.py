@@ -1880,23 +1880,19 @@ async def encounter(ctx, url : str=None):
             await bot.add_reaction(msg, u'\U000025B6')
     else:
         counter = []
-        print(url)
         #channel = get_channel(channelid)
         #print("counter installed")
         async for message in bot.logs_from(ctx.message.channel, limit=1000):
             if (message.author.name == "Pokécord"):
                 if ((message.embeds is not None)&(len(message.embeds) == 1)):
-                    print("normal check")
-                    if (("appeared" in message.embeds[0]['title'])&(url == message.embeds[0]['image']['url'])):
-                        print("added")
-                        counter.append( [message.embeds[0]['image']['url'],str(message.timestamp),message.author.avatar_url] )
+                    if ("appeared" in message.embeds[0]['title']):
+                        print("good")
+                        if (url == message.embeds[0]['image']['url']):
+                            counter.append( [message.embeds[0]['image']['url'],str(message.timestamp),message.author.avatar_url] )
         if (len(counter) == 0):
             await bot.say("No results were found!")
-            print("no results")
         else:
-            print("done searching")
             c = random.choice(counter)
-            print("pick a random item that fits")
             #msg = bot.get_message(ctx.message.channel, c)
             #print("get the message from id")
             #await bot.say(c[1])
