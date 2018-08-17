@@ -1886,7 +1886,6 @@ async def encounter(ctx, url : str=None):
             if (message.author.name == "Pokécord"):
                 if ((message.embeds is not None)&(len(message.embeds) == 1)):
                     if ("appeared" in message.embeds[0]['title']):
-                        print("good")
                         if (url == message.embeds[0]['image']['url']):
                             counter.append( [message.embeds[0]['image']['url'],str(message.timestamp),message.author.avatar_url] )
         if (len(counter) == 0):
@@ -1940,8 +1939,9 @@ async def on_reaction_add(reaction,user):
                     async for message in bot.logs_from(reaction.message.channel, limit=1000):
                         if (message.author.name == "Pokécord"):
                             if ((message.embeds is not None)&(len(message.embeds) == 1)):
-                                if (("results" in message.embeds[0]['title'])&(reaction.message.embeds[0]['image']['url'] == message.embeds[0]['image']['url'])):
-                                    counter.append( [message.embeds[0]['image']['url'],str(message.timestamp),message.author.avatar_url] )
+                                if ("results" in message.embeds[0]['title']):
+                                    if (reaction.message.embeds[0]['image']['url'] == message.embeds[0]['image']['url']):
+                                        counter.append( [message.embeds[0]['image']['url'],str(message.timestamp),message.author.avatar_url] )
                     if (len(counter) == 0):
                         await bot.say("No results were found!")
                     else:
@@ -1979,8 +1979,9 @@ async def on_reaction_remove(reaction,user):
                     async for message in bot.logs_from(reaction.message.channel, limit=1000):
                         if (message.author.name == "Pokécord"):
                             if ((message.embeds is not None)&(len(message.embeds) == 1)):
-                                if (("results" in message.embeds[0]['title'])&(reaction.message.embeds[0]['image']['url'] == message.embeds[0]['image']['url'])):
-                                    counter.append( [message.embeds[0]['image']['url'],str(message.timestamp),message.author.avatar_url] )
+                                if ("results" in message.embeds[0]['title']):
+                                    if (reaction.message.embeds[0]['image']['url'] == message.embeds[0]['image']['url']):
+                                        counter.append( [message.embeds[0]['image']['url'],str(message.timestamp),message.author.avatar_url] )
                     if (len(counter) == 0):
                         await bot.say("No results were found!")
                     else:
