@@ -1661,7 +1661,7 @@ async def smash(ctx, name : str=None, desc : str=None, r=None, g=None, b=None, t
 
             img = Image.new('RGBA', (width, height), (red, green, blue))
             async with aiohttp.ClientSession() as session:
-                async with session.get(message.attachments[0]['url']) as resp:
+                async with session.get(ctx.message.attachments[0]['url']) as resp:
                     buffer = BytesIO(await resp.read())
                     theimage = Image.open(buffer)
 
