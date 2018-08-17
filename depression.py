@@ -1627,7 +1627,7 @@ async def star(ctx, membername=None, xpos : int=None, ypos : int=None, addscale 
 
 @bot.command(pass_context=True)
 async def smash(ctx, name : str=None, desc : str=None, r=None, g=None, b=None, tsize=None, s=None):
-    if ((ctx.message.attachments[0]['url'] is None)|(name is None)|(desc is None)|(r is None)|(g is None)|(b is None)):
+    if ((ctx.message.attachments is None)|(name is None)|(desc is None)|(r is None)|(g is None)|(b is None)):
         await bot.send_typing(ctx.message.channel)
         eTitlee = "d!smash (attach an image) (name) (description) (bg red value) (bg green value) (bg blue value) (text size) (width)"
         eDescc = "Make a new character in Smash Bros! (text size default = 60) (width default = 900)"
