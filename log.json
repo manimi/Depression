@@ -80,3 +80,24 @@ Synch Failure  ->   #dump
 2018-08-18 04:37:22.250000
 Pokécord:           
 
+Synch Failure  ->   #dump
+2018-08-18 04:37:22.259000
+Tatsumaki:           ```rb
+`Standard Commands List`
+```
+Use `t!help [command]` to get more info on a specific command, for example: `t!help rank`
+
+**1. Core - **`help` `invite` `leveledroles` `ping` `selfroles` `support` 
+**2. Social - **`background` `badges` `dailies` `played` `profile` `rank` `reputation` `setinfo` `settitle` `top` 
+**3. Fun - **`8ball` `cah` `cat` `catfacts` `choose` `coin` `cookie` `dice` `dog` `dogfacts` `fishy` `fortune` `numberfacts` `psychopass` `ratewaifu` `reverse` `rps` `slots` `tags` `tatsugotchi` 
+**4. Economy - **`credits` `points` 
+**5. Utilities - **`color` `converter` `crypto` `google` `image` `lotto` `math` `remindme` `shorten` `stocks` `strawpoll` `todo` `urban` `vote` `weather` `wiki` `youtube` 
+**6. Information - **`apikey` `avatar` `botlist` `changelog` `channel` `info` `role` `server` `shared` `usage` 
+**7. Anime - **`anime` `manga` `osu` `sic` 
+**8. Memes - **`beautiful` `hackerman` 
+
+```pl
+# Don't include the example brackets when using commands!
+# To view mod commands, use t@help
+```
+
