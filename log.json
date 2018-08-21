@@ -346,3 +346,9 @@ Synch Failure  ->   #dump
 2018-08-21 20:23:03.112000
 Voltrix:           t!selfroles
 
+Synch Failure  ->   #dump
+2018-08-21 20:23:03.265000
+Tatsumaki:           <:no:390511503238758400>  |  **Voltrix**, the correct usage is:  `t!selfroles get role | remove | list`
+▫  |  e.g. `t!selfroles list`
+▫  |  Get more help using `t!help selfroles`
+
