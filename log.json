@@ -238,3 +238,7 @@ Synch Failure  ->   #dump
 2018-08-21 16:54:38.047000
 Jezr:           ~>iamnot Fuchsia
 
+Synch Failure  ->   #dump
+2018-08-21 16:54:38.160000
+Mantaro:           ✖ There isn't an autorole with the name ``Fuchsia``!
+
