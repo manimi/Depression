@@ -2499,3 +2499,21 @@ Synch Failure  ->   #dump
 2018-08-30 20:59:35.085000
 RadicalSK84:           t!selfroles get Gamer
 
+Synch Failure  ->   #dump
+2018-08-30 20:59:35.308000
+Tatsumaki:           <:info:390511462361202688> | **Getting a Self Assigned Role**
+
+```rb
+Listing self assigned roles that you don't have yet:
+
+[1] # SRB2
+[2] # Splatoon
+[3] # Mario Party
+[4] # Gmod
+[5] # SM64O
+[6] # Smash
+
+Type the appropriate number to access the menu.
+Type 'exit' to leave the menu.
+```
+
