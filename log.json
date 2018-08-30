@@ -2473,3 +2473,9 @@ Synch Failure  ->   #dump
 2018-08-30 20:58:48.775000
 RadicalSK84:           t!selfroles
 
+Synch Failure  ->   #dump
+2018-08-30 20:58:48.919000
+Tatsumaki:           <:no:390511503238758400>  |  **RadicalSK84**, the correct usage is:  `t!selfroles get role | remove | list`
+▫  |  e.g. `t!selfroles remove`
+▫  |  Get more help using `t!help selfroles`
+
