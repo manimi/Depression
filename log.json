@@ -2537,3 +2537,20 @@ Synch Failure  ->   #dump
 2018-08-30 21:00:13.660000
 Pokécord:           
 
+Synch Failure  ->   #dump
+2018-08-30 21:00:13.669000
+Tatsumaki:           <:info:390511462361202688> | **Getting a Self Assigned Role**
+
+```rb
+Listing self assigned roles that you don't have yet:
+
+[1] # Splatoon
+[2] # Mario Party
+[3] # Gmod
+[4] # SM64O
+[5] # Smash
+
+Type the appropriate number to access the menu.
+Type 'exit' to leave the menu.
+```
+
