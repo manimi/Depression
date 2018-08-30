@@ -2483,3 +2483,15 @@ Synch Failure  ->   #dump
 2018-08-30 20:59:10.498000
 RadicalSK84:           t!help selfroles
 
+Synch Failure  ->   #dump
+2018-08-30 20:59:10.669000
+Tatsumaki:           **`t!selfroles`** __`Allows you to get one of the self assigned roles from this guild`__
+**Aliases**: `selfrole`, `sar`
+
+**Usage**: t!selfroles get role | remove | list
+
+**Examples:**
+**`t!selfroles get Gamer`**  will give you the role `Gamer`
+**`t!selfroles remove`**  will open a menu to remove one of the self assigned roles you currently have
+**`t!selfroles list`**  lists all the self assigned roles set on the server
+
