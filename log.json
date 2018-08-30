@@ -2495,3 +2495,7 @@ Tatsumaki:           **`t!selfroles`** __`Allows you to get one of the self assi
 **`t!selfroles remove`**  will open a menu to remove one of the self assigned roles you currently have
 **`t!selfroles list`**  lists all the self assigned roles set on the server
 
+Synch Failure  ->   #dump
+2018-08-30 20:59:35.085000
+RadicalSK84:           t!selfroles get Gamer
+
