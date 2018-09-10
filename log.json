@@ -998,3 +998,7 @@ Synch Failure  ->   #disco
 2018-09-10 22:51:43.452000
 Dyno:           The queue is empty, add a song using ?play [song name or link]
 
+Synch Failure  ->   #disco
+2018-09-10 22:51:46.830000
+Swish:           ?play https://www.youtube.com/watch?v=vyCoFeegNso
+
