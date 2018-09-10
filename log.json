@@ -1327,3 +1327,7 @@ Synch Failure  ->   #disco
 2018-09-10 22:57:23.582000
 SD2C the Melodyhog:           ?play
 
+Synch Failure  ->   #disco
+2018-09-10 22:57:23.579000
+Dyno:           The queue is empty, add a song using ?play [song name or link]
+
