@@ -1311,3 +1311,7 @@ Synch Failure  ->   #disco
 2018-09-10 22:57:08.943000
 Swish:           ?skip
 
+Synch Failure  ->   #disco
+2018-09-10 22:57:09.087000
+Dyno:           Queue concluded.
+
