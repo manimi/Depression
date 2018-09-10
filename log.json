@@ -994,3 +994,7 @@ Synch Failure  ->   #disco
 2018-09-10 22:51:43.429000
 Vanto:           ?play
 
+Synch Failure  ->   #disco
+2018-09-10 22:51:43.452000
+Dyno:           The queue is empty, add a song using ?play [song name or link]
+
