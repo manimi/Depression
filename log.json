@@ -1223,3 +1223,7 @@ Synch Failure  ->   #disco
 2018-09-10 22:56:23.648000
 Mill:           ?queue clear
 
+Synch Failure  ->   #disco
+2018-09-10 22:56:23.727000
+Dyno:           The queue was cleared.
+
