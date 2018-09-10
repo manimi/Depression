@@ -1263,3 +1263,7 @@ Synch Failure  ->   #disco
 2018-09-10 22:56:52.319000
 SD2C the Melodyhog:           ?play
 
+Synch Failure  ->   #disco
+2018-09-10 22:56:52.459000
+Dyno:           A song is already playing, use skip instead.
+
