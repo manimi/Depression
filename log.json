@@ -86,3 +86,19 @@ Synch Failure  ->   #disco
 2018-09-10 22:25:04.846000
 SD2C the Melodyhog:           ~>music
 
+Synch Failure  ->   #disco
+2018-09-10 22:25:04.918000
+Mantaro:           *How to use music in Mantaro?*
+- To **queue songs from youtube or soundcloud** use `~>play` For example: `~>play https://www.youtube.com/watch?v=aAolFWjGfMs` *It will connect automatically to the voice channel you are in*
+- To **search for a song on youtube** use `~>play <search term>` (without the leading < and >) For example: `~>play see you again` (You need to select the number, just *type the number* after the selection box pops up!)
+- To **search for a song on soundcloud** use `~>play soundcloud <search term>` For example `~>play soundcloud hot milk`
+- To **check the queue** you just type `~>queue`
+- To **remove a track from the queue** you just need to use `~>removetrack` It takes as an argument the position the song is queued at (you can check in on queue)
+- To **pause or unpause** just use `~>pause`
+- To **stop the music and unbind the player** use `~>stop`
+- To **shuffle the queue** just use `~>shuffle`
+- And lastly, to **repeat a song** use `~>repeat` and to **repeat a queue** use `~>repeat queue`. Using `~>repeat` while repeat is on, turns it off
+
+For more info please use `~>help <command name>` (without the <> and replace command name with the name of the command you want)
+Enjoy your music and thanks for using Mantaro!
+
