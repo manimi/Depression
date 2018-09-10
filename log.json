@@ -1331,3 +1331,7 @@ Synch Failure  ->   #disco
 2018-09-10 22:57:23.579000
 Dyno:           The queue is empty, add a song using ?play [song name or link]
 
+Synch Failure  ->   #disco
+2018-09-10 22:57:27.512000
+Vanto:           .mute <@259739289737232386>
+
